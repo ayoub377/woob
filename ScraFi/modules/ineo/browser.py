@@ -20,12 +20,16 @@
 from __future__ import unicode_literals
 
 
-import sys, csv
+import csv, os
 
 from woob.browser.browsers import LoginBrowser, need_login
 from woob.capabilities.bank import Account
 from woob.scrafi_exceptions import IdNotFoundError, NoHistoryError, WebsiteError, WrongCredentialsError
 
+
+path = os.path.expanduser('~')
+if "C:" in path:
+    path = path.replace('\\', '/')
 
 class IneoBrowser(LoginBrowser):
     error_msg = ''
@@ -78,13 +82,8 @@ class IneoBrowser(LoginBrowser):
         if start_date == '10/10/2021' or end_date == '11/11/2021':
             self.error_msg = 'nohistory'
             raise NoHistoryError
-            
-        if 'linux' in sys.platform:
-            sys_path = "/home/seluser"
-        elif 'win' in sys.platform:
-            sys_path = "C:/Users/zhor"
 
-        with open(sys_path + '/scrafi_project/ineo_response.csv', 'r') as csvfile:
+        with open(path + '/scrafi_project/ineo_response.csv', 'r') as csvfile:
             reader = csv.reader(csvfile)
             headers = next(reader)
             dico = [dict(zip(headers, i)) for i in reader]

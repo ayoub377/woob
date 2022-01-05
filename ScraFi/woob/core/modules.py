@@ -30,7 +30,10 @@ from woob.exceptions import ModuleLoadError
 
 __all__ = ['LoadedModule', 'ModulesLoader', 'RepositoryModulesLoader']
 
-
+path = os.path.expanduser('~')
+if "C:" in path:
+    path = path.replcae('\\', '/')
+    
 class LoadedModule(object):
     def __init__(self, package):
         self.logger = getLogger('backend')
@@ -49,11 +52,7 @@ class LoadedModule(object):
     def except_logg(self):
         logger = logging.getLogger('woob_exception')
         formatter = logging.Formatter('%(asctime)s GMT | %(name)s.%(module)s.%(funcName)s | %(levelname)s --- %(message)s', "%a %d %b %y - %H:%M:%S")
-        if 'linux' in sys.platform:
-            sys_path = "/home/seluser"
-        elif 'win' in sys.platform:
-            sys_path = "C:/Users/zhor"
-        log_file = f'{sys_path}/scrafi_project/Logs/woob/woob.log'
+        log_file = f'{path}/scrafi_project/Logs/woob/woob.log'
 
         file_handler = logging.FileHandler(log_file)
         file_handler.setLevel(logging.INFO)

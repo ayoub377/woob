@@ -1,4 +1,4 @@
-import configparser, hashlib
+import configparser, hashlib, os
 
 from redis import Redis
 from rq import Queue, Retry
@@ -9,6 +9,10 @@ from woob.capabilities.bank import CapBank
 from scrafi_api.woober import rq_logger, Woober, notify_client, discord_msg
 
 
+path = os.path.expanduser('~')
+if "C:" in path:
+    path = path.replcae('\\', '/')
+    
 redis = Redis()
 q = Queue('scrafi', connection=redis)
 
@@ -20,13 +24,13 @@ def del_backend(job, connection, type, value, traceback):
 
     logger.warning(f'/!\ DELETING BACKEND : {job.id} /!\ \n')
     p = configparser.ConfigParser()
-    with open('/home/seluser/.config/woob/backends', "r") as f:
+    with open(f'{path}/.config/woob/backends', "r") as f:
         p.read_file(f)
 
     bankash = hashlib.md5(bytearray(job.id, 'utf-8')).hexdigest()
     p.remove_section(bankash)
 
-    with open('/home/seluser/.config/woob/backends', "w") as f:
+    with open(f'{path}/.config/woob/backends', "w") as f:
         p.write(f)
 
     w = Woob()

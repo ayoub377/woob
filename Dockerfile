@@ -9,7 +9,6 @@ RUN apt-get install software-properties-common -y
 # Supervisor runs different applications for ScraFi to work
 RUN apt-get update && apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor
-# COPY supervizor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Some mods need tesseract to read images text
 RUN apt-get install pkg-config -y

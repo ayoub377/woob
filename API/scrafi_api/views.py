@@ -1,4 +1,4 @@
-import json
+import json, os
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -13,10 +13,13 @@ from .woobango import add_to_q
 from .woober import notify_zhor, setup_logger
 
 redis = Redis()
+path = os.path.expanduser('~')
+if "C:" in path:
+    path = path.replcae('\\', '/')
 
 
 def record_request(request):
-    customfile = f'/home/seluser/scrafi_project/Logs/django/custom/custom.log'
+    customfile = f'{path}/scrafi_project/Logs/django/custom/custom.log'
     custom_logger = setup_logger(f'custom_logger', customfile)
     dilog = {}
     log = ''
@@ -155,7 +158,7 @@ class HistoryConfirmation(APIView):
             
 
 def other_paths(request):
-    otherfile = f'/home/seluser/scrafi_project/Logs/other_requests/other.log'
+    otherfile = f'{path}/scrafi_project/Logs/other_requests/other.log'
     other_logger = setup_logger(f'other_logger', otherfile)
     dilog = {}
     log = ''

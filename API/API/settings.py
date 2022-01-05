@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -104,9 +105,12 @@ SERVER_EMAIL = 'scrafiserver@gmail.com'
 
 # SECURE_SSL_REDIRECT = True
 
+path = os.path.expanduser('~')
+if "C:" in path:
+    path = path.replcae('\\', '/')
 
-djangoza_server_file = f'/home/seluser/scrafi_project/Logs/django/server/server.log'
-djangoza_request_file = f'/home/seluser/scrafi_project/Logs/django/request/request.log'
+djangoza_server_file = f'{path}/scrafi_project/Logs/django/server/server.log'
+djangoza_request_file = f'{path}/scrafi_project/Logs/django/request/request.log'
 
 LOGGING = {
     'version': 1,
