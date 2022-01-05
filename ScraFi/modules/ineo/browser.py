@@ -80,7 +80,7 @@ class IneoBrowser(LoginBrowser):
             raise NoHistoryError
             
         if 'linux' in sys.platform:
-            sys_path = "/home/scrafer"
+            sys_path = "/home/seluser"
         elif 'win' in sys.platform:
             sys_path = "C:/Users/zhor"
 

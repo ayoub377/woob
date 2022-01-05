@@ -105,8 +105,8 @@ SERVER_EMAIL = 'scrafiserver@gmail.com'
 # SECURE_SSL_REDIRECT = True
 
 
-djangoza_server_file = f'/home/scrafer/scrafi_project/Logs/django/server/server.log'
-djangoza_request_file = f'/home/scrafer/scrafi_project/Logs/django/request/request.log'
+djangoza_server_file = f'/home/seluser/scrafi_project/Logs/django/server/server.log'
+djangoza_request_file = f'/home/seluser/scrafi_project/Logs/django/request/request.log'
 
 LOGGING = {
     'version': 1,

@@ -4,11 +4,11 @@ Description=Supervisor daemon
 After=network.target
 
 [Service]
-User=scrafer
-WorkingDirectory=/home/scrafer/scrafi_project
-ExecStart=/home/scrafer/.local/bin/supervisord -n -c /home/scrafer/scrafi_project/supervizor/supervisord.conf
-ExecStop=/home/scrafer/.local/bin/supervisorctl $OPTIONS shutdown
-ExecReload=/home/scrafer/.local/bin/supervisorctl $OPTIONS reload
+User=seluser
+WorkingDirectory=/home/seluser/scrafi_project
+ExecStart=/home/seluser/.local/bin/supervisord -n -c /home/seluser/scrafi_project/supervizor/supervisord.conf
+ExecStop=/home/seluser/.local/bin/supervisorctl $OPTIONS shutdown
+ExecReload=/home/seluser/.local/bin/supervisorctl $OPTIONS reload
 KillMode=process
 Restart=on-failure
 RestartSec=42s

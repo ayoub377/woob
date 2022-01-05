@@ -20,13 +20,13 @@ def del_backend(job, connection, type, value, traceback):
 
     logger.warning(f'/!\ DELETING BACKEND : {job.id} /!\ \n')
     p = configparser.ConfigParser()
-    with open('/home/scrafer/.config/woob/backends', "r") as f:
+    with open('/home/seluser/.config/woob/backends', "r") as f:
         p.read_file(f)
 
     bankash = hashlib.md5(bytearray(job.id, 'utf-8')).hexdigest()
     p.remove_section(bankash)
 
-    with open('/home/scrafer/.config/woob/backends', "w") as f:
+    with open('/home/seluser/.config/woob/backends', "w") as f:
         p.write(f)
 
     w = Woob()

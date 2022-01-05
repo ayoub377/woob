@@ -37,7 +37,7 @@ def setup_logger(name, log_file):
     return logger
 
 def rq_logger():
-    rqfile = '/home/scrafer/scrafi_project/Logs/rq/rq.log'
+    rqfile = '/home/seluser/scrafi_project/Logs/rq/rq.log'
     logger = setup_logger('rq_worker', rqfile)
     return logger
 
@@ -144,15 +144,15 @@ class Woober:
     
     def add_backend(self, username, password, bankash):
         backend ="[%s]\n _module = %s\n login = %s\n password = %s\n\n" % (bankash, self.bank, username, password)
-        with open('/home/scrafer/.config/woob/backends', 'a') as backends:
+        with open('/home/seluser/.config/woob/backends', 'a') as backends:
             backends.write(backend)
 
     def delete_backend(self, bankash):
         p = configparser.ConfigParser()
-        with open('/home/scrafer/.config/woob/backends', "r") as backends:
+        with open('/home/seluser/.config/woob/backends', "r") as backends:
             p.read_file(backends)
         p.remove_section(bankash)
-        with open('/home/scrafer/.config/woob/backends', "w") as backends:
+        with open('/home/seluser/.config/woob/backends', "w") as backends:
             p.write(backends)
 
     def error_response(self, error_msg):

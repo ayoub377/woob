@@ -16,7 +16,7 @@ redis = Redis()
 
 
 def record_request(request):
-    customfile = f'/home/scrafer/scrafi_project/Logs/django/custom/custom.log'
+    customfile = f'/home/seluser/scrafi_project/Logs/django/custom/custom.log'
     custom_logger = setup_logger(f'custom_logger', customfile)
     dilog = {}
     log = ''
@@ -155,7 +155,7 @@ class HistoryConfirmation(APIView):
             
 
 def other_paths(request):
-    otherfile = f'/home/scrafer/scrafi_project/Logs/other_requests/other.log'
+    otherfile = f'/home/seluser/scrafi_project/Logs/other_requests/other.log'
     other_logger = setup_logger(f'other_logger', otherfile)
     dilog = {}
     log = ''
