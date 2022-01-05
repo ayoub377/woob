@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: woob
+Version: 3.1
+Summary: Woob, Web Outside Of Browsers
+Home-page: https://woob.tech/
+Author: Romain Bignon
+Author-email: woob@woob.tech
+Maintainer: Romain Bignon
+Maintainer-email: romain@woob.tech
+License: GNU LGPL 3
+Description: ScraFi
+        ======
+        
+Platform: UNKNOWN
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python
+Classifier: Topic :: Communications :: Email
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Browsers
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Text Processing :: Markup :: HTML
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown

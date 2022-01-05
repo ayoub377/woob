@@ -1,0 +1,70 @@
+[DEFAULT]
+name = file___C__Users_zhora_Projects_ScraFi_modules
+update = 202111101600
+maintainer = 
+signed = 0
+key_update = 0
+
+[awb]
+version = 202111101521
+capabilities = CapCollection CapBank
+description = AttijariWafaBank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[bmce]
+version = 202111101420
+capabilities = CapCollection CapBank
+description = BMCE Bank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[cdm]
+version = 202111101420
+capabilities = CapCollection CapBank
+description = CDM Bank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[cfg]
+version = 202111101422
+capabilities = CapCollection CapBank
+description = CFG Bank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[chaabi]
+version = 202111101424
+capabilities = CapCollection CapBank
+description = Chaabi / banque populaire pro website
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[cih]
+version = 202111101506
+capabilities = CapCollection CapBank
+description = CIH bank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[ineo]
+version = 202111081558
+capabilities = CapCollection CapBank
+description = INEO provider pour tester l'API
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+

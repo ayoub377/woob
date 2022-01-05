@@ -1,0 +1,193 @@
+00:06:59 Cleaning registries for queue: scrafi
+00:33:59 Cleaning registries for queue: scrafi
+01:00:59 Cleaning registries for queue: scrafi
+01:27:59 Cleaning registries for queue: scrafi
+01:55:00 Cleaning registries for queue: scrafi
+02:22:00 Cleaning registries for queue: scrafi
+02:49:00 Cleaning registries for queue: scrafi
+03:16:00 Cleaning registries for queue: scrafi
+03:43:00 Cleaning registries for queue: scrafi
+04:10:01 Cleaning registries for queue: scrafi
+04:37:01 Cleaning registries for queue: scrafi
+05:04:01 Cleaning registries for queue: scrafi
+05:31:01 Cleaning registries for queue: scrafi
+05:58:01 Cleaning registries for queue: scrafi
+06:25:02 Cleaning registries for queue: scrafi
+06:52:02 Cleaning registries for queue: scrafi
+07:19:02 Cleaning registries for queue: scrafi
+07:46:02 Cleaning registries for queue: scrafi
+08:12:46 scrafi: 5e24f759-0e30-4721-94f2-f286379a4cf0
+Mon 15 Nov - 08:12:46 | RQ ### Woober.connect(CFG, ********, ********, 050780010010611100200135, "Now")
+Mon 15 Nov - 08:12:46 | ACCOUNT JOB: 5e24f759-0e30-4721-94f2-f286379a4cf0
+Mon 15 Nov - 08:12:46 | >>> Calling woob
+Mon 15 Nov - 08:12:46 | Getting the account...
+Mon 15 Nov - 08:12:56 | Returning data
+Mon 15 Nov - 08:12:56 | [{'Response': 'OK'}, [{'id': '050780010010611100200135', 'label': 'Unknown Label'}]]
+Mon 15 Nov - 08:12:56 | Truncating 
+
+08:12:56 scrafi: Job OK (5e24f759-0e30-4721-94f2-f286379a4cf0)
+08:12:56 Result is kept for 3600 seconds
+08:12:56 Cleaning registries for queue: scrafi
+08:13:43 scrafi: 334a422c-3728-48de-90be-c9571b1f5a9e
+Mon 15 Nov - 08:13:43 | RQ ### Woober.connect(CFG, ********, ********, no_id, "Now")
+Mon 15 Nov - 08:13:43 | ACCOUNTS JOB: 334a422c-3728-48de-90be-c9571b1f5a9e
+Mon 15 Nov - 08:13:43 | >>> Calling woob
+Mon 15 Nov - 08:13:44 | Getting the accounts...
+Mon 15 Nov - 08:14:02 | Returning data
+Mon 15 Nov - 08:14:02 | [{'Response': 'OK'}, [{'id': '050780010010611100200135', 'label': 'Unknown Label'}]]
+Mon 15 Nov - 08:14:02 | Truncating 
+
+08:14:02 scrafi: Job OK (334a422c-3728-48de-90be-c9571b1f5a9e)
+08:14:02 Result is kept for 3600 seconds
+08:14:36 scrafi: 490afde1-38f2-4a84-a6fa-2c4fdd7b6f40
+Mon 15 Nov - 08:14:36 | RQ ### Woober.connect(CFG, ********, ********, 050780010010611100200135, "Now")
+Mon 15 Nov - 08:14:36 | ACCOUNT JOB: 490afde1-38f2-4a84-a6fa-2c4fdd7b6f40
+Mon 15 Nov - 08:14:36 | >>> Calling woob
+Mon 15 Nov - 08:14:37 | Getting the account...
+Mon 15 Nov - 08:14:55 | Wrong credentials
+Mon 15 Nov - 08:14:55 | [{'Response': 'Error', 'ERROR': "L'identifiant ou le mot de passe sont incorrects."}]
+Mon 15 Nov - 08:14:55 | Truncating 
+
+Mon 15 Nov - 08:14:55 | ScraFi result is an error: [{'Response': 'Error', 'ERROR': "L'identifiant ou le mot de passe sont incorrects."}] 
+
+08:14:55 scrafi: Job OK (490afde1-38f2-4a84-a6fa-2c4fdd7b6f40)
+08:14:55 Result is kept for 3600 seconds
+08:15:22 scrafi: d8a957d4-ecaf-4482-ae8d-079011fa94a9
+Mon 15 Nov - 08:15:22 | RQ ### Woober.connect(CFG, ********, ********, 05078001001061110020013, "Now")
+Mon 15 Nov - 08:15:22 | ACCOUNT JOB: d8a957d4-ecaf-4482-ae8d-079011fa94a9
+Mon 15 Nov - 08:15:22 | >>> Calling woob
+Mon 15 Nov - 08:15:22 | Getting the account...
+Mon 15 Nov - 08:15:36 | Account ID not found
+Mon 15 Nov - 08:15:36 | [{'Response': 'Error', 'ERROR': "L'ID du compte ne figure pas dans la liste des comptes disponibles."}]
+Mon 15 Nov - 08:15:36 | Truncating 
+
+Mon 15 Nov - 08:15:36 | ScraFi result is an error: [{'Response': 'Error', 'ERROR': "L'ID du compte ne figure pas dans la liste des comptes disponibles."}] 
+
+08:15:36 scrafi: Job OK (d8a957d4-ecaf-4482-ae8d-079011fa94a9)
+08:15:36 Result is kept for 3600 seconds
+08:16:26 scrafi: f3540742-5f0b-438e-8a44-d50bce0ccbbb
+Mon 15 Nov - 08:16:26 | RQ ### Woober.connect(CFG, ********, ********, 050780010010611100200135, "15/11/2021")
+Mon 15 Nov - 08:16:26 | HISTORY JOB: f3540742-5f0b-438e-8a44-d50bce0ccbbb
+Mon 15 Nov - 08:16:26 | >>> Calling woob
+Mon 15 Nov - 08:16:27 | Getting the history...
+Mon 15 Nov - 08:16:46 | No history available
+Mon 15 Nov - 08:16:46 | [{'ERROR': "Aucun historique n'est disponible depuis le 15/11/2021."}]
+Mon 15 Nov - 08:16:46 | Truncating 
+
+Mon 15 Nov - 08:16:46 | ScraFi result is an error: [{'ERROR': "Aucun historique n'est disponible depuis le 15/11/2021."}] 
+
+08:16:46 scrafi: Job OK (f3540742-5f0b-438e-8a44-d50bce0ccbbb)
+08:16:46 Result is kept for 3600 seconds
+08:17:22 scrafi: 62db2cf6-00cf-4153-b091-4db4fa78ab56
+Mon 15 Nov - 08:17:22 | RQ ### Woober.connect(Banque Populaire, ********, ********, 94018650011, "01/11/2021")
+Mon 15 Nov - 08:17:22 | HISTORY JOB: 62db2cf6-00cf-4153-b091-4db4fa78ab56
+Mon 15 Nov - 08:17:22 | >>> Calling woob
+Mon 15 Nov - 08:17:23 | Getting the history...
+Mon 15 Nov - 08:17:24 | Returning data
+Mon 15 Nov - 08:17:24 | [{'id': 'da9fadd481f02f22beae33266ea4dab3', 'label': 'COMMISSION PRELEVEMENT SUR MESSAGE CHAABI MOBILE', 'date': '09/11/2021', 'solde': '-1.10'}]
+Mon 15 Nov - 08:17:24 | Truncating 
+
+08:17:24 scrafi: Job OK (62db2cf6-00cf-4153-b091-4db4fa78ab56)
+08:17:24 Result is kept for 3600 seconds
+08:18:01 scrafi: 8842047e-7466-4dd2-a27f-233cee242b86
+Mon 15 Nov - 08:18:01 | RQ ### Woober.connect(Banque Populaire, ********, ********, 94018650011, "Now")
+Mon 15 Nov - 08:18:01 | ACCOUNT JOB: 8842047e-7466-4dd2-a27f-233cee242b86
+Mon 15 Nov - 08:18:01 | >>> Calling woob
+Mon 15 Nov - 08:18:01 | Getting the account...
+Mon 15 Nov - 08:18:02 | Returning data
+Mon 15 Nov - 08:18:02 | [{'Response': 'OK'}, [{'id': '94018650011', 'label': 'COMPTES COURANTS  ORDINAIRES.'}]]
+Mon 15 Nov - 08:18:02 | Truncating 
+
+08:18:02 scrafi: Job OK (8842047e-7466-4dd2-a27f-233cee242b86)
+08:18:02 Result is kept for 3600 seconds
+08:18:19 scrafi: 5666516b-96a1-452b-9dfc-93d6fe339782
+Mon 15 Nov - 08:18:19 | RQ ### Woober.connect(Banque Populaire, ********, ********, no_id, "Now")
+Mon 15 Nov - 08:18:19 | ACCOUNTS JOB: 5666516b-96a1-452b-9dfc-93d6fe339782
+Mon 15 Nov - 08:18:19 | >>> Calling woob
+Mon 15 Nov - 08:18:19 | Getting the accounts...
+Mon 15 Nov - 08:18:20 | Returning data
+Mon 15 Nov - 08:18:20 | [{'Response': 'Multicomptes', 'ERROR': "Il existe plus d'un ID pour ce compte."}, [{'id': '94018650052', 'label': 'COMPTES COURANTS  ORDINAIRES.'}, {'id': '94018650011', 'label': 'COMPTES COURANTS  ORDINAIRES.'}]]
+Mon 15 Nov - 08:18:20 | Truncating 
+
+08:18:20 scrafi: Job OK (5666516b-96a1-452b-9dfc-93d6fe339782)
+08:18:20 Result is kept for 3600 seconds
+08:18:40 scrafi: cca5a170-27af-49a4-b7f2-d11181fc5243
+Mon 15 Nov - 08:18:40 | RQ ### Woober.connect(Banque Populaire, ********, ********, 94018650011, "Now")
+Mon 15 Nov - 08:18:40 | ACCOUNT JOB: cca5a170-27af-49a4-b7f2-d11181fc5243
+Mon 15 Nov - 08:18:40 | >>> Calling woob
+Mon 15 Nov - 08:18:40 | Getting the account...
+Mon 15 Nov - 08:18:41 | Wrong credentials
+Mon 15 Nov - 08:18:41 | [{'Response': 'Error', 'ERROR': "L'identifiant ou le mot de passe sont incorrects."}]
+Mon 15 Nov - 08:18:41 | Truncating 
+
+Mon 15 Nov - 08:18:41 | ScraFi result is an error: [{'Response': 'Error', 'ERROR': "L'identifiant ou le mot de passe sont incorrects."}] 
+
+08:18:41 scrafi: Job OK (cca5a170-27af-49a4-b7f2-d11181fc5243)
+08:18:41 Result is kept for 3600 seconds
+08:18:54 scrafi: 79fda435-138d-47dc-8bd1-d0d07e2d25d1
+Mon 15 Nov - 08:18:55 | RQ ### Woober.connect(Banque Populaire, ********, ********, 9401865001, "Now")
+Mon 15 Nov - 08:18:55 | ACCOUNT JOB: 79fda435-138d-47dc-8bd1-d0d07e2d25d1
+Mon 15 Nov - 08:18:55 | >>> Calling woob
+Mon 15 Nov - 08:18:55 | Getting the account...
+Mon 15 Nov - 08:18:56 | Account ID not found
+Mon 15 Nov - 08:18:56 | [{'Response': 'Error', 'ERROR': "L'ID du compte ne figure pas dans la liste des comptes disponibles."}]
+Mon 15 Nov - 08:18:56 | Truncating 
+
+Mon 15 Nov - 08:18:56 | ScraFi result is an error: [{'Response': 'Error', 'ERROR': "L'ID du compte ne figure pas dans la liste des comptes disponibles."}] 
+
+08:18:56 scrafi: Job OK (79fda435-138d-47dc-8bd1-d0d07e2d25d1)
+08:18:56 Result is kept for 3600 seconds
+08:19:23 scrafi: 97c18a82-1978-411a-ba6c-3e95ce241902
+Mon 15 Nov - 08:19:23 | RQ ### Woober.connect(Banque Populaire, ********, ********, 94018650011, "15/11/2021")
+Mon 15 Nov - 08:19:23 | HISTORY JOB: 97c18a82-1978-411a-ba6c-3e95ce241902
+Mon 15 Nov - 08:19:23 | >>> Calling woob
+Mon 15 Nov - 08:19:23 | Getting the history...
+Mon 15 Nov - 08:19:24 | No history available
+Mon 15 Nov - 08:19:24 | [{'ERROR': "Aucun historique n'est disponible depuis le 15/11/2021."}]
+Mon 15 Nov - 08:19:24 | Truncating 
+
+Mon 15 Nov - 08:19:24 | ScraFi result is an error: [{'ERROR': "Aucun historique n'est disponible depuis le 15/11/2021."}] 
+
+08:19:24 scrafi: Job OK (97c18a82-1978-411a-ba6c-3e95ce241902)
+08:19:24 Result is kept for 3600 seconds
+08:19:42 scrafi: 38e08c05-953c-4917-a884-41ef7e5e5346
+Mon 15 Nov - 08:19:42 | RQ ### Woober.connect(Attijariwafa bank, ********, ********, 000413X000000185, "15/11/2021")
+Mon 15 Nov - 08:19:42 | HISTORY JOB: 38e08c05-953c-4917-a884-41ef7e5e5346
+Mon 15 Nov - 08:19:42 | >>> Calling woob
+Mon 15 Nov - 08:19:42 | Getting the history...
+Mon 15 Nov - 08:20:12 | Returning data
+Mon 15 Nov - 08:20:12 | [{'id': '99182aa7219a30256c292506e3ad3cb9', 'label': 'REMISE CHEQUE A ENC 30061656', 'date': '15/11/2021', 'solde': '10000.00'}]
+Mon 15 Nov - 08:20:12 | Truncating 
+
+08:20:12 scrafi: Job OK (38e08c05-953c-4917-a884-41ef7e5e5346)
+08:20:12 Result is kept for 3600 seconds
+08:20:12 scrafi: 9bcd471f-0c07-40fa-a0c1-815cd5ee2743
+Mon 15 Nov - 08:20:13 | RQ ### notify_client("38e08c05-953c-4917-a884-41ef7e5e5346") 
+
+08:20:13 scrafi: Job OK (9bcd471f-0c07-40fa-a0c1-815cd5ee2743)
+08:20:13 Result is kept for 500 seconds
+08:23:45 scrafi: ed5f05e1-1a71-48f5-bdb7-e5425e875b80
+Mon 15 Nov - 08:23:45 | RQ ### notify_client("35b87fc4-a09b-4613-a06f-da58e454b28d") 
+
+08:23:45 scrafi: Job OK (ed5f05e1-1a71-48f5-bdb7-e5425e875b80)
+08:23:45 Result is kept for 500 seconds
+08:32:34 scrafi: 6f6788fa-e7b7-4018-93e6-307603197fa3
+Mon 15 Nov - 08:32:34 | RQ ### notify_client("2d35704b-b672-4ad4-9ac2-a0fa5ad85c0c") 
+
+08:32:34 scrafi: Job OK (6f6788fa-e7b7-4018-93e6-307603197fa3)
+08:32:34 Result is kept for 500 seconds
+08:48:43 scrafi: 7f288a6f-d81a-447f-a1b3-8f3eb20f91f0
+Mon 15 Nov - 08:48:43 | RQ ### notify_client("b919d8b5-342a-432e-8332-d3b0a5fbd1eb") 
+
+08:48:43 scrafi: Job OK (7f288a6f-d81a-447f-a1b3-8f3eb20f91f0)
+08:48:43 Result is kept for 500 seconds
+08:49:43 scrafi: 405689a4-7e5b-4dd9-afeb-9587d86643e2
+Mon 15 Nov - 08:49:43 | RQ ### notify_client("7948a693-5303-4ec7-a8b6-ad394f018b5e") 
+
+08:49:43 scrafi: Job OK (405689a4-7e5b-4dd9-afeb-9587d86643e2)
+08:49:43 Result is kept for 500 seconds
+08:50:22 scrafi: 3403ed0c-10e2-45c5-9d28-b2b06b61cf56
+Mon 15 Nov - 08:50:22 | RQ ### notify_client("a958caca-ba31-4a6d-adda-cd41f7026dfd") 
+
+08:50:22 scrafi: Job OK (3403ed0c-10e2-45c5-9d28-b2b06b61cf56)
+08:50:22 Result is kept for 500 seconds

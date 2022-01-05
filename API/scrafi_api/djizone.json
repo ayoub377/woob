@@ -1,0 +1,23 @@
+{
+    "Response": "OK",
+    "Transactions": [
+        {
+            "id": "9daf6daac6b78ec8161789f1d0915555",
+            "date": "21/10/2021",
+            "label": "TVA COMMISSION IMPAYE",
+            "solde": "10000.00"
+        },
+        {
+            "id": "cde943a66750c20e1191275135ede3be",
+            "date": "21/10/2021",
+            "label": "FRAIS TIMBRE",
+            "solde": "-10.00"
+        },
+        {
+            "id": "2f4d34ddb99d59a8c197574ecc14779c",
+            "date": "18/10/2021",
+            "label": "VERSEMENT ESPECE EFFECTUE",
+            "solde": "1500.00"
+        }
+    ]
+}
