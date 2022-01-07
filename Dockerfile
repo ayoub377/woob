@@ -61,6 +61,7 @@ RUN pip install django-oauth-toolkit
 RUN pip install django-cors-headers
 RUN pip install discord.py
 RUN python3 /home/seluser/scrafi_project/API/manage.py migrate
+# EXPOSE 8000
 
 # ngrok install
 # RUN apt-get update
@@ -73,7 +74,9 @@ RUN python3 /home/seluser/scrafi_project/API/manage.py migrate
 # RUN pip install pyngrok
 
 # Runing supervisor just after container start
-CMD ["/usr/bin/supervisord"]
 
+# WORKDIR /home/seluser/scrafi_project/supervizor
+# ENTRYPOINT ["/usr/bin/supervisord", "-c", "/home/seluser/scrafi_project/supervizor/supervisord.conf"]
+CMD supervisord -c /home/seluser/scrafi_project/supervizor/supervisord.conf
 
 # RUN export PATH="/home/zhor/.local/bin:$PATH"s
