@@ -9,6 +9,7 @@ RUN apt-get install software-properties-common -y
 # Supervisor runs different applications for ScraFi to work
 RUN apt-get update && apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Some mods need tesseract to read images text
 RUN apt-get install pkg-config -y
@@ -61,7 +62,6 @@ RUN pip install django-oauth-toolkit
 RUN pip install django-cors-headers
 RUN pip install discord.py
 RUN python3 /home/seluser/scrafi_project/API/manage.py migrate
-# EXPOSE 8000
 
 # ngrok install
 # RUN apt-get update
@@ -73,9 +73,6 @@ RUN python3 /home/seluser/scrafi_project/API/manage.py migrate
 # pyngrok to use django with ngrok
 # RUN pip install pyngrok
 
-# Runing supervisor just after container start
+CMD ["/usr/bin/supervisord"]
 
-# WORKDIR /home/seluser/scrafi_project/supervizor
-# CMD ["supervisord -c /home/seluser/scrafi_project/supervizor/supervisord.conf"]
-
-# RUN export PATH="/home/zhor/.local/bin:$PATH"s
+# RUN export PATH="/home/zhor/.local/bin:$PATH"
