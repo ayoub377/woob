@@ -21,9 +21,15 @@ from scrafi_api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')), 
+
     path('bankHistory/Synchro/<bank>', views.HistorySynchro.as_view(), name='HistorySynchro'),
     path('bankHistory/Create/<bank>', views.HistoryCreate.as_view(), name='HistoryCreate'),
-    path('bankHistory/getResult', views.HistoryResults.as_view(), name='HistoryResults'),
-    path('bankHistory/Confirmation', views.HistoryConfirmation.as_view(), name='HistoryConfirmation'),
+
+    path('bill/Synchro/<bill>', views.BillSynchro.as_view(), name='BillSynchro'),
+    path('bill/Create/<bill>', views.BillCreate.as_view(), name='BillCreate'),
+
+    path('getResult', views.Results.as_view(), name='Results'),
+    path('Confirmation', views.Confirmation.as_view(), name='Confirmation'),
+    
     re_path(r'.*', views.other_paths, name='OtherPaths')
 ]
