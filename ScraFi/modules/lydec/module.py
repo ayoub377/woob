@@ -73,9 +73,9 @@ class LydecModule(Module, CapDocument, CapProfile):
         print('get_subscription')
         return find_object(self.iter_subscription(), id=_id, error=SubscriptionNotFound)
 
-    def get_bills(self):
+    def get_bills(self, **kwargs):
         print('get_bills')
-        return self.browser.get_bills()
+        return self.browser.get_bills(**kwargs)
     
     def iter_bills(self, sub_id):
         print('iter_bills')
