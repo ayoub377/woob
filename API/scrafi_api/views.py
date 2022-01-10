@@ -24,7 +24,6 @@ def record_request(request):
     log = ''
     
     if request.method == 'POST':
-        dilog['Account ID'] = request.data['acc_id']
         dilog['Path'] = 'POST  ' + request.path_info
     elif request.method == 'GET':
         dilog['Job ID'] = request.query_params['job_id']
@@ -106,7 +105,7 @@ def process_history_request(request, bank, endpoint):
     try:
         response = json.dumps(job_id, indent=4)
     except Exception as e:
-        notify_zhor(flow=flow, bank=bank, acc_id=acc_id, start_date=start_date, e=e)
+        notify_zhor(flow=flow, bank=bank, start_date=start_date, e=e)
         response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
     
     return HttpResponse(response, content_type='text/json')
@@ -153,7 +152,7 @@ def process_bill_request(request, bill, endpoint):
     try:
         response = json.dumps(job_id, indent=4)
     except Exception as e:
-        notify_zhor(flow=flow, module=bill, acc_id='no id', start_date=start_date, e=e)
+        notify_zhor(flow=flow, module=bill, start_date=start_date, e=e)
         response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
     
     return HttpResponse(response, content_type='text/json')
