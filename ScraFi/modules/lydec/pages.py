@@ -18,12 +18,10 @@
 # along with this woob module. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
-from decimal import Decimal
 
 
-import time, hashlib
+import time, hashlib, requests, base64
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from selenium.common.exceptions import NoSuchElementException
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
@@ -172,8 +170,8 @@ class LydecBill(Bill):
     url = StringField('URL de la facture')
     
     def __repr__(self):
-        return '<%s number=%r date=%r montant=%r tva=%r>' % (
-            type(self).__name__, self.number, self.date, self.montant, self.tva)
+        return '<%s number=%r date=%r montant=%r tva=%r pdf=%r>' % (
+            type(self).__name__, self.number, self.date, self.montant, self.tva, self.pdf)
 
 
 class BillsPage(SeleniumPage):
@@ -203,11 +201,19 @@ class BillsPage(SeleniumPage):
             for tr in trs:
                 bill = LydecBill()
                 bill.number = tr.find_element_by_xpath('./td[1]').text.rstrip()
+
                 prd_fact = tr.find_element_by_xpath('./td[2]').text.rstrip()
                 bill.date = datetime.strptime(prd_fact, "%Y%m").strftime("%m/%Y")
+
                 bill.montant = tr.find_element_by_xpath('./td[3]').text
                 bill.tva = tr.find_element_by_xpath('./td[4]').text
-                bill.url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
+                url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
+
+                pdf = requests.get(url, verify=False)
+                bill.pdf = base64.urlsafe_b64encode(pdf.content).decode('utf8')
+                                
+                str_2_hash = bill.number + bill.date + bill.montant
+                bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
                 bills.append(bill)
         return bills

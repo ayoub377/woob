@@ -38,3 +38,4 @@ __pycache__/
 *.pyc
 IDs.txt
 chromedriver.exe
+Random/billJson.json
