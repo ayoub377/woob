@@ -21,16 +21,14 @@ from __future__ import unicode_literals
 
 
 import sys, hashlib
-from decimal import Decimal
 
 from woob.browser import URL, need_login
 from woob.browser.selenium import SeleniumBrowser, webdriver
-from woob.capabilities.bill import Detail
 
 from woob.scrafi_exceptions import WebsiteError, WrongCredentialsError
 from selenium.common.exceptions import TimeoutException
 
-from .pages import LoginPage, AccueilPage, ProfilePage, SubscriptionPage, BillsPage, DocumentsPage
+from .pages import LoginPage, AccueilPage, ProfilePage, SubscriptionPage, ImpayePage, BillsPage
 
 
 class LydecBrowser(SeleniumBrowser):
@@ -49,8 +47,8 @@ class LydecBrowser(SeleniumBrowser):
     accueil_page = URL(r'/fr/web/lydec/accueil', AccueilPage)
     profile_page = URL('/fr/web/lydec/infos-client', ProfilePage)
     subscription_page = URL(r'/fr/web/lydec/mes-contrats', SubscriptionPage)
-    bills_page = URL(r'/fr/web/lydec/mes-impayes', BillsPage)
-    documents_page = URL(r'/fr/web/lydec/mes-factures-multisites', DocumentsPage)
+    impaye_page = URL(r'/fr/web/lydec/mes-impayes', ImpayePage)
+    bills_page = URL(r'/fr/web/lydec/mes-factures-multisites', BillsPage)
 
     error_msg = ''
 
@@ -85,47 +83,7 @@ class LydecBrowser(SeleniumBrowser):
         return listash
 
     @need_login
-    def get_profile(self):
-        self.profile_page.stay_or_go()
-        self.wait_until_is_here(self.profile_page)
-        return self.page.get_profile()
-
-    @need_login
-    def iter_subscriptions(self):
-        self.subscription_page.stay_or_go()
-        self.wait_until_is_here(self.subscription_page)
-        return self.page.get_subscriptions()
-
-    @need_login
-    def get_bills(self, **kwargs):
-        self.bills_page.stay_or_go()
-        self.wait_until_is_here(self.bills_page)
-        return self.page.get_bills()
-
-    @need_login
-    def iter_documents(self, sub_id):
-        self.bills_page.stay_or_go()
-        self.wait_until_is_here(self.bills_page)
-        for i in self.page.get_bills(sub_id):
-            self.documents_page.stay_or_go()
-            self.wait_until_is_here(self.documents_page)
-            yield self.page.get_documents(i._sub_id, i.duedate)
-
-    @need_login
-    def get_details(self, sub):
-        det = LydecDetail()
-        det.id = sub.id
-        det.label = sub.label
-        det.infos = sub.address
-        det.price = Decimal(sub.impaye)
-        det.currency = 'MAD'
-        det.quantity = Decimal(sub.conso[:-5])
-        det.unit = sub.conso[-5:]
-        return det
-    
-    
-class LydecDetail(Detail):
-    def __repr__(self):
-        return '<%s id=%r label=%r infos=%r price=%r currency=%r quantity=%r unit=%r>' % (
-        type(self).__name__, self.id, self.label, self.infos, self.price, self.currency, self.quantity, self.unit
-    )
+    def get_bills(self, date):
+            self.bills_page.stay_or_go()
+            self.wait_until_is_here(self.bills_page)
+            return self.page.get_bills(date)

@@ -18,6 +18,7 @@
 # along with this woob module. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import unicode_literals
+from decimal import Decimal
 
 
 import time, hashlib
@@ -28,7 +29,7 @@ from selenium.common.exceptions import NoSuchElementException
 from woob.browser.selenium import SeleniumPage, VisibleXPath
 
 from woob.capabilities.profile import Person
-from woob.capabilities.bill import Bill, Document, Subscription
+from woob.capabilities.bill import Bill, Subscription
 from woob.capabilities.base import StringField
 
 
@@ -122,17 +123,7 @@ class SubscriptionPage(SeleniumPage):
             return 'Electricité'
 
 
-class LydecBill(Bill):
-    facture = StringField('La facture à payer')
-    sub_id = StringField('The bill subscription ID')
-    
-    def __repr__(self):
-        return '<%s facture=%r sub=%r duedate=%r total_price=%r currency=%r>' % (
-        type(self).__name__, self.facture, self.sub_id, self.duedate, self.total_price, self.currency
-    )
-
-
-class BillsPage(SeleniumPage):
+class ImpayePage(SeleniumPage):
     is_here = VisibleXPath('//*[@id="p_p_id_Impayes_WAR_Impayesportlet_"]')
 
     def tax_details(self):
@@ -150,60 +141,73 @@ class BillsPage(SeleniumPage):
         montant_facture_ttc = details[2].text
         # taux_tva = 
 
-    def get_bills(self):
-        bills = []
+    def get_impaye(self):
+        impayes = []
         lines = self.driver.find_elements_by_xpath('//table[@id="thetable"]/tbody/tr')
         for line in lines:
             n_police = line.find_element_by_xpath('.//td[3]').text.rstrip()
 
-            bill = LydecBill()
-            bill.facture = line.find_element_by_xpath('.//td[1]').text
-            bill.sub_id = n_police
-            bill.duedate = datetime.strptime(line.find_element_by_xpath('.//td[5]').text, '%d/%m/%Y').date()
-            bill.total_price = line.find_element_by_xpath('.//td[7]/a').text
-            bill.currency = 'MAD'
+            impaye = LydecBill()
+            impaye.facture = line.find_element_by_xpath('.//td[1]').text
+            impaye.sub_id = n_police
+            impaye.duedate = datetime.strptime(line.find_element_by_xpath('.//td[5]').text, '%d/%m/%Y').date()
+            impaye.total_price = line.find_element_by_xpath('.//td[7]/a').text
+            impaye.currency = 'MAD'
             
-            str_2_hash = bill.facture + bill.duedate.strftime('%d/%m/%Y') + str(bill.total_price)
-            bill.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+            str_2_hash = impaye.facture + impaye.duedate.strftime('%d/%m/%Y') + str(impaye.total_price)
+            impaye.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
             del (
-                bill.vat, bill.pre_tax_price, bill.startdate, bill.finishdate, bill.date,
-                bill.format, bill.label, bill.type, bill.transactions, bill.number
+                impaye.vat, impaye.pre_tax_price, impaye.startdate, impaye.finishdate, impaye.date,
+                impaye.format, impaye.label, impaye.type, impaye.transactions, impaye.number
             )
-            bills.append(bill)
-        return bills
+            impayes.append(impaye)
+        return impayes
         
 
-class LydecDoc(Document):
-    prd_fact = StringField('Produit de facturation')
+class LydecBill(Bill):
+    montant = StringField('Montant de la facture')
+    date = StringField('Date de la facture')
+    tva = StringField('TVA de la facture')
+    url = StringField('URL de la facture')
+    
+    def __repr__(self):
+        return '<%s number=%r date=%r montant=%r tva=%r>' % (
+            type(self).__name__, self.number, self.date, self.montant, self.tva)
 
 
-class DocumentsPage(SeleniumPage):
+class BillsPage(SeleniumPage):
     is_here = VisibleXPath('//h1[contains(text(),"Mes factures")]')
 
-    def get_documents(self, id, date):
-        self.driver.find_element_by_xpath('//option[contains(@value, "%s")]' %id).click()
-
-        month = date.strftime("%m")
-        self.driver.find_element_by_xpath('//select[@name="moisD"]/option[contains(@value, "%s")]' %month).click()
-        self.driver.find_element_by_xpath('//select[@name="moisF"]/option[contains(@value, "%s")]' %month).click()
-
-        year = date.strftime("%Y")
-        selected_year = self.driver.find_element_by_xpath('//select[@name="anneeD"]/option[1]').text
-        if year != selected_year:
-            self.driver.find_element_by_xpath('//select[@name="anneeD"]/option[contains(@value, "%s")]' %year).click()
-            self.driver.find_element_by_xpath('//select[@name="anneeF"]/option[contains(@value, "%s")]' %year).click()
-
-        self.driver.find_element_by_xpath('//*[@id="submit"]').click()
-        time.sleep(2)
-
-        doc = LydecDoc()
-        doc.date = date - relativedelta(months=1)
-        doc.format = 'PDF'
-        doc.type = self.driver.find_element_by_xpath('//*[@id="formulaire"]/table/tbody/tr/td[2]').text
-        doc.number = self.driver.find_element_by_xpath('//tr[@class="tdalt1"]/td[1]').text.rstrip()
-        doc.prd_fact = self.driver.find_element_by_xpath('//tr[@class="tdalt1"]/td[2]').text.rstrip()
-        doc.url = self.driver.find_element_by_xpath('//*[@id="thetable"]/tbody/tr/td[7]/a').get_attribute("href")
+    def get_bills(self, date):
+        the_date = datetime.strptime(date, "%d/%m/%Y")
+        month = the_date.strftime('%m')
+        year = the_date.strftime('%Y')
+        bills = []
         
-        del (doc.label, doc.transactions)
-        return doc
+        contrats = self.driver.find_elements_by_xpath('//select[@name="polNum"]/option')
+        x = len(contrats)
+        for i in range(x):         
+            self.driver.find_element_by_xpath('//select[@name="polNum"]/option[%s]' % str(i+1)).click()
+            self.driver.find_element_by_xpath('//*[@name="moisD"]/option[@value="%s"]' % month).click()
+            self.driver.find_element_by_xpath('//*[@name="anneeD"]/option[@value="%s"]' % year).click()
+            self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+            time.sleep(1)
+
+            try:
+                self.driver.find_element_by_xpath('//table[@id="thetable"]/tbody/tr')
+            except NoSuchElementException:
+                continue
+            
+            trs = self.driver.find_elements_by_xpath('//table[@id="thetable"]/tbody/tr')
+            for tr in trs:
+                bill = LydecBill()
+                bill.number = tr.find_element_by_xpath('./td[1]').text.rstrip()
+                prd_fact = tr.find_element_by_xpath('./td[2]').text.rstrip()
+                bill.date = datetime.strptime(prd_fact, "%Y%m").strftime("%m/%Y")
+                bill.montant = tr.find_element_by_xpath('./td[3]').text
+                bill.tva = tr.find_element_by_xpath('./td[4]').text
+                bill.url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
+
+                bills.append(bill)
+        return bills

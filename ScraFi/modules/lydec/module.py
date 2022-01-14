@@ -61,55 +61,6 @@ class LydecModule(Module, CapDocument, CapProfile):
         print('connect')
         return self.browser.connect()
 
-    def get_profile(self):
-        print('get_profile')
-        return self.browser.get_profile()
-
-    def iter_subscription(self):
-        print('iter_subscription')
-        return self.browser.iter_subscriptions()
-    
-    def get_subscription(self, _id):
-        print('get_subscription')
-        return find_object(self.iter_subscription(), id=_id, error=SubscriptionNotFound)
-
-    def get_bills(self, **kwargs):
+    def get_bills(self, date):
         print('get_bills')
-        return self.browser.get_bills(**kwargs)
-    
-    def iter_bills(self, sub_id):
-        print('iter_bills')
-        for bill in self.get_bills():
-            if bill.sub_id == sub_id:
-                return bill
-        
-    def iter_documents(self, sub_id):
-        print('iter_documents')
-        return self.browser.iter_documents(sub_id)
-            
-    def get_document(self, _id):
-        print('get_document')
-        return find_object(self.iter_documents(), id=_id, error=DocumentNotFound)
-
-    def download_document(self, document):
-        print('download_document')
-        if not isinstance(document, Document):
-            document = self.get_document(document)
-        if document.url is NotAvailable:
-            return
-        return self.browser.open(document.url).content
-    
-    def get_details(self, sub_id):
-        print('get_details')
-        if sub_id == '':
-            for sub in self.browser.iter_subscriptions():
-                yield self.browser.get_details(sub)
-        else:
-            sub = self.get_subscription(sub_id)
-            return self.browser.get_details(sub)
-
-    def iter_resources(self, objs, split_path):
-        print('iter_resources')
-        if Subscription in objs:
-            self._restrict_level(split_path)
-            return self.iter_subscription()
+        return self.browser.get_bills(date)
