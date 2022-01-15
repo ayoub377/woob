@@ -53,6 +53,11 @@ class AccueilPage(SeleniumPage):
     is_here = VisibleXPath('//p[contains(@class, "_c1 a_titre2 _c1")]')
 
 
+class VignettePage(SeleniumPage):
+    def some():
+        pass
+
+
 class AccountsPage(SeleniumPage):
     is_here = VisibleXPath('//table[@class="_c1 ei_comptescontrats _c1"]')
 
