@@ -22,14 +22,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')), 
 
-    path('bankHistory/Synchro/<bank>', views.HistorySynchro.as_view(), name='HistorySynchro'),
-    path('bankHistory/Create/<bank>', views.HistoryCreate.as_view(), name='HistoryCreate'),
+    path('bank/bankHistory/Synchro/<bank>', views.HistorySynchro.as_view(), name='HistorySynchro'),
+    path('bank/bankHistory/Create/<bank>', views.HistoryCreate.as_view(), name='HistoryCreate'),
 
     path('bill/Synchro/<bill>', views.BillSynchro.as_view(), name='BillSynchro'),
     path('bill/Create/<bill>', views.BillCreate.as_view(), name='BillCreate'),
 
-    path('bankHistory/getResult', views.Results.as_view(), name='Results'),
-    path('bankHistory/Confirmation', views.Confirmation.as_view(), name='Confirmation'),
+    path('bank/bankHistory/getResult', views.Results.as_view(), name='Results'),
+    path('bank/bankHistory/Confirmation', views.Confirmation.as_view(), name='Confirmation'),
     
     re_path(r'.*', views.other_paths, name='OtherPaths')
 ]
