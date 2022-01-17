@@ -32,7 +32,7 @@ __all__ = ['LoadedModule', 'ModulesLoader', 'RepositoryModulesLoader']
 
 path = os.path.expanduser('~')
 if "C:" in path:
-    path = path.replcae('\\', '/')
+    path = path.replace('\\', '/')
     
 class LoadedModule(object):
     def __init__(self, package):

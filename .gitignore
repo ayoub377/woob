@@ -37,3 +37,5 @@ Random/lydec/__pycache__/pages.cpython-38.pyc
 __pycache__/
 *.pyc
 IDs.txt
+chromedriver.exe
+Random/billJson.json

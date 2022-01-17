@@ -26,7 +26,7 @@ from woob.browser.selenium import SeleniumBrowser, webdriver
 from selenium.common.exceptions import TimeoutException
 from woob.scrafi_exceptions import IdNotFoundError, WebsiteError
 
-from .pages import LoginPage, AccueilPage, AccountsPage, HistoryPage
+from .pages import LoginPage, AccueilPage, AccountsPage, HistoryPage, VignettePage
 
 
 class BMCEBrowser(SeleniumBrowser):
@@ -45,6 +45,7 @@ class BMCEBrowser(SeleniumBrowser):
 
     login_page = URL(r'/fr/identification/authentification.html', LoginPage)
     accueil_page = URL(r'/fr/banque/pageaccueil.html\?referer=paci', AccueilPage)
+    vignette_page = URL(r'/fr/banque/paci_engine/information-client.html', VignettePage)
     accounts_page = URL(r'/fr/banque/comptes-et-contrats.html', AccountsPage)
     history_page = URL(r'/fr/banque/mouvements.html', HistoryPage)
 
@@ -65,7 +66,10 @@ class BMCEBrowser(SeleniumBrowser):
                 self.wait_until_is_here(self.accueil_page)
                 self.logged = True
             except TimeoutException:
-                self.page.check_error()
+                if self.vignette_page.is_here():
+                    pass
+                else:
+                    self.page.check_error()
         except TimeoutException:
             self.error_msg = 'bank'
             raise WebsiteError

@@ -9,14 +9,13 @@ from oauth2_provider.views.generic import ProtectedResourceView
 
 from redis import Redis
 from rq.job import Job
-from .woobango import add_to_q
+from .woobango import add_to_bank_q, add_to_bill_q
 from .woober import notify_zhor, setup_logger
 
 redis = Redis()
 path = os.path.expanduser('~')
 if "C:" in path:
-    path = path.replcae('\\', '/')
-
+    path = path.replace('\\', '/')
 
 def record_request(request):
     customfile = f'{path}/scrafi_project/Logs/django/custom/custom.log'
@@ -25,7 +24,6 @@ def record_request(request):
     log = ''
     
     if request.method == 'POST':
-        dilog['Account ID'] = request.data['acc_id']
         dilog['Path'] = 'POST  ' + request.path_info
     elif request.method == 'GET':
         dilog['Job ID'] = request.query_params['job_id']
@@ -56,7 +54,7 @@ def record_request(request):
     custom_logger.info(log)
     
 
-def process_request(request, bank, endpoint):
+def process_history_request(request, bank, endpoint):
     available_banks = ['awb', 'bmce', 'cdm', 'cfg', 'chaabi', 'cih', 'ineo']
     if bank not in available_banks:
         response = json.dumps([{"Response": "Error", "ERROR": "Le connecteur %s n'existe pas." % bank}])
@@ -65,10 +63,6 @@ def process_request(request, bank, endpoint):
     username = request.data['username']
     if username == '':
         response = json.dumps([{"Response": "Error", "ERROR": "L'identifiant est obligatoire."}])
-        return HttpResponse(response, content_type='text/json')
-
-    if bank == 'cih' and not username.isdigit():
-        response = json.dumps([{"Response": "Error", "ERROR": "L'identifiant CIH doit être un nombre."}])
         return HttpResponse(response, content_type='text/json')
 
     password = request.data['password']
@@ -97,8 +91,7 @@ def process_request(request, bank, endpoint):
             try:
                 start_date = datetime.strptime(date, '%Y%m%d')
                 verify_date = start_date + relativedelta(months=3)
-                today = datetime.today()
-                if verify_date < today:
+                if verify_date < datetime.today():
                     response = json.dumps([{"Response": "Error", "ERROR": "L'historique est limité à 3 mois."}])
                     return HttpResponse(response, content_type='text/json')
                 
@@ -108,11 +101,58 @@ def process_request(request, bank, endpoint):
     else:
         start_date = 'Now'
 
-    job_id = add_to_q(flow, bank, username, password, acc_id, start_date)
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
     try:
         response = json.dumps(job_id, indent=4)
     except Exception as e:
-        notify_zhor(flow=flow, bank=bank, acc_id=acc_id, start_date=date, e=e)
+        notify_zhor(flow=flow, bank=bank, start_date=start_date, e=e)
+        response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
+    
+    return HttpResponse(response, content_type='text/json')
+
+
+def process_bill_request(request, bill, endpoint):
+    available_bills = ['lydec']
+    if bill not in available_bills:
+        response = json.dumps([{"Response": "Error", "ERROR": "Le connecteur %s n'existe pas." % bill}])
+        return HttpResponse(response, content_type='text/json')
+
+    username = request.data['username']
+    if username == '':
+        response = json.dumps([{"Response": "Error", "ERROR": "L'identifiant est obligatoire."}])
+        return HttpResponse(response, content_type='text/json')
+
+    password = request.data['password']
+    if password == '':
+        response = json.dumps([{"Response": "Error", "ERROR": "Le mot de passe est obligatoire."}])
+        return HttpResponse(response, content_type='text/json')
+
+    if endpoint == 'synchro':
+        flow = 'bills'
+        date = request.data['date']
+        if date == '':
+            start_date = datetime.today().replace(day=1)
+        else:
+            try:
+                start_date = datetime.strptime(date, '%Y%m%d')
+                verify_date = start_date + relativedelta(months=3)
+                if verify_date < datetime.today():
+                    response = json.dumps([{"Response": "Error", "ERROR": "L'historique est limité à 3 mois."}])
+                    return HttpResponse(response, content_type='text/json')
+                
+            except ValueError:
+                response = json.dumps([{"Response": "Error", "ERROR": 'La date doit être sous format : AAAAmmjj. (exemple: "20210825")'}])
+                return HttpResponse(response, content_type='text/json')
+
+    elif endpoint == 'create':
+        flow = 'connect'
+        start_date = 'Now'
+
+    job_id = add_to_bill_q(flow, username, password, bill, start_date)
+    try:
+        response = json.dumps(job_id, indent=4)
+    except Exception as e:
+        notify_zhor(flow=flow, module=bill, start_date=start_date, e=e)
         response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
     
     return HttpResponse(response, content_type='text/json')
@@ -121,16 +161,28 @@ def process_request(request, bank, endpoint):
 class HistorySynchro(APIView):
     def post(self, request, bank):
         record_request(request)
-        return process_request(request, bank, 'synchro')
+        return process_history_request(request, bank, 'synchro')
 
 
 class HistoryCreate(APIView):
     def post(self, request, bank):
         record_request(request)
-        return process_request(request, bank, 'create')
+        return process_history_request(request, bank, 'create')
 
 
-class HistoryResults(ProtectedResourceView, APIView):
+class BillSynchro(APIView):
+    def post(self, request, bill):
+        record_request(request)
+        return process_bill_request(request, bill, 'synchro')
+
+
+class BillCreate(APIView):
+    def post(self, request, bill):
+        record_request(request)
+        return process_bill_request(request, bill, 'create')
+
+
+class Results(ProtectedResourceView, APIView):
     def get(self, request):
         record_request(request)
         job_id = request.query_params['job_id']
@@ -143,13 +195,13 @@ class HistoryResults(ProtectedResourceView, APIView):
             return HttpResponse(response, content_type='text/json')
 
 
-class HistoryConfirmation(APIView):
+class Confirmation(APIView):
     def get(self, request):
         record_request(request)
         job_id = request.query_params['job_id']
         try:
             job = Job.fetch(job_id, connection=redis)
-            response = json.dumps({"Response": "Ok"})
+            response = json.dumps({"Response": "OK"})
             job.delete(delete_dependents=True)
             return HttpResponse(response, content_type='text/json')
         except:

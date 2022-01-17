@@ -107,7 +107,7 @@ SERVER_EMAIL = 'scrafiserver@gmail.com'
 
 path = os.path.expanduser('~')
 if "C:" in path:
-    path = path.replcae('\\', '/')
+    path = path.replace('\\', '/')
 
 djangoza_server_file = f'{path}/scrafi_project/Logs/django/server/server.log'
 djangoza_request_file = f'{path}/scrafi_project/Logs/django/request/request.log'
