@@ -67,6 +67,7 @@ class BMCEBrowser(SeleniumBrowser):
                 self.logged = True
             except TimeoutException:
                 if self.vignette_page.is_here():
+                    self.logged = True
                     pass
                 else:
                     self.page.check_error()
