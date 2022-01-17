@@ -1,8 +1,0 @@
-Mon 15 Nov - 05:29:21 | 
-     Remote address : 64.62.197.92
-     Headers : {'Content-Length': '', 'Content-Type': 'text/plain', 'Host': '159.65.95.248'}
-     Method : GET
-     Path : http://159.65.95.248:8000/
-     Server protocol : HTTP/1.1
-     Data : {}
-
