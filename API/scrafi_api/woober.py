@@ -342,7 +342,7 @@ class Woobill:
 
         try:
             if self.flow == 'bills':
-                woob_results = w[billash].get_bills(**{'start_date': self.start_date, 'end_date': datetime.today().strftime('%d/%m/%Y')})
+                woob_results = w[billash].get_bills(self.start_date)
 
                 if self.billia != 'BILLEO' :
                     w[billash].browser.driver.quit()
@@ -351,12 +351,13 @@ class Woobill:
                 for result in woob_results:
                     try:
                         data = {
-                            'scrafiId': result.id,
+                            'scrafiId': result.hashid,
                             'fournisseur': self.billia,
-                            'numeroFacture': result.facture,
-                            'dateEcheance': result.duedate,
-                            'montantTTC': result.total_price,
-                            'currency': result.currency
+                            'numeroFacture': result.number,
+                            'dateEcheance': result.date,
+                            'montantTTC': result.montant,
+                            'TVA': result.tva,
+                            'PDF': result.pdf
                         }
                         results.append(data)
 

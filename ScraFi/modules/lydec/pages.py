@@ -170,8 +170,8 @@ class LydecBill(Bill):
     url = StringField('URL de la facture')
     
     def __repr__(self):
-        return '<%s number=%r date=%r montant=%r tva=%r pdf=%r>' % (
-            type(self).__name__, self.number, self.date, self.montant, self.tva, self.pdf)
+        return '<%s number=%r date=%r montant=%r tva=%r>' % (
+            type(self).__name__, self.number, self.date, self.montant, self.tva)
 
 
 class BillsPage(SeleniumPage):
