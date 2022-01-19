@@ -1,10 +1,9 @@
 Random/**
 **/__pycache__
-**/*.pyc
 __pycache__/
+**/*.pyc
 *.pyc
 IDs.txt
 chromedriver.exe
-Random/billJson.json
 *.log.*
 *.log
