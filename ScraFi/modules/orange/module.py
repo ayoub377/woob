@@ -22,23 +22,25 @@ from __future__ import unicode_literals
 
 from woob.tools.backend import Module, BackendConfig
 from woob.tools.value import ValueBackendPassword
+
+from woob.capabilities.profile import CapProfile
 from woob.capabilities.bill import CapDocument
 
-from .browser import LydecBrowser
+from .browser import OrangeBrowser
 
 
-__all__ = ['LydecModule']
+__all__ = ['OrangeModule']
 
 
-class LydecModule(Module, CapDocument):
-    NAME = 'lydec'
-    DESCRIPTION = 'Lyonnaise des Eaux de Casablanca'
+class OrangeModule(Module, CapDocument, CapProfile):
+    NAME = 'orange'
+    DESCRIPTION = 'Orange'
     MAINTAINER = 'Zhor Abid'
     EMAIL = 'zhor.abid@gmail.com'
     LICENSE = 'LGPLv3+'
     VERSION = '3.1'
 
-    BROWSER = LydecBrowser
+    BROWSER = OrangeBrowser
 
     CONFIG = BackendConfig(
         ValueBackendPassword('login', label='Utilisateur', masked=False),

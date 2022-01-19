@@ -22,13 +22,11 @@ from __future__ import unicode_literals
 
 import time, hashlib, requests, base64
 from datetime import datetime
-from selenium.common.exceptions import NoSuchElementException
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
-
-from woob.capabilities.profile import Person
-from woob.capabilities.bill import Bill, Subscription
+from woob.capabilities.bill import Bill
 from woob.capabilities.base import StringField
+from selenium.common.exceptions import NoSuchElementException
 
 
 class LoginPage(SeleniumPage):
@@ -49,129 +47,18 @@ class LoginPage(SeleniumPage):
 
         
 class AccueilPage(SeleniumPage):
-    """
-    We only need this class to prevent browser from considering
-    other pages as accueil page.
-    """
     is_here = VisibleXPath('//span[contains(text(),"Accueil")]')
 
-
-class LydecPerson(Person):
-    def __repr__(self):
-        return '<%s name=%r country=%r phone=%r mobile=%r email=%r>' % (
-        type(self).__name__, self.name, self.country, self.phone, self.mobile, self.email
-    )
-        
-        
-class ProfilePage(SeleniumPage):
-    is_here = VisibleXPath('//*[@id="p_p_id_InfosClient_WAR_InfosClientportlet_"]')
-
-    def get_profile(self):
-        p = LydecPerson()
-        p.name = self.driver.find_element_by_xpath('//*[@id="topnav"]/a').text
-        p.country = self.driver.find_element_by_xpath('//*[@id="indicatif"]/option[@selected="selected"]').text
-        p.phone = self.driver.find_element_by_xpath('//*[@id="fixe"]').get_attribute('value')
-        p.mobile = self.driver.find_element_by_xpath('//*[@id="gsm"]').get_attribute('value')
-        p.email = self.driver.find_element_by_xpath('//*[@id="email"]').get_attribute('value')
-
-        del(
-            p.birth_date, p.firstname, p.lastname, p.nationality, p.gender, p.maiden_name, p.spouse_name,
-            p.children, p.family_situation, p.matrimonial, p.housing_status, p.job, p.job_start_date,
-            p.job_activity_area, p.job_contract_type, p.company_name, p.company_siren, p.socioprofessional_category,
-            p.postal_address, p.professional_phone, p.professional_email, p.main_bank
-        )
-        return p
-
-
-class LydecSub(Subscription):
-    etat_contrat = StringField('Contract state')
-    address = StringField('Address')
-    conso = StringField('Consomation')
-    impaye = StringField('Les impayés')
-
-
-class SubscriptionPage(SeleniumPage):
-    is_here = VisibleXPath('//h1[contains(text(),"Mes Contrats")]')
-
-    def get_subscriptions(self):
-        subs = []
-        lines = self.driver.find_elements_by_xpath('//*[@id="thetable"]/tbody/tr')
-        for line in lines:
-            sub = LydecSub()
-            sub.id = line.find_element_by_xpath('.//td[2]/a').text
-            sub.label = self.set_label(line.find_element_by_xpath('.//td[1]/img').get_attribute('src'))
-            sub.etat_contrat = line.find_element_by_xpath('.//td[3]').text
-            sub.address = line.find_element_by_xpath('.//td[4]').text
-            sub.conso = line.find_element_by_xpath('.//td[5]').text
-            sub.impaye = line.find_element_by_xpath('.//td[7]/a').text
-
-            del (sub.subscriber, sub.validity, sub.renewdate)
-            subs.append(sub)
-        return subs
-
-    def set_label(self, img):
-        """
-        Each Lydec's contract has a type: Eau / Electricité
-        The type is displayed as an image on the website.
-        Converting images to their meaning
-        """
-        if img.endswith("1.gif"):
-            return 'Eau'
-        elif img.endswith("2.gif"):
-            return 'Electricité'
-
-
-class ImpayePage(SeleniumPage):
-    is_here = VisibleXPath('//*[@id="p_p_id_Impayes_WAR_Impayesportlet_"]')
-
-    def tax_details(self):
-        """
-        Tax details about unpaid bills are on a JavaScript rendered popup.
-        After the click: get the bill details then taxes.
-        """
-        self.driver.find_element_by_xpath('//*[@id="thetable"]/tbody/tr[1]/td[7]/a').click()
-        time.sleep(2)
-        # self.logger.error('DETAILS ARE HERE')  
-              
-        details = self.driver.find_elements_by_xpath('//td[@class="contrat1"]')
-        n_contrat = details[0].text
-        n_facture = details[1].text
-        montant_facture_ttc = details[2].text
-        # taux_tva = 
-
-    def get_impaye(self):
-        impayes = []
-        lines = self.driver.find_elements_by_xpath('//table[@id="thetable"]/tbody/tr')
-        for line in lines:
-            n_police = line.find_element_by_xpath('.//td[3]').text.rstrip()
-
-            impaye = LydecBill()
-            impaye.facture = line.find_element_by_xpath('.//td[1]').text
-            impaye.sub_id = n_police
-            impaye.duedate = datetime.strptime(line.find_element_by_xpath('.//td[5]').text, '%d/%m/%Y').date()
-            impaye.total_price = line.find_element_by_xpath('.//td[7]/a').text
-            impaye.currency = 'MAD'
-            
-            str_2_hash = impaye.facture + impaye.duedate.strftime('%d/%m/%Y') + str(impaye.total_price)
-            impaye.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
-
-            del (
-                impaye.vat, impaye.pre_tax_price, impaye.startdate, impaye.finishdate, impaye.date,
-                impaye.format, impaye.label, impaye.type, impaye.transactions, impaye.number
-            )
-            impayes.append(impaye)
-        return impayes
-        
 
 class LydecBill(Bill):
     montant = StringField('Montant de la facture')
     date = StringField('Date de la facture')
-    tva = StringField('TVA de la facture')
-    url = StringField('URL de la facture')
+    pdf = StringField('PDF de la facture')
+    hashid = StringField('Scrafi ID')
     
     def __repr__(self):
-        return '<%s number=%r date=%r montant=%r tva=%r>' % (
-            type(self).__name__, self.number, self.date, self.montant, self.tva)
+        return '<%s number=%r date=%r montant=%r hashid=%r>' % (
+            type(self).__name__, self.number, self.date, self.montant, self.hashid)
 
 
 class BillsPage(SeleniumPage):
@@ -206,9 +93,8 @@ class BillsPage(SeleniumPage):
                 bill.date = datetime.strptime(prd_fact, "%Y%m").strftime("%m/%Y")
 
                 bill.montant = tr.find_element_by_xpath('./td[3]').text
-                bill.tva = tr.find_element_by_xpath('./td[4]').text
+                
                 url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
-
                 pdf = requests.get(url, verify=False)
                 bill.pdf = base64.urlsafe_b64encode(pdf.content).decode('utf8')
                                 

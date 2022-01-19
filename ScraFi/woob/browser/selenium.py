@@ -530,6 +530,7 @@ class SeleniumBrowser(object):
                 capa['profile'] = self.responses_dirname
             self.driver = self.DRIVER(options=options, capabilities=capa, **driver_kwargs)
         elif self.DRIVER is webdriver.Chrome:
+            options.add_argument("start-maximized")
             options.add_argument('--no-sandbox')
             if self.HEADLESS:
                 # Prevent random renderer timeout

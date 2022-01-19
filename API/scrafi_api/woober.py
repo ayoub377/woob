@@ -1,4 +1,4 @@
-import requests, sys, json, configparser, time, discord, random, traceback, logging, hashlib, os
+import requests, sys, json, configparser, time, discord, traceback, logging, hashlib, os
 from datetime import datetime
 
 from woob.core import Woob
@@ -27,10 +27,15 @@ bankis = {
 
 billis = {
     'lydec': 'Lydec',
+    'orange': 'Orange',
     'inwi': 'Inwi',
     'iam': 'Maroc Telecom',
-    'org': 'Orange Pro',
     'billeo': 'BILLEO'
+}
+
+billid = {
+    'lydec': 1,
+    'orange': 2
 }
 
 def setup_logger(name, log_file):
@@ -64,57 +69,6 @@ def discord_msg(msg='===> UNCAUGHT ERROR <=== \n ', unparsed=None):
 
     while msg[-1:] == '\n':
         msg = msg[:-1]
-
-    # gifs = {
-        # 1 : 'https://tenor.com/view/chaos-fire-gif-19254681',
-        # 2 : 'https://tenor.com/view/spongebob-squarepants-spongebob-patrick-star-we-have-a-bug-panic-gif-4771359',
-        # 3 : 'https://tenor.com/view/sad-tantrum-its-not-working-crying-kid-gif-17025985',
-        # 4 : 'https://tenor.com/view/brand-new-bugs-bug-glitch-error-new-gif-22594128',
-        # 5 : 'https://tenor.com/view/steve-urkel-jaleel-white-look-what-you-did-see-what-you-done-unimpressed-gif-15136944',
-        # 6 : 'https://tenor.com/view/dr-house-gregory-house-oops-gif-6118887',
-        # 7 : 'https://tenor.com/view/boys-dance-dealwithit-gif-4255501',
-        # 8 : 'https://tenor.com/view/sorry-not-sorry-gif-9110784',
-        # 9 : 'https://tenor.com/view/chris-hemsworth-im-not-even-sorry-sorry-not-sorry-gif-8270819',
-        # 10: 'https://tenor.com/view/hello-sexy-hi-hello-mr-bean-gif-13830351',
-        # 11: 'https://tenor.com/view/mr-bean-mr-beans-holiday-rowan-atkinson-lottery-raffle-gif-14784047',
-        # 12: 'https://tenor.com/view/mr-bean-gif-8578130',
-        # 13: 'https://tenor.com/view/mr-bean-b34n-benestad-alvesta-r0w4n-gif-21509234',
-        # 14: 'https://tenor.com/view/mr-bean-what-angry-gif-12489655',
-        # 15: 'https://tenor.com/view/mr-bean-middle-finger-fuck-you-fuck-everyone-smh-gif-5650690',
-        # 16: 'https://tenor.com/view/trump-you-on-some-shit-donald-trump-gif-9570908',
-        # 17: 'https://tenor.com/view/whatever-sarcasm-oh-well-pssh-yeah-okay-gif-4951048',
-        # 18: 'https://tenor.com/view/clap-applause-proud-wow-amazed-gif-15751919',
-        # 19: 'https://tenor.com/view/wow-omg-surprised-scared-kid-gif-10714204',
-        # 20: 'https://tenor.com/view/krunt-emily-blunt-wow-gif-20540815',
-        # 21: 'https://tenor.com/view/office-space-bill-lumbergh-we-have-sort-of-a-problem-here-problem-worried-gif-4780644',
-        # 22: 'https://tenor.com/view/my-problems-are-your-problems-pay-attention-to-me-im-your-problem-take-care-of-me-mazikeen-gif-16845925',
-        # 23: 'https://tenor.com/view/houston-we-have-a-problem-tom-hanks-jim-lovell-apollo13-somethings-wrong-gif-17242743',
-        # 24: 'https://tenor.com/view/your-fault-leave-walk-out-finger-guns-spongebob-gif-17364939',
-        # 25: 'https://tenor.com/view/youre-entirely-to-blame-blaming-its-you-its-your-fault-youre-to-blame-gif-15158052',
-        # 26: 'https://tenor.com/view/seriously-are-you-serious-is-this-a-joke-gif-9295216',
-        # 27: 'https://tenor.com/view/ffs-baby-really-oh-god-just-stop-gif-12739180',
-        # 28: 'https://tenor.com/view/obama-what-seriously-wtf-gif-12341428',
-        # 29: 'https://tenor.com/view/seriously-are-you-serious-kid-blinking-gif-15637790',
-        # 30: 'https://tenor.com/view/oh-no-you-didnt-no-way-pout-upset-are-you-serious-gif-6213376',
-        # 31: 'https://tenor.com/view/im-sorry-that-you-suck-animated-text-moving-text-gif-11613664',
-        # 32: 'https://tenor.com/view/baby-yoda-um-nope-gif-18367579',
-        # 33: 'https://tenor.com/view/haha-good-one-the-office-smh-no-gif-14556369',
-        # 34: 'https://tenor.com/view/inauguration-cnn2017-donald-trump-finger-wag-no-gif-7576946',
-        # 35: 'https://tenor.com/view/absolutely-not-nope-no-no-way-no-chance-gif-17243246',
-        # 36: 'https://tenor.com/view/code-red-panic-omg-oh-no-warning-gif-16511097',
-        # 37: 'https://tenor.com/view/this-code-will-one-hundred-percent-help-you-justin-mitchel-free-code-camp-this-code-will-work-perfectly-i-guarantee-this-code-is-effective-gif-22479594',
-        # 38: 'https://tenor.com/view/jennifer-lawrence-you-failed-fail-failure-yeah-gif-4620641',
-        # 39: 'https://tenor.com/view/star-wars-yoda-that-is-why-you-fail-fail-gif-17943164',
-        # 40: 'https://tenor.com/view/homer-simpsons-simpson-fail-failure-gif-8569786',
-        # 41: 'https://tenor.com/view/complete-failure-failure-fail-failed-messed-up-gif-13749983',
-        # 42: 'https://tenor.com/view/stop-apologizing-and-correct-your-error-marco-inaros-keon-alexander-the-expanse-s506-gif-19851770',
-        # 43: 'https://tenor.com/view/beepo-error-beepo-error-ownershub-bawwub-gif-22844466',
-        # 44: 'https://tenor.com/view/error-type-glitch-enter-gif-16906556',
-        # 45: 'https://tenor.com/view/warning-lights-cops-emergency-gif-6098038',
-        # 46: 'https://tenor.com/view/alert-siren-warning-light-gif-15160785',
-        # 47: 'https://tenor.com/view/minion-despicable-me-dreamworks-sirens-alarm-gif-5633151',
-    # }
-    # numb = random.randint(1, 47)
 
     client = discord.Client()
     @client.event
@@ -285,6 +239,7 @@ class Woobill:
         self.password = password
         self.bill = bill
         self.billia = billis[bill]
+        self.fournisseurId = billid[bill]
 
         if date == 'Now':
             self.start_date = date
@@ -352,11 +307,10 @@ class Woobill:
                     try:
                         data = {
                             'scrafiId': result.hashid,
-                            'fournisseur': self.billia,
+                            'fournisseurId': self.fournisseurId,
                             'numeroFacture': result.number,
                             'dateEcheance': result.date,
                             'montantTTC': result.montant,
-                            'TVA': result.tva,
                             'PDF': result.pdf
                         }
                         results.append(data)
@@ -366,7 +320,7 @@ class Woobill:
                         return self.error_response(str(woob_results))
 
                 self.logger.info('Returning data')
-                return {"Response": "OK", "Bills": results}
+                return {"Response": "OK", "FactureAchat": results}
 
             elif self.flow == 'connect':
                 woob_results = w[billash].connect()
@@ -379,7 +333,7 @@ class Woobill:
                     try:
                         creds = {
                             'scrafiId': result,
-                            'fournisseur': self.billia,
+                            'fournisseurId': self.fournisseurId,
                             'username': self.username,
                             'password': self.password
                         }
@@ -390,7 +344,7 @@ class Woobill:
                         return self.error_response(str(woob_results))
 
                 self.logger.info('Returning data')
-                return {"Response": "OK", "Credentials": results}
+                return {"Response": "OK", "Tiers": results}
 
         except Exception as e:
             if not self.billia in ('BILLEO') :

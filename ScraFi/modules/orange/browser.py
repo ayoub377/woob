@@ -27,11 +27,11 @@ from woob.browser.selenium import SeleniumBrowser, webdriver
 from woob.scrafi_exceptions import WebsiteError, WrongCredentialsError
 from selenium.common.exceptions import TimeoutException
 
-from .pages import LoginPage, AccueilPage, BillsPage
+from .pages import LoginPage, InscriptionPage, AccueilPage, BillsPage
 
 
-class LydecBrowser(SeleniumBrowser):
-    BASEURL = 'https://client.lydec.ma/site'
+class OrangeBrowser(SeleniumBrowser):
+    BASEURL = 'https://espace-entreprise.orange.ma'
 
     if 'linux' in sys.platform:
         from xvfbwrapper import Xvfb
@@ -39,12 +39,13 @@ class LydecBrowser(SeleniumBrowser):
         vdisplay.start()
 
     HEADLESS = False
-
+    
     DRIVER = webdriver.Chrome
 
-    login_page = URL(r'/fr/web/lydec', LoginPage)
-    accueil_page = URL(r'/fr/web/lydec/accueil', AccueilPage)
-    bills_page = URL(r'/fr/web/lydec/mes-factures-multisites', BillsPage)
+    login_page = URL(r'/sso/login', LoginPage)
+    inscription_page = URL(r'/inscription', InscriptionPage)
+    accueil_page = URL(r'', AccueilPage)
+    bills_page = URL(r'/gerez-vos-factures', BillsPage)
 
     error_msg = ''
 
@@ -52,7 +53,7 @@ class LydecBrowser(SeleniumBrowser):
         self.config = config
         self.username = self.config['login'].get()
         self.password = self.config['password'].get()
-        super(LydecBrowser, self).__init__(*args, **kwargs)
+        super(OrangeBrowser, self).__init__(*args, **kwargs)
 
     def do_login(self):
         self.login_page.stay_or_go()
@@ -63,7 +64,10 @@ class LydecBrowser(SeleniumBrowser):
                 self.wait_until_is_here(self.accueil_page)
                 self.logged = True
             except TimeoutException: 
-                if self.page.check_error():
+                if self.inscription_page.is_here():
+                    self.error_msg = "credentials"
+                    raise WrongCredentialsError
+                elif self.page.check_error():
                     self.error_msg = "credentials"
                     raise WrongCredentialsError
         except TimeoutException:

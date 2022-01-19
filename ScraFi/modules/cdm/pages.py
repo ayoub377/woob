@@ -35,7 +35,7 @@ from woob.browser.selenium import SeleniumPage, VisibleXPath
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
-from woob.scrafi_exceptions import NoHistoryError, PassLengthError, UserLengthError, WrongCredentialsError
+from woob.scrafi_exceptions import NoHistoryError, WrongCredentialsError
 
 np.set_printoptions(threshold=sys.maxsize)
 
@@ -98,12 +98,12 @@ class LoginPage(SeleniumPage):
             try:
                 self.driver.find_element_by_xpath('//label[@id="user-error"]')
                 self.browser.error_msg = 'credentials'
-                raise UserLengthError
+                raise WrongCredentialsError
             except NoSuchElementException:
                 try:
                     self.driver.find_element_by_xpath('//label[@id="pass-error"]')
                     self.browser.error_msg = 'credentials'
-                    raise PassLengthError
+                    raise WrongCredentialsError
                 except NoSuchElementException:
                     self.browser.do_login()
         
