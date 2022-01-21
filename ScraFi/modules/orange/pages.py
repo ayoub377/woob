@@ -63,8 +63,8 @@ class OrangeBill(Bill):
     hashid = StringField('ScraFi ID')
     
     def __repr__(self):
-        return '<%s number=%r date=%r montant=%r tva=%r hashid=%r>' % (
-            type(self).__name__, self.number, self.date, self.montant, self.tva, self.hashid)
+        return '<%s number=%r date=%r montant=%r hashid=%r>' % (
+            type(self).__name__, self.number, self.date, self.montant, self.hashid)
 
 
 class BillsPage(SeleniumPage):
