@@ -7,3 +7,6 @@ IDs.txt
 chromedriver.exe
 *.log.*
 *.log
+supervizor/supervisord.pid
+API/db.sqlite3
+dump.rdb
