@@ -130,9 +130,14 @@ class HistoryPage(SeleniumPage):
                                 checker = end
                                 checker_m_y = french_months[end[3:5]] + ' ' + end[-4:]
                                 checker_day = int(end[:2])
-                                if day_number == checker_day:
-                                    day.click()
-                                    check_next = False
+                                if month_name == checker_m_y:
+                                    if day_number == checker_day:
+                                        day.click()
+                                        check_next = False
+                                        break
+                                    else:
+                                        continue
+                                else:
                                     break
                             else:
                                 check_next = False
