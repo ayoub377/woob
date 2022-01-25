@@ -91,15 +91,14 @@ class BillsPage(SeleniumPage):
 
                 prd_fact = tr.find_element_by_xpath('./td[2]').text.rstrip()
                 bill.date = datetime.strptime(prd_fact, "%Y%m").strftime("%m/%Y")
-
                 bill.montant = tr.find_element_by_xpath('./td[3]').text
-                
-                url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
-                pdf = requests.get(url, verify=False)
-                bill.pdf = base64.urlsafe_b64encode(pdf.content).decode('utf8')
-                                
+
                 str_2_hash = bill.number + bill.date + bill.montant
                 bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+
+                url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
+                response = requests.get(url, verify=False)
+                bill.pdf = base64.b64encode(response.content).decode('utf8')
 
                 bills.append(bill)
         return bills
