@@ -302,8 +302,8 @@ class Woobill:
                         data = {
                             'scrafiId': result.hashid,
                             'dateFacture': result.date,
-                            'montantTTC': result.montant
-                            # 'PDF': result.pdf
+                            'montantTTC': result.montant,
+                            'PDF': result.pdf
                         }
                         results.append(data)
 
