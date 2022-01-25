@@ -33,11 +33,6 @@ billis = {
     'billeo': 'BILLEO'
 }
 
-billid = {
-    'lydec': 1,
-    'orange': 2
-}
-
 def setup_logger(name, log_file):
     logger = logging.getLogger(name)
     if not logger.hasHandlers():
@@ -239,7 +234,6 @@ class Woobill:
         self.password = password
         self.bill = bill
         self.billia = billis[bill]
-        self.fournisseurId = billid[bill]
 
         if date == 'Now':
             self.start_date = date
@@ -307,11 +301,9 @@ class Woobill:
                     try:
                         data = {
                             'scrafiId': result.hashid,
-                            'fournisseurId': self.fournisseurId,
-                            'numeroFacture': result.number,
-                            'dateEcheance': result.date,
-                            'montantTTC': result.montant,
-                            'PDF': result.pdf
+                            'dateFacture': result.date,
+                            'montantTTC': result.montant
+                            # 'PDF': result.pdf
                         }
                         results.append(data)
 
@@ -333,18 +325,16 @@ class Woobill:
                     try:
                         creds = {
                             'scrafiId': result,
-                            'fournisseurId': self.fournisseurId,
                             'username': self.username,
                             'password': self.password
                         }
-                        results.append(creds)
                 
                     except AttributeError:
                         self.unparsed = True
                         return self.error_response(str(woob_results))
 
                 self.logger.info('Returning data')
-                return {"Response": "OK", "Tiers": results}
+                return {"Response": "OK", "Tier": creds}
 
         except Exception as e:
             if not self.billia in ('BILLEO') :
@@ -377,34 +367,34 @@ class Woobill:
 
 
 def notify_client(job_id):
-    notify_job = get_current_job()
+    # notify_job = get_current_job()
     logger = rq_logger()
     logger.info('RQ ### notify_client("%s") \n' % job_id)
 
-    data = json.dumps({"notification": "Job is done", "job_id": job_id})
-    signature = create_signature(data)
-    headers = {'X-INEO-Signature': signature, 'content-type':'text/plain'}
-    r_post = requests.post(
-        'https://ineo.app/api/Webhook/IneoReceiver',
-        headers=headers,
-        data=data)
-    response = str(r_post.content)
-    logger.info('POST Response >>> ' + response)
+    # data = json.dumps({"notification": "Job is done", "job_id": job_id})
+    # signature = create_signature(data)
+    # headers = {'X-INEO-Signature': signature, 'content-type':'text/plain'}
+    # r_post = requests.post(
+    #     'https://ineo.app/api/Webhook/IneoReceiver',
+    #     headers=headers,
+    #     data=data)
+    # response = str(r_post.content)
+    # logger.info('POST Response >>> ' + response)
 
-    if '400' in response:
-        logger.info('RETRIES LEFT : %i' % notify_job.retries_left)
-        if notify_job.retries_left > 0:
-            logger.info("Client can't find the job ID \n")
-            raise Exception("Client can't find the job ID \n")
-        else:
-            job = Job.fetch(job_id, connection=redis)
-            logger.info('DELETING RESULTS... \n')
-            job.delete(delete_dependents=True)
-    elif "404" in response:
-        raise Exception('Error 404 \n')
-    elif "502" in response:
-        logger.error('502 Response ---> Backend out of service')
-        time.sleep('480')
-        raise Exception('Backend out of service \n')
-    else:
-        logger.info('no 400. no 404. and no 502.\n')
+    # if '400' in response:
+    #     logger.info('RETRIES LEFT : %i' % notify_job.retries_left)
+    #     if notify_job.retries_left > 0:
+    #         logger.info("Client can't find the job ID \n")
+    #         raise Exception("Client can't find the job ID \n")
+    #     else:
+    #         job = Job.fetch(job_id, connection=redis)
+    #         logger.info('DELETING RESULTS... \n')
+    #         job.delete(delete_dependents=True)
+    # elif "404" in response:
+    #     raise Exception('Error 404 \n')
+    # elif "502" in response:
+    #     logger.error('502 Response ---> Backend out of service')
+    #     time.sleep('480')
+    #     raise Exception('Backend out of service \n')
+    # else:
+    #     logger.info('no 400. no 404. and no 502.\n')
