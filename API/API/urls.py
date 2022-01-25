@@ -30,6 +30,9 @@ urlpatterns = [
 
     path('bankHistory/getResult', views.Results.as_view(), name='Results'),
     path('bankHistory/Confirmation', views.Confirmation.as_view(), name='Confirmation'),
+
+    path('getResult', views.Results.as_view(), name='Results'),
+    path('Confirmation', views.Confirmation.as_view(), name='Confirmation'),
     
     re_path(r'.*', views.other_paths, name='OtherPaths')
 ]

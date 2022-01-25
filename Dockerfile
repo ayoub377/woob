@@ -16,6 +16,7 @@ RUN apt-get install pkg-config -y
 RUN apt-get install libpng-dev -y
 RUN apt-get install libjpeg8-dev -y
 RUN apt-get install libtiff5-dev -y
+RUN apt-get install vim -y
 RUN apt install tesseract-ocr -y
 RUN pip install Pillow
 RUN pip install pytesseract

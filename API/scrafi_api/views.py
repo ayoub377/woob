@@ -55,25 +55,31 @@ def record_request(request):
     
 
 def process_history_request(request, bank, endpoint):
+    customfile = f'{path}/scrafi_project/Logs/django/custom/custom.log'
+    custom_logger = setup_logger(f'custom_logger', customfile)
     available_banks = ['awb', 'bmce', 'cdm', 'cfg', 'chaabi', 'cih', 'ineo']
     if bank not in available_banks:
         response = json.dumps([{"Response": "Error", "ERROR": "Le connecteur %s n'existe pas." % bank}])
+        custom_logger.info('[{"Response": "Error", "ERROR": "Le connecteur %s n\'existe pas."}]' % bank)
         return HttpResponse(response, content_type='text/json')
 
     username = request.data['username']
     if username == '':
         response = json.dumps([{"Response": "Error", "ERROR": "L'identifiant est obligatoire."}])
+        custom_logger.info('[{"Response": "Error", "ERROR": "L\'identifiant est obligatoire."}]')
         return HttpResponse(response, content_type='text/json')
 
     password = request.data['password']
     if password == '':
         response = json.dumps([{"Response": "Error", "ERROR": "Le mot de passe est obligatoire."}])
+        custom_logger.info('[{"Response": "Error", "ERROR": "Le mot de passe est obligatoire."}]')
         return HttpResponse(response, content_type='text/json')
 
     acc_id = request.data['acc_id']
     if acc_id in ('', ' '):
         if endpoint == 'synchro':
             response = json.dumps([{"Response": "Error", "ERROR": "L'ID du compte est obligatoire."}])
+            custom_logger.info('[{"Response": "Error", "ERROR": "L\'ID du compte est obligatoire."}]')
             return HttpResponse(response, content_type='text/json')
         elif endpoint == 'create':
             acc_id = 'no_id'
@@ -93,10 +99,12 @@ def process_history_request(request, bank, endpoint):
                 verify_date = start_date + relativedelta(months=3)
                 if verify_date < datetime.today():
                     response = json.dumps([{"Response": "Error", "ERROR": "L'historique est limité à 3 mois."}])
+                    custom_logger.info('[{"Response": "Error", "ERROR": "L\'historique est limité à 3 mois."}]')
                     return HttpResponse(response, content_type='text/json')
                 
             except ValueError:
-                response = json.dumps([{"Response": "Error", "ERROR": 'La date doit être sous format : AAAAmmjj. (exemple: "20210825")'}])
+                response = json.dumps([{"Response": "Error", "ERROR": "La date doit être sous format : AAAAmmjj. (exemple: 20210825)"}])
+                custom_logger.info('[{"Response": "Error", "ERROR": "La date doit être sous format : AAAAmmjj. (exemple: 20210825)"}]')
                 return HttpResponse(response, content_type='text/json')
     else:
         start_date = 'Now'
@@ -107,24 +115,30 @@ def process_history_request(request, bank, endpoint):
     except Exception as e:
         notify_zhor(flow=flow, bank=bank, start_date=start_date, e=e)
         response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
+        custom_logger.info('[{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus tard."}]')
     
     return HttpResponse(response, content_type='text/json')
 
 
 def process_bill_request(request, bill, endpoint):
+    customfile = f'{path}/scrafi_project/Logs/django/custom/custom.log'
+    custom_logger = setup_logger(f'custom_logger', customfile)
     available_bills = ['lydec']
     if bill not in available_bills:
         response = json.dumps([{"Response": "Error", "ERROR": "Le connecteur %s n'existe pas." % bill}])
+        custom_logger.info('[{"Response": "Error", "ERROR": "Le connecteur %s n\'existe pas."}]' % bill)
         return HttpResponse(response, content_type='text/json')
 
     username = request.data['username']
     if username == '':
         response = json.dumps([{"Response": "Error", "ERROR": "L'identifiant est obligatoire."}])
+        custom_logger.info('[{"Response": "Error", "ERROR": "L\'identifiant est obligatoire."}]')
         return HttpResponse(response, content_type='text/json')
 
     password = request.data['password']
     if password == '':
         response = json.dumps([{"Response": "Error", "ERROR": "Le mot de passe est obligatoire."}])
+        custom_logger.info('[{"Response": "Error", "ERROR": "Le mot de passe est obligatoire."}]')
         return HttpResponse(response, content_type='text/json')
 
     if endpoint == 'synchro':
@@ -138,10 +152,12 @@ def process_bill_request(request, bill, endpoint):
                 verify_date = start_date + relativedelta(months=3)
                 if verify_date < datetime.today():
                     response = json.dumps([{"Response": "Error", "ERROR": "L'historique est limité à 3 mois."}])
+                    custom_logger.info('[{"Response": "Error", "ERROR": "L\'historique est limité à 3 mois."}]')
                     return HttpResponse(response, content_type='text/json')
                 
             except ValueError:
-                response = json.dumps([{"Response": "Error", "ERROR": 'La date doit être sous format : AAAAmmjj. (exemple: "20210825")'}])
+                response = json.dumps([{"Response": "Error", "ERROR": 'La date doit être sous format : AAAAmmjj. (exemple: 20210825)'}])
+                custom_logger.info('[{"Response": "Error", "ERROR": "La date doit être sous format : AAAAmmjj. (exemple: 20210825)"}]')
                 return HttpResponse(response, content_type='text/json')
 
     elif endpoint == 'create':
@@ -154,6 +170,7 @@ def process_bill_request(request, bill, endpoint):
     except Exception as e:
         notify_zhor(flow=flow, module=bill, start_date=start_date, e=e)
         response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
+        custom_logger.info('[{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus tard."}]')
     
     return HttpResponse(response, content_type='text/json')
 
@@ -185,27 +202,34 @@ class BillCreate(APIView):
 class Results(ProtectedResourceView, APIView):
     def get(self, request):
         record_request(request)
+        customfile = f'{path}/scrafi_project/Logs/django/custom/custom.log'
+        custom_logger = setup_logger(f'custom_logger', customfile)
         job_id = request.query_params['job_id']
         try:
             job = Job.fetch(job_id, connection=redis)
             response = json.dumps(job.result, indent=4, ensure_ascii=False).encode('utf8')
             return HttpResponse(response, content_type='text/json')
         except:
-            response = json.dumps([{"Response": "Error", "ERROR": "Ce job ID n'existe pas."}])
+            response = json.dumps({"Response": "Error", "ERROR": "Ce job ID n'existe pas."})
+            custom_logger.info('{"Response": "Error", "ERROR": "Ce job ID n\'existe pas."}')
             return HttpResponse(response, content_type='text/json')
 
 
 class Confirmation(APIView):
     def get(self, request):
         record_request(request)
+        customfile = f'{path}/scrafi_project/Logs/django/custom/custom.log'
+        custom_logger = setup_logger(f'custom_logger', customfile)
         job_id = request.query_params['job_id']
         try:
             job = Job.fetch(job_id, connection=redis)
             response = json.dumps({"Response": "OK"})
+            custom_logger.info('{"Response": "OK"}')
             job.delete(delete_dependents=True)
             return HttpResponse(response, content_type='text/json')
         except:
             response = json.dumps({"Response": "Error", "ERROR": "Ce job ID n'existe pas."})
+            custom_logger.info('{"Response": "Error", "ERROR": "Ce job ID n\'existe pas."}')
             return HttpResponse(response, content_type='text/json')
             
 

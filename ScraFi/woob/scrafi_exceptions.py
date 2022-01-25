@@ -14,11 +14,7 @@ class NoHistoryError(Exception):
     pass
 
 
-class UserLengthError(Exception):
-    pass
-
-
-class PassLengthError(Exception):
+class NoBillError(Exception):
     pass
 
 

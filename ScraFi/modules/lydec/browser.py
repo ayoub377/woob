@@ -24,11 +24,10 @@ import sys, hashlib
 
 from woob.browser import URL, need_login
 from woob.browser.selenium import SeleniumBrowser, webdriver
-
 from woob.scrafi_exceptions import WebsiteError, WrongCredentialsError
 from selenium.common.exceptions import TimeoutException
 
-from .pages import LoginPage, AccueilPage, ProfilePage, SubscriptionPage, ImpayePage, BillsPage
+from .pages import LoginPage, AccueilPage, BillsPage
 
 
 class LydecBrowser(SeleniumBrowser):
@@ -45,9 +44,6 @@ class LydecBrowser(SeleniumBrowser):
 
     login_page = URL(r'/fr/web/lydec', LoginPage)
     accueil_page = URL(r'/fr/web/lydec/accueil', AccueilPage)
-    profile_page = URL('/fr/web/lydec/infos-client', ProfilePage)
-    subscription_page = URL(r'/fr/web/lydec/mes-contrats', SubscriptionPage)
-    impaye_page = URL(r'/fr/web/lydec/mes-impayes', ImpayePage)
     bills_page = URL(r'/fr/web/lydec/mes-factures-multisites', BillsPage)
 
     error_msg = ''
