@@ -67,7 +67,7 @@ class BillsPage(SeleniumPage):
     is_here = VisibleXPath('//h1[contains(text(),"Mes factures")]')
 
     def get_bills(self, date):
-        the_date = datetime.strptime(date, "%d/%m/%Y")
+        the_date = datetime.strptime(date, "%m/%Y")
         month = the_date.strftime('%m')
         year = the_date.strftime('%Y')
         bills = []
@@ -93,7 +93,7 @@ class BillsPage(SeleniumPage):
                 prd_fact = tr.find_element_by_xpath('./td[2]').text.rstrip()
                 parsed_date = datetime.strptime(prd_fact, "%Y%m")
                 bill.date= parsed_date.strftime("%m/%Y")
-                if parsed_date < the_date:
+                if parsed_date != the_date:
                     continue
                 bill.number = tr.find_element_by_xpath('./td[1]').text.rstrip()
                 bill.montant = tr.find_element_by_xpath('./td[3]').text
