@@ -25,6 +25,9 @@ urlpatterns = [
     path('bank/bankHistory/Synchro/<bank>', views.HistorySynchro.as_view(), name='HistorySynchro'),
     path('bank/bankHistory/Create/<bank>', views.HistoryCreate.as_view(), name='HistoryCreate'),
 
+    path('bank/Synchro/<bank>', views.HistorySynchro.as_view(), name='HistorySynchro'),
+    path('bank/Create/<bank>', views.HistoryCreate.as_view(), name='HistoryCreate'),
+
     path('bill/Synchro/<bill>', views.BillSynchro.as_view(), name='BillSynchro'),
     path('bill/Create/<bill>', views.BillCreate.as_view(), name='BillCreate'),
 
