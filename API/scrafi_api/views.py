@@ -90,10 +90,10 @@ def process_history_request(request, bank, endpoint):
         if not isinstance(date, datetime):
             try:
                 start_date = datetime.strptime(date, '%Y%m%d')
-                verify_date = start_date + relativedelta(months=3)
-                if verify_date < datetime.today():
-                    response = json.dumps([{"Response": "Error", "ERROR": "L'historique est limité à 3 mois."}])
-                    return HttpResponse(response, content_type='text/json')
+                # verify_date = start_date + relativedelta(months=3)
+                # if verify_date < datetime.today():
+                #     response = json.dumps([{"Response": "Error", "ERROR": "L'historique est limité à 3 mois."}])
+                #     return HttpResponse(response, content_type='text/json')
                 
             except ValueError:
                 response = json.dumps([{"Response": "Error", "ERROR": 'La date doit être sous format : AAAAmmjj. (exemple: "20210825")'}])
