@@ -237,7 +237,7 @@ class Woobill:
         if date == 'Now':
             self.start_date = date
         else:
-            self.start_date = datetime.strftime(date, '%d/%m/%Y')
+            self.start_date = datetime.strftime(date, '%m/%Y')
     
     def add_backend(self, username, password, billash):
         backend ="[%s]\n _module = %s\n login = %s\n password = %s\n\n" % (billash, self.bill, username, password)
