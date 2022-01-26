@@ -26,6 +26,8 @@ from datetime import datetime
 from woob.browser.selenium import SeleniumPage, VisibleXPath
 from woob.capabilities.bill import Bill
 from woob.capabilities.base import StringField
+
+from woob.scrafi_exceptions import NoBillError
 from selenium.common.exceptions import NoSuchElementException
 
 
@@ -51,14 +53,14 @@ class AccueilPage(SeleniumPage):
 
 
 class LydecBill(Bill):
-    montant = StringField('Montant de la facture')
-    date = StringField('Date de la facture')
-    pdf = StringField('PDF de la facture')
     hashid = StringField('Scrafi ID')
+    date = StringField('Date de la facture')
+    montant = StringField('Montant de la facture')
+    pdf = StringField('PDF de la facture')
     
     def __repr__(self):
-        return '<%s number=%r date=%r montant=%r hashid=%r>' % (
-            type(self).__name__, self.number, self.date, self.montant, self.hashid)
+        return '<%s hashid=%r number=%r date=%r montant=%r>' % (
+            type(self).__name__, self.hashid, self.number, self.date, self.montant)
 
 
 class BillsPage(SeleniumPage):
@@ -87,13 +89,16 @@ class BillsPage(SeleniumPage):
             trs = self.driver.find_elements_by_xpath('//table[@id="thetable"]/tbody/tr')
             for tr in trs:
                 bill = LydecBill()
-                bill.number = tr.find_element_by_xpath('./td[1]').text.rstrip()
 
                 prd_fact = tr.find_element_by_xpath('./td[2]').text.rstrip()
-                bill.date = datetime.strptime(prd_fact, "%Y%m").strftime("%m/%Y")
+                parsed_date = datetime.strptime(prd_fact, "%Y%m")
+                bill.date= parsed_date.strftime("%m/%Y")
+                if parsed_date < the_date:
+                    continue
+                bill.number = tr.find_element_by_xpath('./td[1]').text.rstrip()
                 bill.montant = tr.find_element_by_xpath('./td[3]').text
 
-                str_2_hash = bill.number + bill.date + bill.montant
+                str_2_hash = "lydec" + bill.date + bill.montant
                 bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
                 url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
@@ -101,4 +106,9 @@ class BillsPage(SeleniumPage):
                 bill.pdf = base64.b64encode(response.content).decode('utf8')
 
                 bills.append(bill)
-        return bills
+                
+        if len(bills) == 0:
+            self.browser.error_msg = 'nobill'
+            raise NoBillError
+        else:
+            return bills
