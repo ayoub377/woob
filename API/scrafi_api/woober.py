@@ -300,6 +300,7 @@ class Woobill:
                     try:
                         data = {
                             'scrafiId': result.hashid,
+                            'factureNumero': result.number,
                             'dateFacture': result.date,
                             'montantTTC': result.montant,
                             'PDF': result.pdf
