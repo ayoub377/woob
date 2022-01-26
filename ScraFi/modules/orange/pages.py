@@ -20,7 +20,7 @@
 from __future__ import unicode_literals
 
 
-import time, hashlib
+import time, hashlib, requests, base64
 from datetime import datetime
 
 from woob.capabilities.bill import Bill
@@ -71,8 +71,9 @@ class BillsPage(SeleniumPage):
     is_here = VisibleXPath('//h3[contains(text(),"Synthèse de facturation")]')
 
     def get_bills(self, date):
-        the_date = datetime.strptime(date, "%d/%m/%Y")
+        the_date = datetime.strptime(date, "%m/%Y")
         bills = []
+        urls = []
         french_months = {'Janvier': '01',
             'Février': '02',
             'Mars': '03',
@@ -91,29 +92,38 @@ class BillsPage(SeleniumPage):
         except NoSuchElementException:
             pass
         
-        factures = []
-        factures += self.driver.find_elements_by_xpath('//div[@class="table-facture__row"]')
-        factures += self.driver.find_elements_by_xpath('//div[@class="table-facture__row pagination-element-synthesis"]')
-        if len(factures) == 0:
-            self.browser.error_msg = 'nobill'
-            raise NoBillError
-        
-        for facture in factures:
-            bill = OrangeBill()
-            
-            facture_date = facture.find_element_by_xpath('.//a[@class="cb-popup cboxElement"]').text
-            parsed_date = datetime.strptime(facture_date[:2] + "/" + french_months[facture_date[3:-5]] + "/" + facture_date[-4:], "%d/%m/%Y")
-            bill.date = parsed_date.strftime('%d/%m/%Y')
-            if parsed_date < the_date:
+        synthesis = self.driver.find_elements_by_xpath('//div[@class="table-facture__row pagination-element-synthesis"]')
+        for syn in synthesis:            
+            date_element = syn.find_element_by_xpath('.//a[@class="cb-popup cboxElement"]')
+            date_text = date_element.text
+            date_object = datetime.strptime(french_months[date_text[3:-5]] + "/" + date_text[-4:], "%m/%Y")
+            bill_date = date_object.strftime('%m/%Y')
+
+            if date_object != the_date:
                 continue
-            
-            bill.montant = facture.find_element_by_xpath('.//span[@class="number-direction"]').text
-            str_2_hash = "orange" + bill.date + bill.montant
-            bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
-            
-            bill.pdf = "Idk yet"
-            
-            bills.append(bill)
+            else:
+                urel = date_element.get_attribute("href")
+                urls.append(urel)
+        
+        for url in urls:
+            self.browser.location(url)
+            time.sleep(3)
+            factures = self.driver.find_elements_by_xpath('//div[@class="table-facture__row pagination-element"]')
+            for facture in factures:
+                bill = OrangeBill()
+                
+                bill.date = bill_date
+                bill.number = facture.find_element_by_xpath('.//div[@class="table-facture__cell  w50 table-liste__date "]/span').text
+                bill.montant = facture.find_element_by_xpath('.//div[@class="table-facture__cell  w50 table-liste__montant"]/div/span').text
+                
+                str_2_hash = "orange" + bill.number + bill.date + bill.montant
+                bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+                
+                pdf_url = facture.find_element_by_xpath('.//div[@class="visualiser-content"]/a').get_attribute("href")
+                response = requests.get(pdf_url, verify=False)
+                bill.pdf = base64.b64encode(response.content).decode('utf8')
+                
+                bills.append(bill)
             
         if len(bills) == 0:
             self.browser.error_msg = 'nobill'

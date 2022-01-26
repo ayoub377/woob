@@ -98,7 +98,7 @@ class BillsPage(SeleniumPage):
                 bill.number = tr.find_element_by_xpath('./td[1]').text.rstrip()
                 bill.montant = tr.find_element_by_xpath('./td[3]').text
 
-                str_2_hash = "lydec" + bill.date + bill.montant
+                str_2_hash = "lydec" + bill.number + bill.date + bill.montant
                 bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
                 url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
