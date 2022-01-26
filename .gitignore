@@ -1,10 +1,12 @@
 Random/**
 **/__pycache__
-**/*.pyc
 __pycache__/
+**/*.pyc
 *.pyc
 IDs.txt
 chromedriver.exe
-Random/billJson.json
 *.log.*
 *.log
+supervizor/supervisord.pid
+API/db.sqlite3
+dump.rdb

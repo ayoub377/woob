@@ -22,13 +22,7 @@ from __future__ import unicode_literals
 
 from woob.tools.backend import Module, BackendConfig
 from woob.tools.value import ValueBackendPassword
-
-from woob.capabilities.base import NotAvailable, find_object
-from woob.capabilities.profile import CapProfile
-from woob.capabilities.bill import (
-    CapDocument, Subscription, SubscriptionNotFound,
-    Document, DocumentNotFound, DocumentTypes,
-)
+from woob.capabilities.bill import CapDocument
 
 from .browser import LydecBrowser
 
@@ -36,7 +30,7 @@ from .browser import LydecBrowser
 __all__ = ['LydecModule']
 
 
-class LydecModule(Module, CapDocument, CapProfile):
+class LydecModule(Module, CapDocument):
     NAME = 'lydec'
     DESCRIPTION = 'Lyonnaise des Eaux de Casablanca'
     MAINTAINER = 'Zhor Abid'
@@ -51,16 +45,11 @@ class LydecModule(Module, CapDocument, CapProfile):
         ValueBackendPassword('password', label='Mot de passe', masked=True)
     )
 
-    accepted_document_types = (DocumentTypes.BILL, DocumentTypes.CONTRACT, DocumentTypes.OTHER)
-
     def create_default_browser(self):
-        print('create_default_browser')
         return self.create_browser(self.config)
 
     def connect(self):
-        print('connect')
         return self.browser.connect()
 
     def get_bills(self, date):
-        print('get_bills')
         return self.browser.get_bills(date)
