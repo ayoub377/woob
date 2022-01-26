@@ -27,8 +27,8 @@ from woob.capabilities.bill import Bill
 from woob.capabilities.base import StringField
 from woob.browser.selenium import SeleniumPage, VisibleXPath
 
-from selenium.common.exceptions import NoSuchElementException
 from woob.scrafi_exceptions import NoBillError
+from selenium.common.exceptions import NoSuchElementException
 
 
 class LoginPage(SeleniumPage):
@@ -57,14 +57,14 @@ class AccueilPage(SeleniumPage):
 
 
 class OrangeBill(Bill):
-    montant = StringField('Montant de la facture')
-    date = StringField('Date de la facture')
-    pdf = StringField('PDF de la facture')
     hashid = StringField('ScraFi ID')
+    date = StringField('Date de la facture')
+    montant = StringField('Montant de la facture')
+    pdf = StringField('PDF de la facture')
     
     def __repr__(self):
-        return '<%s number=%r date=%r montant=%r hashid=%r>' % (
-            type(self).__name__, self.number, self.date, self.montant, self.hashid)
+        return '<%s hashid=%r number=%r date=%r montant=%r>' % (
+            type(self).__name__, self.hashid, self.number, self.date, self.montant)
 
 
 class BillsPage(SeleniumPage):
@@ -73,44 +73,50 @@ class BillsPage(SeleniumPage):
     def get_bills(self, date):
         the_date = datetime.strptime(date, "%d/%m/%Y")
         bills = []
+        french_months = {'Janvier': '01',
+            'Février': '02',
+            'Mars': '03',
+            'Avril': '04',
+            'Mai': '05',
+            'Juin': '06',
+            'Juillet': '07',
+            'Août': '08',
+            'Septembre': '09',
+            'Octobre': '10',
+            'Novembre': '11',
+            'Décembre': '12'}
+        
         try:
             self.driver.find_element_by_xpath('//a[@class="link-souligne res-fr mob-mbs mob-disblock app-showmore-synthesis"]').click()
         except NoSuchElementException:
             pass
         
-        factures = self.driver.find_elements_by_xpath('//div[@class="table-facture__row pagination-element-synthesis"]')
+        factures = []
+        factures += self.driver.find_elements_by_xpath('//div[@class="table-facture__row"]')
+        factures += self.driver.find_elements_by_xpath('//div[@class="table-facture__row pagination-element-synthesis"]')
         if len(factures) == 0:
             self.browser.error_msg = 'nobill'
             raise NoBillError
         
-        for facture in factures:         
+        for facture in factures:
+            bill = OrangeBill()
+            
             facture_date = facture.find_element_by_xpath('.//a[@class="cb-popup cboxElement"]').text
-            french_months = {'Janvier': '01',
-                'Février': '02',
-                'Mars': '03',
-                'Avril': '04',
-                'Mai': '05',
-                'Juin': '06',
-                'Juillet': '07',
-                'Août': '08',
-                'Septembre': '09',
-                'Octobre': '10',
-                'Novembre': '11',
-                'Décembre': '12'}
-
             parsed_date = datetime.strptime(facture_date[:2] + "/" + french_months[facture_date[3:-5]] + "/" + facture_date[-4:], "%d/%m/%Y")
+            bill.date = parsed_date.strftime('%d/%m/%Y')
             if parsed_date < the_date:
                 continue
-                
-            bill = OrangeBill()
-            bill.date = parsed_date.strftime('%d/%m/%Y')
+            
             bill.montant = facture.find_element_by_xpath('.//span[@class="number-direction"]').text
-            
-            bill.number = "IDK"
-            bill.pdf = "Icant"
-            
-            str_2_hash = bill.number + bill.date + bill.montant
+            str_2_hash = "orange" + bill.date + bill.montant
             bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
             
+            bill.pdf = "Idk yet"
+            
             bills.append(bill)
-        return bills
+            
+        if len(bills) == 0:
+            self.browser.error_msg = 'nobill'
+            raise NoBillError
+        else:
+            return bills
