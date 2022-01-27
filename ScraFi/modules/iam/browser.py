@@ -20,7 +20,7 @@
 from __future__ import unicode_literals
 
 
-import sys, hashlib
+import sys, hashlib, os
 
 from woob.browser import URL, need_login
 from woob.browser.selenium import SeleniumBrowser, webdriver
@@ -29,9 +29,8 @@ from selenium.common.exceptions import TimeoutException
 
 from .pages import LoginPage, AccueilPage, BillsPage
 
-
 class MarocTelecomBrowser(SeleniumBrowser):
-    BASEURL = 'https://www.selfcare.iam.ma'
+    BASEURL = 'https://selfcare.iam.ma'
 
     if 'linux' in sys.platform:
         from xvfbwrapper import Xvfb
@@ -41,18 +40,25 @@ class MarocTelecomBrowser(SeleniumBrowser):
     HEADLESS = False
 
     DRIVER = webdriver.Chrome
-
+    
     login_page = URL(r'/Entreprise/Pages/login.aspx', LoginPage)
-    accueil_page = URL(r'/Entreprise/Pages/login.aspx', AccueilPage)
+    accueil_page = URL(r'/Entreprise/Pages/index.aspx', AccueilPage)
     bills_page = URL(r'/Entreprise/Pages/Facturation.aspx', BillsPage)
 
     error_msg = ''
-
+    
     def __init__(self, config, *args, **kwargs):
         self.config = config
         self.username = self.config['login'].get()
         self.password = self.config['password'].get()
-        super(MarocTelecomBrowser, self).__init__(*args, **kwargs)
+        
+        sys_path = os.path.expanduser('~') 
+        if "/" in sys_path:
+            self.hashed = sys_path + "/scrafi_project/ScraFi/modules/iam/downloads/"+ hashlib.md5((self.username + self.password).encode("utf-8")).hexdigest()
+        else:
+            self.hashed = sys_path + "\\scrafi_project\\ScraFi\\modules\\iam\\downloads\\"+ hashlib.md5((self.username + self.password).encode("utf-8")).hexdigest()
+            
+        super(MarocTelecomBrowser, self).__init__(preferences={'download.default_directory' : self.hashed}, *args, **kwargs)
 
     def do_login(self):
         self.login_page.stay_or_go()
@@ -82,4 +88,4 @@ class MarocTelecomBrowser(SeleniumBrowser):
     def get_bills(self, date):
             self.bills_page.stay_or_go()
             self.wait_until_is_here(self.bills_page)
-            return self.page.get_bills(date)
+            return self.page.get_bills(date, self.hashed)

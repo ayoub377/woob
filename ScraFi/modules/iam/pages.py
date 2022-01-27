@@ -20,7 +20,7 @@
 from __future__ import unicode_literals
 
 
-import time, hashlib
+import time, hashlib, base64, shutil
 from datetime import datetime
 
 from woob.capabilities.bill import Bill
@@ -37,7 +37,7 @@ class LoginPage(SeleniumPage):
     def login(self, username, password):
         self.driver.find_element_by_xpath('//input[@id="txtEmail"]').send_keys(username)
         self.driver.find_element_by_xpath('//input[@id="txtPassword"]').send_keys(password)
-        self.driver.find_element_by_xpath('//input[@id="lnkBtnConnex"]').click()
+        self.driver.find_element_by_xpath('//a[@id="lnkBtnConnex"]').click()
     
     def check_error(self):
         time.sleep(1)
@@ -59,15 +59,15 @@ class IamBill(Bill):
     hashid = StringField('ScraFi ID')
     
     def __repr__(self):
-        return '<%s number=%r date=%r montant=%r hashid=%r>' % (
-            type(self).__name__, self.number, self.date, self.montant, self.hashid)
+        return '<%s hashid=%r number=%r date=%r montant=%r>' % (
+            type(self).__name__, self.hashid, self.number, self.date, self.montant)
 
 
 class BillsPage(SeleniumPage):
     is_here = VisibleXPath('//h2[@class="historique"]')
 
-    def get_bills(self, date):
-        the_date = datetime.strptime(date, "%d/%m/%Y")
+    def get_bills(self, date, download_path):
+        the_date = datetime.strptime(date, "%m/%Y")
         bills = []
         french_months = {'janvier': '01',
             'février': '02',
@@ -82,33 +82,44 @@ class BillsPage(SeleniumPage):
             'novembre': '11',
             'décembre': '12'}
         
-        factures = self.driver.find_elements_by_xpath('//div[@class="table table-bordered"]/tbody/tr')
-        if len(factures) == 0:
-            self.browser.error_msg = 'nobill'
-            raise NoBillError
-        
+        factures = self.driver.find_elements_by_xpath('//table[@class="table table-bordered"]/tbody/tr')
         for facture in factures:
             bill = IamBill()
             
             facture_date = facture.find_element_by_xpath('.//td[2]/span').text.split()
             parsed_date = datetime.strptime(french_months[facture_date[0]] + "/" + facture_date[1], "%m/%Y")
-            bill.date = parsed_date.strftime('%m/%Y')
-            if parsed_date < the_date:
+            if parsed_date != the_date:
                 continue
             
+            bill.date = parsed_date.strftime('%m/%Y')
             bill.montant = facture.find_element_by_xpath('.//td[3]').text
-            str_2_hash = "maroctelecom" + bill.date + bill.montant
+            bill.number = facture.find_element_by_xpath('.//td[6]').text
+            
+            str_2_hash = "maroctelecom" + bill.number + bill.date + bill.montant
             bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
             
-            url = facture.find_element_by_xpath('.//td[1]/a').get_attribute("href")
-            print(url)
+            facture.find_element_by_xpath('.//td[1]/a/img').click()
+            annee = the_date.strftime('%Y')
+            mois = the_date.strftime('%m')
+            if mois != "10":
+                mois = mois.replace("0", "")
+            la_date = annee + mois
+            time.sleep(30)
             
-            bill.pdf = "Idk yet"
-            
+            if "\\" in download_path:
+                pdf = f"{download_path}\\facture {la_date}.pdf"
+            else:
+                pdf = f"{download_path}/facture {la_date}.pdf"
+                
+            with open(pdf, "rb") as pdf:
+                bill.pdf = base64.b64encode(pdf.read()).decode('utf8')
+                
             bills.append(bill)
+            shutil.rmtree(download_path)
+            break
             
         if len(bills) == 0:
-            self.browser.error_msg = 'nobill'
+            self.browser.error_msg = 'nobill' 
             raise NoBillError
         else:
             return bills
