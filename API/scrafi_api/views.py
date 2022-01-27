@@ -96,15 +96,6 @@ def process_history_request(request, bank, endpoint):
         if not isinstance(date, datetime):
             try:
                 start_date = datetime.strptime(date, '%Y%m%d')
-                # verify_date = start_date + relativedelta(months=3)
-                # if verify_date < datetime.today():
-                #     response = json.dumps([{"Response": "Error", "ERROR": "L'historique est limité à 3 mois."}])
-                #     return HttpResponse(response, content_type='text/json')
-                # verify_date = start_date + relativedelta(months=3)
-                # if verify_date < datetime.today():
-                #     response = json.dumps([{"Response": "Error", "ERROR": "L'historique est limité à 3 mois."}])
-                #     custom_logger.info('[{"Response": "Error", "ERROR": "L\'historique est limité à 3 mois."}]')
-                #     return HttpResponse(response, content_type='text/json')
                 
             except ValueError:
                 response = json.dumps([{"Response": "Error", "ERROR": "La date doit être sous format : AAAAmmjj. (exemple: 20210825)"}])
@@ -127,7 +118,7 @@ def process_history_request(request, bank, endpoint):
 def process_bill_request(request, bill, endpoint):
     customfile = f'{path}/scrafi_project/Logs/django/custom/custom.log'
     custom_logger = setup_logger(f'custom_logger', customfile)
-    available_bills = ['lydec']
+    available_bills = ['lydec', 'orange', 'iam']
     if bill not in available_bills:
         response = json.dumps([{"Response": "Error", "ERROR": "Le connecteur %s n'existe pas." % bill}])
         custom_logger.info('[{"Response": "Error", "ERROR": "Le connecteur %s n\'existe pas."}]' % bill)
@@ -149,19 +140,15 @@ def process_bill_request(request, bill, endpoint):
         flow = 'bills'
         date = request.data['date']
         if date == '':
-            start_date = datetime.today().replace(day=1)
+            response = json.dumps([{"Response": "Error", "ERROR": 'La date est obligatoire.'}])
+            custom_logger.info('[{"Response": "Error", "ERROR": "La date est obligatoire."}]')
+            return HttpResponse(response, content_type='text/json')
         else:
             try:
-                start_date = datetime.strptime(date, '%Y%m%d')
-                verify_date = start_date + relativedelta(months=3)
-                if verify_date < datetime.today():
-                    response = json.dumps([{"Response": "Error", "ERROR": "L'historique est limité à 3 mois."}])
-                    custom_logger.info('[{"Response": "Error", "ERROR": "L\'historique est limité à 3 mois."}]')
-                    return HttpResponse(response, content_type='text/json')
-                
+                start_date = datetime.strptime(date, '%Y%m')
             except ValueError:
-                response = json.dumps([{"Response": "Error", "ERROR": 'La date doit être sous format : AAAAmmjj. (exemple: 20210825)'}])
-                custom_logger.info('[{"Response": "Error", "ERROR": "La date doit être sous format : AAAAmmjj. (exemple: 20210825)"}]')
+                response = json.dumps([{"Response": "Error", "ERROR": 'La date doit être sous format : AAAAmm. (exemple: 202108)'}])
+                custom_logger.info('[{"Response": "Error", "ERROR": "La date doit être sous format : AAAAmm. (exemple: 202108)"}]')
                 return HttpResponse(response, content_type='text/json')
 
     elif endpoint == 'create':

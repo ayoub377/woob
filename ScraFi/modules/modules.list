@@ -1,12 +1,12 @@
 [DEFAULT]
 name = file___C__Users_zhora_Projects_ScraFi_modules
-update = 202201191723
+update = 202201271656
 maintainer = 
 signed = 0
 key_update = 0
 
 [awb]
-version = 202201191655
+version = 202201271648
 capabilities = CapBank CapCollection
 description = AttijariWafaBank entreprise
 maintainer = Zhor Abid <zhor.abid@gmail.com>
@@ -15,7 +15,7 @@ icon =
 urls = 
 
 [bmce]
-version = 202201191655
+version = 202201171508
 capabilities = CapBank CapCollection
 description = BMCE Bank entreprise
 maintainer = Zhor Abid <zhor.abid@gmail.com>
@@ -24,7 +24,7 @@ icon =
 urls = 
 
 [cdm]
-version = 202201191715
+version = 202201260934
 capabilities = CapBank CapCollection
 description = CDM Bank entreprise
 maintainer = Zhor Abid <zhor.abid@gmail.com>
@@ -33,7 +33,7 @@ icon =
 urls = 
 
 [cfg]
-version = 202201191655
+version = 202201171019
 capabilities = CapBank CapCollection
 description = CFG Bank entreprise
 maintainer = Zhor Abid <zhor.abid@gmail.com>
@@ -42,7 +42,7 @@ icon =
 urls = 
 
 [chaabi]
-version = 202201191655
+version = 202201171019
 capabilities = CapBank CapCollection
 description = Chaabi / banque populaire pro website
 maintainer = Zhor Abid <zhor.abid@gmail.com>
@@ -51,7 +51,7 @@ icon =
 urls = 
 
 [cih]
-version = 202201191655
+version = 202201171019
 capabilities = CapBank CapCollection
 description = CIH bank entreprise
 maintainer = Zhor Abid <zhor.abid@gmail.com>
@@ -59,8 +59,17 @@ license = LGPLv3+
 icon = 
 urls = 
 
+[iam]
+version = 202201271648
+capabilities = CapCollection CapDocument
+description = Maroc Telecom
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
 [ineo]
-version = 202201191655
+version = 202201171019
 capabilities = CapBank CapCollection
 description = INEO provider pour tester l'API
 maintainer = Zhor Abid <zhor.abid@gmail.com>
@@ -69,8 +78,8 @@ icon =
 urls = 
 
 [lydec]
-version = 202201191712
-capabilities = CapDocument CapCollection
+version = 202201271648
+capabilities = CapCollection CapDocument
 description = Lyonnaise des Eaux de Casablanca
 maintainer = Zhor Abid <zhor.abid@gmail.com>
 license = LGPLv3+
@@ -78,8 +87,8 @@ icon =
 urls = 
 
 [orange]
-version = 202201191712
-capabilities = CapDocument CapCollection CapProfile
+version = 202201271648
+capabilities = CapCollection CapDocument
 description = Orange
 maintainer = Zhor Abid <zhor.abid@gmail.com>
 license = LGPLv3+
