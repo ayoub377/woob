@@ -91,6 +91,7 @@ class HistoryPage(SeleniumPage):
         start = kwargs['start_date']
         end = kwargs['end_date']
 
+        time.sleep(2)
         self.driver.find_element_by_xpath('//button[@class="sc-AykKC fqejMj ui-button contained primary"]').click()
         self.driver.find_element_by_xpath('//div[@class="sc-AykKD kBBJUZ"]/div').click()
         french_months = {'01': 'Janvier',
