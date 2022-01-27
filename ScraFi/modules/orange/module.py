@@ -22,8 +22,6 @@ from __future__ import unicode_literals
 
 from woob.tools.backend import Module, BackendConfig
 from woob.tools.value import ValueBackendPassword
-
-from woob.capabilities.profile import CapProfile
 from woob.capabilities.bill import CapDocument
 
 from .browser import OrangeBrowser
@@ -32,7 +30,7 @@ from .browser import OrangeBrowser
 __all__ = ['OrangeModule']
 
 
-class OrangeModule(Module, CapDocument, CapProfile):
+class OrangeModule(Module, CapDocument):
     NAME = 'orange'
     DESCRIPTION = 'Orange'
     MAINTAINER = 'Zhor Abid'
