@@ -118,7 +118,7 @@ def process_history_request(request, bank, endpoint):
 def process_bill_request(request, bill, endpoint):
     customfile = f'{path}/scrafi_project/Logs/django/custom/custom.log'
     custom_logger = setup_logger(f'custom_logger', customfile)
-    available_bills = ['lydec']
+    available_bills = ['lydec', 'orange', 'iam']
     if bill not in available_bills:
         response = json.dumps([{"Response": "Error", "ERROR": "Le connecteur %s n'existe pas." % bill}])
         custom_logger.info('[{"Response": "Error", "ERROR": "Le connecteur %s n\'existe pas."}]' % bill)
