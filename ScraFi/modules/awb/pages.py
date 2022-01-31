@@ -70,6 +70,7 @@ class AccountsPage(SeleniumPage):
     def get_accounts(self):
         accounts = []
         account = Account()
+        time.sleep(5)
         text = self.driver.find_element_by_xpath('//div[@class="sc-AykKD MTDcI"]/span[2]').text
         account.id = text[-16:]
         account.label = text[:-16]

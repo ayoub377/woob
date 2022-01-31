@@ -39,8 +39,6 @@ class BMCEBrowser(SeleniumBrowser):
     
     HEADLESS = False
 
-    WINDOW_SIZE = 1900,1000
-    
     DRIVER = webdriver.Chrome
 
     login_page = URL(r'/fr/identification/authentification.html', LoginPage)
