@@ -20,23 +20,23 @@ def del_backend(job, connection, type, value, traceback):
     discord_msg()
 
     logger.warning(f'/!\ DELETING BACKEND : {job.id} /!\ \n')
-    p = configparser.ConfigParser()
-    with open(f'{path}/.config/woob/backends', "r") as f:
-        p.read_file(f)
-
     b_hash = hashlib.md5(bytearray(job.id, 'utf-8')).hexdigest()
-    p.remove_section(b_hash)
-
-    with open(f'{path}/.config/woob/backends', "w") as f:
-        p.write(f)
 
     w = Woob()
     w.load_backends()
     try:
         w[b_hash].browser.driver.quit()
-        w[b_hash].browser.vdisplay.close()
-    except Exception:
-        pass
+        w[b_hash].browser.vdisplay.stop()
+    except Exception as e:
+        logger.error(e)
+        os.system("pkill chrome")
+
+    p = configparser.ConfigParser()
+    with open(f'{path}/.config/woob/backends', "r") as f:
+        p.read_file(f)
+    p.remove_section(b_hash)
+    with open(f'{path}/.config/woob/backends', "w") as f:
+        p.write(f)
 
 
 def woober_connect(woober, username, password):

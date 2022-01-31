@@ -61,13 +61,19 @@ def discord_msg(msg='===> UNCAUGHT ERROR <=== \n ', unparsed=None):
     else:
         for i in traceback.format_exc():
             msg += i
-
     while msg[-1:] == '\n':
         msg = msg[:-1]
-
+        
     client = discord.Client()
     @client.event
-    async def on_ready():
+    async def on_ready(msg=msg):
+        length = len(msg)
+        while length > 1980:
+            last = msg[:1980].rindex('\n')
+            message = msg[:last]
+            msg = msg[last + 1:]
+            await client.get_channel(892338601403228201).send('>>> ``` ' + message + ' ```')
+            length = len(msg)
         await client.get_channel(892338601403228201).send('>>> ``` ' + msg + ' ```')
         await client.close()
 
