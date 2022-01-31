@@ -9,6 +9,8 @@ from oauth2_provider.views.generic import ProtectedResourceView
 
 from redis import Redis
 from rq.job import Job
+from rq.registry import FailedJobRegistry
+
 from .woobango import add_to_bank_q, add_to_bill_q
 from .woober import notify_zhor, setup_logger
 
@@ -198,8 +200,14 @@ class Results(ProtectedResourceView, APIView):
         job_id = request.query_params['job_id']
         try:
             job = Job.fetch(job_id, connection=redis)
-            response = json.dumps(job.result, indent=4, ensure_ascii=False).encode('utf8')
-            return HttpResponse(response, content_type='text/json')
+            if job in FailedJobRegistry(name='scrafi', connection=redis):
+                response = json.dumps({"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."})
+                custom_logger.info('{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus tard."}')
+                return HttpResponse(response, content_type='text/json')      
+            else:          
+                response = json.dumps(job.result, indent=4, ensure_ascii=False).encode('utf8')
+                custom_logger.info('Sending Resultls')
+                return HttpResponse(response, content_type='text/json')
         except:
             response = json.dumps({"Response": "Error", "ERROR": "Ce job ID n'existe pas."})
             custom_logger.info('{"Response": "Error", "ERROR": "Ce job ID n\'existe pas."}')

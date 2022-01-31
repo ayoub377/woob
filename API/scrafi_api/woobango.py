@@ -37,6 +37,7 @@ def del_backend(job, connection, type, value, traceback):
     p.remove_section(b_hash)
     with open(f'{path}/.config/woob/backends', "w") as f:
         p.write(f)
+    notify_client(job_id=job.id)
 
 
 def woober_connect(woober, username, password):
