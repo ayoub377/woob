@@ -56,13 +56,13 @@ class ChaabiBrowser(LoginBrowser):
             raise WebsiteError
 
     @need_login
-    def get_accounts_list(self):
+    def get_accounts(self):
         self.synth_page.go()
         return self.page.get_accounts()
 
     @need_login
     def get_account(self, id_):
-        for account in self.get_accounts_list():
+        for account in self.get_accounts():
             if account.id == id_:
                 return account
         self.error_msg = 'ID'

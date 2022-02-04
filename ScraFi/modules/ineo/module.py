@@ -54,7 +54,7 @@ class IneoModule(Module, CapBank):
 
 
     def iter_accounts(self):
-        return self.browser.get_accounts_list()
+        return self.browser.get_accounts()
 
 
     def get_account(self, id_):
