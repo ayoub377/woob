@@ -16,6 +16,7 @@ if "C:" in path:
     path = path.replace('\\', '/')
 
 bankis = {
+    'akhdar': 'Al Akhdar bank',
     'awb': 'Attijariwafa bank',
     'bmce': 'BMCE',
     'cdm': 'Crédit du Maroc',

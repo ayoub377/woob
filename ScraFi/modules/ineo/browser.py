@@ -45,7 +45,7 @@ class IneoBrowser(LoginBrowser):
             raise WrongCredentialsError
 
     @need_login
-    def get_accounts_list(self):
+    def get_accounts(self):
         lista = []
         
         a = Account()
@@ -67,7 +67,7 @@ class IneoBrowser(LoginBrowser):
 
     @need_login
     def get_account(self, id_):
-        for account in self.get_accounts_list():
+        for account in self.get_accounts():
             if account.id == id_:
                 return account
         self.error_msg = 'ID'

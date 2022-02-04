@@ -75,7 +75,7 @@ class CIHBrowser(SeleniumBrowser):
             raise WebsiteError
 
     @need_login
-    def get_accounts_list(self):
+    def get_accounts(self):
         self.wait_xpath_clickable('//i[@class="iAccount"]')
         self.driver.find_element_by_xpath('//i[@class="iAccount"]').click()
         self.wait_xpath_clickable('//a[@href="/adriaClient/app/account/list"]/i')
@@ -85,7 +85,7 @@ class CIHBrowser(SeleniumBrowser):
 
     @need_login
     def get_account(self, _id):
-        for account in self.get_accounts_list():
+        for account in self.get_accounts():
             if account.id == _id:
                 return account
         self.error_msg = 'ID'

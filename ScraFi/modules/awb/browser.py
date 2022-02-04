@@ -84,12 +84,6 @@ class AWBBrowser(SeleniumBrowser):
         return self.page.get_accounts()
 
     @need_login
-    def get_accounts_list(self):
-        self.accounts_page.stay_or_go()
-        self.wait_until_is_here(self.accounts_page)
-        return self.page.get_accounts()
-
-    @need_login
     def get_account(self, _id):
         for account in self.get_accounts():
             if account.id == _id:

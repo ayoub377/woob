@@ -19,18 +19,19 @@
 
 from __future__ import unicode_literals
 
+
 import sys
 
 from woob.browser import URL, need_login
 from woob.browser.selenium import SeleniumBrowser, webdriver
 from selenium.common.exceptions import TimeoutException
-from woob.scrafi_exceptions import IdNotFoundError, WebsiteError
+from woob.scrafi_exceptions import IdNotFoundError, WebsiteError, WrongCredentialsError
 
-from .pages import LoginPage, AccueilPage, AccountsPage, HistoryPage, VignettePage
+from .pages import LoginPage, AccountsPage, HistoryPage
 
 
-class BMCEBrowser(SeleniumBrowser):
-    BASEURL = 'https://www.bmcedirect.ma'
+class AkhdarBrowser(SeleniumBrowser):
+    BASEURL = 'https://www.alakhdarbank.net'
 
     if 'linux' in sys.platform:
         from xvfbwrapper import Xvfb
@@ -41,34 +42,30 @@ class BMCEBrowser(SeleniumBrowser):
 
     DRIVER = webdriver.Chrome
 
-    login_page = URL(r'/fr/identification/authentification.html', LoginPage)
-    accueil_page = URL(r'/fr/banque/pageaccueil.html\?referer=paci', AccueilPage)
-    vignette_page = URL(r'/fr/banque/paci_engine/information-client.html', VignettePage)
-    accounts_page = URL(r'/fr/banque/comptes-et-contrats.html', AccountsPage)
-    history_page = URL(r'/fr/banque/mouvements.html', HistoryPage)
+    login_page = URL(r'/ETHIX-Net/customer-login.xhtml', LoginPage)
+    accounts_page = URL(r'/ETHIX-Net/index.xhtml', AccountsPage)
+    history_page = URL(r'/ETHIX-Net/index.xhtml', HistoryPage)
 
     error_msg = ''
-
+    
     def __init__(self, config, *args, **kwargs):
         self.config = config
         self.username = self.config['login'].get()
         self.password = self.config['password'].get()
-        super(BMCEBrowser, self).__init__(*args, **kwargs)
+        super(AkhdarBrowser, self).__init__(*args, **kwargs)
 
     def do_login(self):
-        self.login_page.go()
+        self.login_page.stay_or_go()
         try:
             self.wait_until_is_here(self.login_page)
             self.page.login(self.username, self.password)
             try:
-                self.wait_until_is_here(self.accueil_page)
+                self.wait_until_is_here(self.accounts_page)
                 self.logged = True
             except TimeoutException:
-                if self.vignette_page.is_here():
-                    self.logged = True
-                    pass
-                else:
-                    self.page.check_error()
+                if self.page.check_error():
+                    self.error_msg = 'credentials'
+                    raise WrongCredentialsError
         except TimeoutException:
             self.error_msg = 'bank'
             raise WebsiteError
@@ -87,14 +84,10 @@ class BMCEBrowser(SeleniumBrowser):
         self.error_msg = 'ID'
         raise IdNotFoundError
 
-    def go_history_page(self, account):
-        self.page.go_history(account)
-
     @need_login
     def iter_history(self, _id, **kwargs):
-        account = self.get_account(_id)
+        self.get_account(_id)
         self.accounts_page.stay_or_go()
-        self.wait_until_is_here(self.accounts_page)
-        self.go_history_page(account)
+        self.page.go_history_page()
         self.wait_until_is_here(self.history_page)
-        return self.page.get_history(**kwargs)
+        return self.page.get_history(_id, **kwargs)

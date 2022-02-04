@@ -24,21 +24,21 @@ from woob.tools.backend import Module, BackendConfig
 from woob.tools.value import ValueBackendPassword
 from woob.capabilities.bank import CapBank
 
-from .browser import CFGBrowser
+from .browser import AkhdarBrowser
 
 
-__all__ = ['CFGModule']
+__all__ = ['AkhdarModule']
 
 
-class CFGModule(Module, CapBank):
-    NAME = 'cfg'
-    DESCRIPTION = 'CFG Bank entreprise'
+class AkhdarModule(Module, CapBank):
+    NAME = 'akhdar'
+    DESCRIPTION = 'Al Akhdar Bank'
     MAINTAINER = 'Zhor Abid'
     EMAIL = 'zhor.abid@gmail.com'
     LICENSE = 'LGPLv3+'
     VERSION = '3.1'
 
-    BROWSER = CFGBrowser
+    BROWSER = AkhdarBrowser
 
     CONFIG = BackendConfig(
         ValueBackendPassword('login', label='Identifiant', masked=False),

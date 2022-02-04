@@ -77,14 +77,14 @@ class CDMBrowser(SeleniumBrowser):
             raise WebsiteError
 
     @need_login
-    def get_accounts_list(self):
+    def get_accounts(self):
         self.accounts_page.go()
         self.wait_until_is_here(self.accounts_page)
         return self.page.get_accounts()
 
     @need_login
     def get_account(self, _id):
-        for account in self.get_accounts_list():
+        for account in self.get_accounts():
             if account.id == _id:
                 return account
         self.error_msg = 'ID'
