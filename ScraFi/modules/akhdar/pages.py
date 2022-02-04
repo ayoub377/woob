@@ -23,14 +23,13 @@ from __future__ import unicode_literals
 from datetime import datetime
 from decimal import Decimal
 import hashlib, time
-from hmac import trans_36
 
 from woob.capabilities.base import DecimalField
 from woob.capabilities.bank.base import Account, Transaction
 from woob.browser.selenium import SeleniumPage, VisibleXPath
 from woob.scrafi_exceptions import NoHistoryError, WebsiteError
 
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, StaleElementReferenceException
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -69,13 +68,16 @@ class AccountsPage(SeleniumPage):
 
     def go_history_page(self):
         self.driver.find_element_by_xpath('//li[@id="menuform:sm_0"]/a').click()
-        time.sleep(1)
+        self.browser.wait_xpath_clickable('//li[@id="menuform:sm_FNCEBCW040"]/a')
         self.driver.find_element_by_xpath('//li[@id="menuform:sm_FNCEBCW040"]/a').click()
-        time.sleep(1)
 
 
 class AkhdarTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
+
+    def __repr__(self):
+        return '<%s id=%r label=%r date=%r solde=%r>' % (
+        type(self).__name__, self.id, self.label, self.date, self.solde)
 
 
 class HistoryPage(SeleniumPage):
@@ -85,64 +87,62 @@ class HistoryPage(SeleniumPage):
         start = kwargs['start_date'].replace('/', '-')
         end = kwargs['end_date'].replace('/', '-')
 
+        self.browser.wait_xpath_clickable('//label[@id="frmTransactionshistory:ddlAccountType_label"]')
         self.driver.find_element_by_xpath('//label[@id="frmTransactionshistory:ddlAccountType_label"]').click()
-        time.sleep(1)
         self.driver.find_element_by_xpath('//li[@id="frmTransactionshistory:ddlAccountType_1"]').click()
         time.sleep(6)
         self.driver.find_element_by_xpath('//label[@id="frmTransactionshistory:customerAccounts_label"]').click()
-        time.sleep(1)
+        self.browser.wait_xpath_clickable('//li[contains(text(), "%s")]' % _id)
         self.driver.find_element_by_xpath('//li[contains(text(), "%s")]' % _id).click()
-        time.sleep(2)
+        self.browser.wait_xpath_clickable('//div[@class="ui-radiobutton-box ui-widget ui-corner-all ui-state-default"]')
         self.driver.find_element_by_xpath('//div[@class="ui-radiobutton-box ui-widget ui-corner-all ui-state-default"]').click()
-        time.sleep(8)
+
+        self.browser.wait_xpath_visible('//input[@id="frmTransactionshistory:fromDate_input"][@aria-disabled="false"]')
         self.driver.find_element_by_xpath('//input[@id="frmTransactionshistory:fromDate_input"]').send_keys(start)
         self.driver.find_element_by_xpath('//input[@id="frmTransactionshistory:toDate_input"]').send_keys(end)
         self.driver.find_element_by_xpath('//button[@id="frmTransactionshistory:btnSearch"]').click()
-        time.sleep(10)
 
         try:
-            self.driver.find_element_by_xpath('//label[@id="frmTransactionshistory:lblNoResult"]')
+            self.browser.wait_xpath_visible('//label[@id="frmTransactionshistory:lblNoResult"]')
             self.browser.error_msg = 'nohistory'
             raise NoHistoryError
-        except NoSuchElementException:
+        except TimeoutException:
             pass
 
-        trs = []
-        pages = True
-        while pages:
-            lines = self.driver.find_elements_by_xpath('//tbody[@id="frmTransactionshistory:bcSaving:savingDetails_data"]/tr')
-            for line in lines:
-                tr = AkhdarTransaction()
+        trs = self.get_transactions()
+        i = 1
+        x = True
+        while x:
+            pages = self.driver.find_elements_by_xpath('//span[@class="ui-paginator-pages"]/span')
+            total_pages = int(pages[-1].text)
+            if i != total_pages:
+                self.driver.find_element_by_xpath('//span[@class="ui-paginator-pages"]/span[contains(text(), "%s")]' % str(i+1)).click()
+                self.browser.wait_xpath_visible('//span[@class="ui-paginator-page ui-state-default ui-corner-all ui-state-active"][text()="%s"]' % str(i+1))
+                trs += self.get_transactions()
+                i += 1
+            else:
+                x = False
+                break
+        return trs
 
+    def get_transactions(self):
+        transactions = []
+        lines = self.driver.find_elements_by_xpath('//tbody[@id="frmTransactionshistory:bcSaving:savingDetails_data"]/tr')
+        for line in lines:
+            tr = AkhdarTransaction()
+            try:
                 tr.label = line.find_element_by_xpath('./td[2]/label').text
                 tr.date = datetime.strptime(line.find_element_by_xpath('./td[1]/label').text, '%d-%m-%Y').date()
-
                 debit = self.decimalism(line.find_element_by_xpath('./td[3]/label').text)
                 credit = self.decimalism(line.find_element_by_xpath('.//td[4]/label').text)
                 tr.solde = credit - debit
-                tr.amount = tr.solde
-                print(tr.solde)
+            except StaleElementReferenceException:
+                pass
+            str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
+            tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+            transactions.append(tr)
+        return transactions
 
-                str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
-                tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
-
-                trs.append(tr)
-
-                if lines.index(line) == len(lines)-1:
-                    print("------------------------")
-                    webdriver.ActionChains(self.driver).send_keys(Keys.SPACE).perform()
-                    time.sleep(3)
-                    try:
-                        self.driver.find_element_by_xpath('//span[@class="ui-paginator-next ui-state-default ui-corner-all"]').click()
-                        "ui-paginator-next ui-state-default ui-corner-all"
-                        print("------>>>> next page")
-                        time.sleep(5)
-                    except NoSuchElementException:
-                        print('cannot find next <--------------------------------')
-                        pages = False
-
-        return trs
-                    
     def decimalism(self, stringy):
         stringy = stringy.replace(' ', '').replace(',', '.')
         stringy = stringy.replace('+', '').replace('-', '')
