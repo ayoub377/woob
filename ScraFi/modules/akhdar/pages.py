@@ -58,13 +58,21 @@ class AccountsPage(SeleniumPage):
     def get_accounts(self):
         accounts = []
         time.sleep(3)
-        accounts_list = self.driver.find_elements_by_xpath('//tbody[@id="frmMainDashboard:tbAccountsSummary:tblTransactionAccountsSummary_data"]/tr')
-        for acc in accounts_list:
-            account = Account()
-            account.id = acc.find_element_by_xpath('./td[1]/a/span').text
-            account.label = acc.find_element_by_xpath('./td[2]/span[2]').text
-            accounts.append(account)
-        return accounts
+        try:
+            accounts_list = self.driver.find_elements_by_xpath('//tbody[@id="frmMainDashboard:tbAccountsSummary:tblTransactionAccountsSummary_data"]/tr')
+            for acc in accounts_list:
+                account = Account()
+                account.id = acc.find_element_by_xpath('./td[1]/a/span').text
+                account.label = acc.find_element_by_xpath('./td[2]/span[2]').text
+                accounts.append(account)
+            return accounts
+        except NoSuchElementException:
+            try:
+                self.driver.find_element_by_xpath('//span[text()="No records found."]')
+                self.browser.accounts_page.go()
+                self.browser.get_accounts()
+            except NoSuchElementException:
+                raise WebsiteError
 
     def go_history_page(self):
         self.driver.find_element_by_xpath('//li[@id="menuform:sm_0"]/a').click()
