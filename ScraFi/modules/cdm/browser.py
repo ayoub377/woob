@@ -20,13 +20,11 @@
 from __future__ import unicode_literals
 
 
-import sys
-import time
-from selenium.common.exceptions import TimeoutException
-
+import sys, time
 from woob.browser import URL, need_login
 from woob.browser.selenium import SeleniumBrowser, webdriver
 from woob.scrafi_exceptions import IdNotFoundError, WebsiteError
+from selenium.common.exceptions import TimeoutException
 
 from .pages import LoginPage, ChoicePage, HomePage, AccountsPage, HistoryPage
 
@@ -36,7 +34,7 @@ class CDMBrowser(SeleniumBrowser):
 
     if 'linux' in sys.platform:
         from xvfbwrapper import Xvfb
-        vdisplay = Xvfb()
+        vdisplay = Xvfb(width=2920, height=1080)
         vdisplay.start()
 
     HEADLESS = False

@@ -34,7 +34,7 @@ class CIHBrowser(SeleniumBrowser):
 
     if 'linux' in sys.platform:
         from xvfbwrapper import Xvfb
-        vdisplay = Xvfb()
+        vdisplay = Xvfb(width=2920, height=1080)
         vdisplay.start()
 
     HEADLESS = False
