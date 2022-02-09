@@ -78,7 +78,7 @@ class AccountsPage(SeleniumPage):
         return accounts
 
     def go_history_page(self):
-        self.driver.find_element_by_xpath('//*[@id="root"]/div/main/div/div/div[2]/div/div[3]/div/div/div[4]/button').click()
+        self.driver.find_element_by_xpath('//*[@id="root"]/div/main/div/div/div[2]/div/div[3]/div/div/div[3]/button').click()
 
 
 class AwbTransaction(Transaction):
@@ -86,7 +86,7 @@ class AwbTransaction(Transaction):
 
 
 class HistoryPage(SeleniumPage):
-    is_here = VisibleXPath('/html/body/div[1]/div/main/div/div/div[2]/div/div[1]/div/h2')
+    is_here = VisibleXPath('//h2[contains(text(), "opérations comptabilisées")]')
 
     def get_history(self, **kwargs):
         start = kwargs['start_date']

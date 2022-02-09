@@ -47,7 +47,7 @@ class AWBBrowser(SeleniumBrowser):
     error_page = URL(r'https://oauth.attijariwafa.com/auth/realms/ebk-realm/login-actions/authenticate', ErrorPage)
     dashboard_page = URL(r'/cash_management/dashboard', DashboardPage)
     accounts_page = URL(r'/cash_management/comptes', AccountsPage)
-    history_page = URL(r'/cash_management/comptes/operations-temps-reel', HistoryPage)
+    history_page = URL(r'/cash_management/comptes/operations-comptas', HistoryPage)
 
     error_msg = ''
     
