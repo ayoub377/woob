@@ -71,7 +71,7 @@ class AccountsPage(SeleniumPage):
         accounts = []
         account = Account()
         time.sleep(5)
-        text = self.driver.find_element_by_xpath('//div[@class="sc-AykKD MTDcI"]/span[2]').text
+        text = self.driver.find_element_by_xpath('//div[@class="sc-gsDKAQ feqwgj"]/span[2]').text
         account.id = text[-16:]
         account.label = text[:-16]
         accounts.append(account)
@@ -93,8 +93,8 @@ class HistoryPage(SeleniumPage):
         end = kwargs['end_date']
 
         time.sleep(2)
-        self.driver.find_element_by_xpath('//button[@class="sc-AykKC fqejMj ui-button contained primary"]').click()
-        self.driver.find_element_by_xpath('//div[@class="sc-AykKD kBBJUZ"]/div').click()
+        self.driver.find_element_by_xpath('//button[@class="sc-bdvvtL TlEJY ui-button contained primary"]').click()
+        self.driver.find_element_by_xpath('//div[@class="sc-gsDKAQ eVUpIm"]/div').click()
         french_months = {'01': 'Janvier',
                         '02': 'Février',
                         '03': 'Mars',
@@ -165,14 +165,14 @@ class HistoryPage(SeleniumPage):
             pass
         
         time.sleep(1)
-        self.driver.find_element_by_xpath('//button[@class="sc-AykKC fqejMj ui-button ui-button-empty primary ui-button-dropdown-number"]').click()
+        self.driver.find_element_by_xpath('//button[@class="sc-bdvvtL TlEJY ui-button ui-button-empty primary ui-button-dropdown-number"]').click()
         self.driver.find_element_by_xpath('//li[contains(text(),"100")]').click()
 
         pages = self.driver.find_elements_by_xpath('//ul[@class="pagination"]/li')
         pages = pages[1:-1]
 
         for page in pages:
-            lines = self.driver.find_elements_by_xpath('//div[@class="sc-AykKD jEjZCD sc-fzXfNM gaplSw ui-list-box"]')
+            lines = self.driver.find_elements_by_xpath('//div[@class="sc-gsDKAQ sc-caiLqq fTSxVO ui-list-box"]')
 
             for line in lines:
                 if line.find_element_by_xpath('.//div/div[1]/span').text != 'Total':
