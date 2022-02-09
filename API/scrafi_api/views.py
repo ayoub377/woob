@@ -12,7 +12,7 @@ from rq.job import Job
 from rq.registry import FailedJobRegistry
 
 from .woobango import add_to_bank_q, add_to_bill_q
-from .woober import notify_zhor, setup_logger
+from .woober import setup_logger
 
 redis = Redis()
 path = os.path.expanduser('~')
@@ -110,7 +110,7 @@ def process_history_request(request, bank, endpoint):
     try:
         response = json.dumps(job_id, indent=4)
     except Exception as e:
-        notify_zhor(flow=flow, bank=bank, start_date=start_date, e=e)
+        # notify_zhor(flow=flow, bank=bank, start_date=start_date, e=e)
         response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
         custom_logger.info('[{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus tard."}]')
     
@@ -161,7 +161,7 @@ def process_bill_request(request, bill, endpoint):
     try:
         response = json.dumps(job_id, indent=4)
     except Exception as e:
-        notify_zhor(flow=flow, module=bill, start_date=start_date, e=e)
+        # notify_zhor(flow=flow, module=bill, start_date=start_date, e=e)
         response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
         custom_logger.info('[{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus tard."}]')
     

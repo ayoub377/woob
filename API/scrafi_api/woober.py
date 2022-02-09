@@ -54,44 +54,44 @@ def rq_logger():
     logger = setup_logger('rq_worker', rqfile)
     return logger
 
-def discord_msg(msg='===> UNCAUGHT ERROR <=== \n ', unparsed=None):
-    if unparsed:
-        e = msg
-        msg = '===> ENABLE TO PARSE WOOB RESULTS <=== \n '
-        msg += e
-    else:
-        for i in traceback.format_exc():
-            msg += i
-    while msg[-1:] == '\n':
-        msg = msg[:-1]
+# def discord_msg(msg='===> UNCAUGHT ERROR <=== \n ', unparsed=None):
+#     if unparsed:
+#         e = msg
+#         msg = '===> ENABLE TO PARSE WOOB RESULTS <=== \n '
+#         msg += e
+#     else:
+#         for i in traceback.format_exc():
+#             msg += i
+#     while msg[-1:] == '\n':
+#         msg = msg[:-1]
         
-    client = discord.Client()
-    @client.event
-    async def on_ready(msg=msg):
-        length = len(msg)
-        while length > 1980:
-            last = msg[:1980].rindex('\n')
-            message = msg[:last]
-            msg = msg[last + 1:]
-            await client.get_channel(892338601403228201).send('>>> ``` ' + message + ' ```')
-            length = len(msg)
-        await client.get_channel(892338601403228201).send('>>> ``` ' + msg + ' ```')
-        await client.close()
+#     client = discord.Client()
+#     @client.event
+#     async def on_ready(msg=msg):
+#         length = len(msg)
+#         while length > 1980:
+#             last = msg[:1980].rindex('\n')
+#             message = msg[:last]
+#             msg = msg[last + 1:]
+#             await client.get_channel(892338601403228201).send('>>> ``` ' + message + ' ```')
+#             length = len(msg)
+#         await client.get_channel(892338601403228201).send('>>> ``` ' + msg + ' ```')
+#         await client.close()
 
-    client.run('OTA3NjE4MDQ2OTIxODM0NTE2.YYpzLQ.jOYrIB9ONjQBc7MIqTuqZP7Do1w')
+#     client.run('OTA3NjE4MDQ2OTIxODM0NTE2.YYpzLQ.jOYrIB9ONjQBc7MIqTuqZP7Do1w')
 
-def notify_zhor(flow, module, date, e, unparsed=None, logger=None):
-    if not logger:
-        logger = rq_logger()
+# def notify_zhor(flow, module, date, e, unparsed=None, logger=None):
+#     if not logger:
+#         logger = rq_logger()
 
-    logger.info('>>> Notify_zhor')
-    logger.error(e)
+#     logger.info('>>> Notify_zhor')
+#     logger.error(e)
 
-    msg = '-+- FLOW : %s \n -+- BANK : %s \n -+- DATE : %s \n ' % (flow.capitalize(), module, date)
-    if unparsed:
-        discord_msg(msg=e, unparsed=unparsed)
-    else:
-        discord_msg(msg=msg)
+#     msg = '-+- FLOW : %s \n -+- BANK : %s \n -+- DATE : %s \n ' % (flow.capitalize(), module, date)
+#     if unparsed:
+#         discord_msg(msg=e, unparsed=unparsed)
+#     else:
+#         discord_msg(msg=msg)
     
 
 class Woobank:
@@ -128,7 +128,7 @@ class Woobank:
         
         if self.unparsed:
             self.logger.info('Enable to parse Woob results')
-            self.notify_zaz(error_msg)
+            # self.notify_zaz(error_msg)
             json_response["Error"] = "Un problème est survenu, veuillez réessayer ultérieurement."
 
         elif error_msg == 'credentials':
@@ -149,12 +149,12 @@ class Woobank:
 
         else:
             self.logger.info('BUG in "%s"' % self.flow)
-            self.notify_zaz(error_msg)
+            # self.notify_zaz(error_msg)
             json_response["Error"] = "Un problème est survenu, veuillez réessayer ultérieurement."
         return json_response
 
-    def notify_zaz(self, e):
-        return notify_zhor(self.flow, self.bankia, self.start_date, e, self.unparsed)
+    # def notify_zaz(self, e):
+    #     return notify_zhor(self.flow, self.bankia, self.start_date, e, self.unparsed)
 
     def call_woob(self, bankash):
         results = []
@@ -265,7 +265,7 @@ class Woobill:
         
         if self.unparsed:
             self.logger.info('Enable to parse Woob results')
-            self.notify_zaz(error_msg)
+            # self.notify_zaz(error_msg)
             json_response["Error"] = "Un problème est survenu, veuillez réessayer ultérieurement."
 
         elif error_msg == 'credentials':
@@ -282,12 +282,12 @@ class Woobill:
 
         else:
             self.logger.info('BUG in "%s"' % self.flow)
-            self.notify_zaz(error_msg)
+            # self.notify_zaz(error_msg)
             json_response["Error"] = "Un problème est survenu, veuillez réessayer ultérieurement."
         return json_response
 
-    def notify_zaz(self, e):
-        return notify_zhor(self.flow, self.billia, self.start_date, e, self.unparsed)
+    # def notify_zaz(self, e):
+    #     return notify_zhor(self.flow, self.billia, self.start_date, e, self.unparsed)
 
     def call_woob(self, billash):
         results = []
