@@ -37,6 +37,17 @@ if "C:" in path:
 class LoadedModule(object):
     def __init__(self, package):
         self.logger = getLogger('backend')
+        formatter = logging.Formatter('%(asctime)s | %(funcName)s | %(message)s', "%a %d %b - %H:%M:%S")
+        log_file = f'{path}/scrafi_project/Logs/woob/woob.log'
+
+        file_handler = logging.FileHandler(log_file)
+        file_handler.setLevel(logging.INFO)
+        file_handler.setFormatter(formatter)
+        if self.logger.handlers:
+            self.logger.handlers = []
+        self.logger.addHandler(file_handler)
+        self.logger.setLevel(logging.INFO)
+        
         self.except_logger = self.except_logg()
         sys.excepthook = self.handle_exception
         
