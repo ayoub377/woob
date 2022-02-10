@@ -72,7 +72,7 @@ class CIHTransaction(Transaction):
 
 
 class HistoryPage(SeleniumPage):
-    is_here = VisibleXPath('//h1[contains(text(), "Relevé")]')
+    is_here = VisibleXPath('//h1[contains(text(), "Extrait de compte")]')
 
     def get_history(self, account, **kwargs):
         self.browser.wait_xpath_clickable('//div[@class="requiredDiv"]')
