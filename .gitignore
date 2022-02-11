@@ -10,3 +10,4 @@ chromedriver.exe
 supervizor/supervisord.pid
 API/db.sqlite3
 dump.rdb
+API/scrafi_api/support.py
