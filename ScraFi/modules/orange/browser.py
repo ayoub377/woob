@@ -84,6 +84,6 @@ class OrangeBrowser(SeleniumBrowser):
 
     @need_login
     def get_bills(self, date):
-            self.bills_page.stay_or_go()
-            self.wait_until_is_here(self.bills_page)
-            return self.page.get_bills(date)
+        self.bills_page.stay_or_go()
+        self.wait_until_is_here(self.bills_page)
+        return self.page.get_bills(date)
