@@ -20,7 +20,7 @@
 from __future__ import unicode_literals
 
 
-import time, hashlib, requests, base64
+import time, hashlib, requests, base64, urllib3
 from datetime import datetime
 
 from woob.capabilities.bill import Bill
@@ -29,6 +29,8 @@ from woob.browser.selenium import SeleniumPage, VisibleXPath
 
 from woob.scrafi_exceptions import NoBillError
 from selenium.common.exceptions import NoSuchElementException
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class LoginPage(SeleniumPage):
