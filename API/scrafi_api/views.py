@@ -1,6 +1,5 @@
 import json, os
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 
 from django.http import HttpResponse
 from django.http.response import HttpResponseForbidden
@@ -10,9 +9,10 @@ from oauth2_provider.views.generic import ProtectedResourceView
 from redis import Redis
 from rq.job import Job
 from rq.registry import FailedJobRegistry
+from rq.exceptions import NoSuchJobError
 
 from .woobango import add_to_bank_q, add_to_bill_q
-from .woober import setup_logger
+from .woober import setup_logger, notify_zhor
 
 redis = Redis()
 path = os.path.expanduser('~')
@@ -110,7 +110,7 @@ def process_history_request(request, bank, endpoint):
     try:
         response = json.dumps(job_id, indent=4)
     except Exception as e:
-        # notify_zhor(flow=flow, bank=bank, start_date=start_date, e=e)
+        notify_zhor(flow=flow, module=bank, date=start_date, e=e)
         response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
         custom_logger.info('[{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus tard."}]')
     
@@ -161,7 +161,7 @@ def process_bill_request(request, bill, endpoint):
     try:
         response = json.dumps(job_id, indent=4)
     except Exception as e:
-        # notify_zhor(flow=flow, module=bill, start_date=start_date, e=e)
+        notify_zhor(flow=flow, module=bill, date=start_date, e=e)
         response = json.dumps([{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
         custom_logger.info('[{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus tard."}]')
     
@@ -200,6 +200,11 @@ class Results(ProtectedResourceView, APIView):
         job_id = request.query_params['job_id']
         try:
             job = Job.fetch(job_id, connection=redis)
+        except NoSuchJobError:
+            response = json.dumps({"Response": "Error", "ERROR": "Ce job ID n'existe pas."})
+            custom_logger.info('{"Response": "Error", "ERROR": "Ce job ID n\'existe pas."}')
+            return HttpResponse(response, content_type='text/json')
+        else:
             if job in FailedJobRegistry(name='scrafi', connection=redis):
                 response = json.dumps({"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."})
                 custom_logger.info('{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus tard."}')
@@ -208,10 +213,7 @@ class Results(ProtectedResourceView, APIView):
                 response = json.dumps(job.result, indent=4, ensure_ascii=False).encode('utf8')
                 custom_logger.info('Sending Resultls')
                 return HttpResponse(response, content_type='text/json')
-        except:
-            response = json.dumps({"Response": "Error", "ERROR": "Ce job ID n'existe pas."})
-            custom_logger.info('{"Response": "Error", "ERROR": "Ce job ID n\'existe pas."}')
-            return HttpResponse(response, content_type='text/json')
+
 
 
 class Confirmation(APIView):
@@ -222,14 +224,16 @@ class Confirmation(APIView):
         job_id = request.query_params['job_id']
         try:
             job = Job.fetch(job_id, connection=redis)
+        except NoSuchJobError:
+            response = json.dumps({"Response": "Error", "ERROR": "Ce job ID n'existe pas."})
+            custom_logger.info('{"Response": "Error", "ERROR": "Ce job ID n\'existe pas."}')
+            return HttpResponse(response, content_type='text/json')
+        else:
             response = json.dumps({"Response": "OK"})
             custom_logger.info('{"Response": "OK"}')
             job.delete(delete_dependents=True)
             return HttpResponse(response, content_type='text/json')
-        except:
-            response = json.dumps({"Response": "Error", "ERROR": "Ce job ID n'existe pas."})
-            custom_logger.info('{"Response": "Error", "ERROR": "Ce job ID n\'existe pas."}')
-            return HttpResponse(response, content_type='text/json')
+
             
 
 def other_paths(request):

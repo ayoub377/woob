@@ -4,7 +4,7 @@ from redis import Redis
 from rq import Queue, Retry
 
 from woob.core.woob import Woob
-from scrafi_api.woober import rq_logger, Woobank, Woobill, notify_client
+from scrafi_api.woober import rq_logger, Woobank, Woobill, notify_client, discord_msg
 
 path = os.path.expanduser('~')
 if "C:" in path:
@@ -17,7 +17,7 @@ q = Queue('scrafi', connection=redis)
 def del_backend(job, connection, type, value, traceback):
     logger = rq_logger()
     logger.error('Uncaught error', exc_info=True)
-    # discord_msg()
+    discord_msg()
 
     logger.warning(f'/!\ DELETING BACKEND : {job.id} /!\ \n')
     b_hash = hashlib.md5(bytearray(job.id, 'utf-8')).hexdigest()
@@ -27,8 +27,10 @@ def del_backend(job, connection, type, value, traceback):
     try:
         w[b_hash].browser.driver.quit()
         w[b_hash].browser.vdisplay.stop()
+    except AttributeError:
+        pass
     except Exception as e:
-        logger.error(e)
+        logger.error(e, exc_info=True)
         os.system("pkill chrome")
 
     p = configparser.ConfigParser()
