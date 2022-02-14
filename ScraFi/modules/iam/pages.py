@@ -22,6 +22,7 @@ from __future__ import unicode_literals
 
 import time, hashlib, base64, shutil
 from datetime import datetime
+from os.path import exists
 
 from woob.capabilities.bill import Bill
 from woob.capabilities.base import StringField
@@ -104,13 +105,15 @@ class BillsPage(SeleniumPage):
             if mois != "10":
                 mois = mois.replace("0", "")
             la_date = annee + mois
-            time.sleep(30)
             
             if "\\" in download_path:
                 pdf = f"{download_path}\\facture {la_date}.pdf"
             else:
                 pdf = f"{download_path}/facture {la_date}.pdf"
                 
+            while not exists(pdf):
+                time.sleep(2)
+            
             with open(pdf, "rb") as pdf:
                 bill.pdf = base64.b64encode(pdf.read()).decode('utf8')
                 
