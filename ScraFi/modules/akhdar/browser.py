@@ -40,6 +40,8 @@ class AkhdarBrowser(SeleniumBrowser):
     
     HEADLESS = False
 
+    DEFAULT_WAIT = 30
+
     DRIVER = webdriver.Chrome
 
     login_page = URL(r'/ETHIX-Net/customer-login.xhtml', LoginPage)
