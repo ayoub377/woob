@@ -28,7 +28,7 @@ from io import BytesIO
 from datetime import datetime
 from decimal import Decimal
 
-from woob.capabilities.base import DecimalField
+from woob.capabilities.base import DecimalField, StringField
 from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
@@ -156,7 +156,11 @@ class AccountsPage(SeleniumPage):
 
 class CDMTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
+    hashid = StringField('Scrafi ID')
 
+    def __repr__(self):
+        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.hashid, self.date, self.label, self.solde)
 
 class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//*[@id="tabContainer"]/div[1]/ul/ul/a[2]')
@@ -170,6 +174,7 @@ class HistoryPage(SeleniumPage):
         self.driver.find_element_by_xpath('//div[@id="button_filter_search"]').click()
 
         trs = []
+        hashids = []
         total_text = self.driver.find_element_by_xpath('//*[@id="filter_div"]/form/span').text
         if int(total_text[8:]) == 0:
             self.browser.error_msg = 'nohistory'
@@ -193,18 +198,18 @@ class HistoryPage(SeleniumPage):
                 except NoSuchElementException:
                     debit = self.decimalism(line.find_element_by_xpath('.//td[6]').text)
                     credit = self.decimalism(line.find_element_by_xpath('.//td[7]/span/bdo').text)
-                    
                 tr.solde = credit - debit
-                tr.amount = tr.solde
 
                 str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
                 tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
                     
-                del (
-                    tr.url, tr.vdate, tr.rdate, tr.bdate, tr.type, tr.category, tr.card, tr.commission,
-                    tr.gross_amount, tr.original_amount, tr.original_currency, tr.country, tr.original_commission,
-                    tr.original_commission_currency, tr.original_gross_amount, tr.investments, tr.raw
-                    )
+                x = 1
+                while tr.hashid in hashids:
+                    str_to_hash = str_2_hash + str(x)
+                    tr.hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                    x += 1
+
+                hashids.append(tr.hashid)
                 trs.append(tr)
 
             x += 1

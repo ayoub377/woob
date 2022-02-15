@@ -25,7 +25,7 @@ from decimal import Decimal
 import hashlib
 import time
 
-from woob.capabilities.base import DecimalField
+from woob.capabilities.base import DecimalField, StringField
 from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
@@ -83,7 +83,11 @@ class AccountsPage(SeleniumPage):
 
 class AwbTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
+    hashid = StringField('Scrafi ID')
 
+    def __repr__(self):
+        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.hashid, self.date, self.label, self.solde)
 
 class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//h2[contains(text(), "opérations comptabilisées")]')
@@ -109,7 +113,7 @@ class HistoryPage(SeleniumPage):
                         '12': 'Décembre'}
         
         check_next = True
-        checker = start
+        checker = "start"
         checker_m_y = french_months[start[3:5]] + ' ' + start[-4:]
         checker_day = int(start[:2])
 
@@ -128,8 +132,9 @@ class HistoryPage(SeleniumPage):
                         
                         if day_number == checker_day:
                             day.click()
-                            if checker == start:
-                                checker = end
+                            self.logger.error(day_number)
+                            if checker == "start":
+                                checker = "end"
                                 checker_m_y = french_months[end[3:5]] + ' ' + end[-4:]
                                 checker_day = int(end[:2])
                                 if month_name == checker_m_y:
@@ -148,15 +153,16 @@ class HistoryPage(SeleniumPage):
                 if not check_next:
                     break
 
-            if check_next and checker == start:
+            if check_next and checker == "start":
                 self.driver.find_element_by_xpath('//span[@aria-label="Previous Month"]').click()
 
-            if check_next and checker == end:
+            if check_next and checker == "end":
                 self.driver.find_element_by_xpath('//span[@aria-label="Next Month"]').click()
 
         self.driver.find_element_by_xpath('//span[text()="Confirmer"]').click()
 
         trs = []
+        hashids = []
         try:
             self.driver.find_element_by_xpath('//span[contains(text(), "Opération introuvable")]')
             self.browser.error_msg = 'nohistory'
@@ -184,16 +190,17 @@ class HistoryPage(SeleniumPage):
                     debit = self.decimalism(line.find_element_by_xpath('.//div/div[4]/div').text)
                     credit = self.decimalism(line.find_element_by_xpath('.//div/div[5]/div').text)
                     tr.solde = credit - debit
-                    tr.amount = tr.solde
 
                     str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
-                    tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+                    tr.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
-                    del (
-                        tr.url, tr.vdate, tr.rdate, tr.bdate, tr.type, tr.category, tr.card, tr.commission,
-                        tr.gross_amount, tr.original_amount, tr.original_currency, tr.country, tr.original_commission,
-                        tr.original_commission_currency, tr.original_gross_amount, tr.investments, tr.raw
-                    )
+                    x = 1
+                    while tr.hashid in hashids:
+                        str_to_hash = str_2_hash + str(x)
+                        tr.hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                        x += 1
+
+                    hashids.append(tr.hashid)
                     trs.append(tr)
 
             page.click()

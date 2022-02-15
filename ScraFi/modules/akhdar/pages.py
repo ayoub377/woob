@@ -24,7 +24,7 @@ from datetime import datetime
 from decimal import Decimal
 import hashlib, time
 
-from woob.capabilities.base import DecimalField
+from woob.capabilities.base import DecimalField, StringField
 from woob.capabilities.bank.base import Account, Transaction
 from woob.browser.selenium import SeleniumPage, VisibleXPath
 from woob.scrafi_exceptions import NoHistoryError, WebsiteError
@@ -82,14 +82,16 @@ class AccountsPage(SeleniumPage):
 
 class AkhdarTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
+    hashid = StringField('Scrafi ID')
 
     def __repr__(self):
-        return '<%s id=%r label=%r date=%r solde=%r>' % (
-        type(self).__name__, self.id, self.label, self.date, self.solde)
+        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.hashid, self.date, self.label, self.solde)
 
 
 class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//form[@id="frmTransactionshistory"]')
+    hashids = []
 
     def get_history(self, _id, **kwargs):
         start = kwargs['start_date'].replace('/', '-')
@@ -146,8 +148,17 @@ class HistoryPage(SeleniumPage):
                 tr.solde = credit - debit
             except StaleElementReferenceException:
                 pass
+
             str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
-            tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+            tr.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+
+            x = 1
+            while tr.hashid in self.hashids:
+                str_to_hash = str_2_hash + str(x)
+                tr.hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                x += 1
+
+            self.hashids.append(tr.hashid)
             transactions.append(tr)
         return transactions
 
