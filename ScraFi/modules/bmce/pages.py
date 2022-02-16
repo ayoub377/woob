@@ -24,7 +24,7 @@ from datetime import datetime
 from decimal import Decimal
 import hashlib
 
-from woob.capabilities.base import DecimalField
+from woob.capabilities.base import DecimalField, StringField
 from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
@@ -66,12 +66,12 @@ class AccountsPage(SeleniumPage):
         elements = self.driver.find_elements_by_xpath('//table[@class="_c1 ei_comptescontrats _c1"]/tbody/tr')[1:]
         for element in elements:
             account = Account()
-            account.label = element.find_element_by_xpath('.//td[1]/a/span[1]').text
-            account.id = element.find_element_by_xpath('.//td[1]/a/span[4]').text.replace(".", "").strip()
+            account.label = element.find_element_by_xpath('./td[1]/a/span/span[1]').text
+            account.id = element.find_element_by_xpath('./td[1]/a/span/span[4]').text.replace(".", "").strip()
             try:
-                account._devise = "(" + element.find_element_by_xpath('.//td[3]/span').text[-3:] + ")"
+                account._devise = "(" + element.find_element_by_xpath('./td[3]/span').text[-3:] + ")"
             except NoSuchElementException:
-                account._devise = "(" + element.find_element_by_xpath('.//td[2]/span').text[-3:] + ")"
+                account._devise = "(" + element.find_element_by_xpath('./td[2]/span').text[-3:] + ")"
             for acc in accounts:
                 if account.label == acc.label:
                     account.label += ' ' + account._devise
@@ -82,7 +82,7 @@ class AccountsPage(SeleniumPage):
     def go_history(self, account):
         comptes = self.driver.find_elements_by_xpath('//table[@class="_c1 ei_comptescontrats _c1"]/tbody/tr/td[1]/a')
         for compte in comptes:
-            number = compte.find_element_by_xpath('./span[4]').text
+            number = compte.find_element_by_xpath('./span/span[4]').text
             number = number.replace('.', '')
             if number == account.id:
                 compte.click()
@@ -91,7 +91,11 @@ class AccountsPage(SeleniumPage):
 
 class BMCETransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
+    hashid = StringField('Scrafi ID')
 
+    def __repr__(self):
+        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.hashid, self.date, self.label, self.solde)
 
 class HistoryPage(SeleniumPage):
     def get_history(self, **kwargs):
@@ -103,14 +107,15 @@ class HistoryPage(SeleniumPage):
             pass
         
         self.driver.find_element_by_xpath('//a[@title="Rechercher des opérations sur les 6 derniers mois"]').click()
-        self.browser.wait_xpath_visible('//table[@class="saisie"]')
-        self.driver.find_element_by_xpath('//table[@class="saisie"]/tbody/tr[1]/td[1]/input').send_keys(kwargs['start_date'])
-        self.driver.find_element_by_xpath('//table[@class="saisie"]/tbody/tr[1]/td[2]/input').send_keys(kwargs['end_date'])
+        self.browser.wait_xpath_visible('//table[@class=" eir_xs_to1coltable saisie"]')
+        self.driver.find_element_by_xpath('//table[@class=" eir_xs_to1coltable saisie"]/tbody/tr[1]/td[1]/input').send_keys(kwargs['start_date'])
+        self.driver.find_element_by_xpath('//table[@class=" eir_xs_to1coltable saisie"]/tbody/tr[1]/td[2]/input').send_keys(kwargs['end_date'])
         time.sleep(3)
         self.driver.find_element_by_xpath('//a[@title="Rechercher"]').click()
         time.sleep(2)
 
         history = []
+        hashids = []
         try:
             self.driver.find_element_by_xpath('//td[contains(text(), "Aucune opération ne correspond à votre recherche")]')
             self.browser.error_msg = 'nohistory'
@@ -126,29 +131,29 @@ class HistoryPage(SeleniumPage):
             except NoSuchElementException:
                 plus = False
         
-        elements = self.driver.find_elements_by_xpath('//table[@class="liste"]/tbody/tr')
+        elements = self.driver.find_elements_by_xpath('//table[@class=" eir_xs_to1coltable liste"]/tbody/tr')
         for element in elements:
             tr = BMCETransaction()
-            tr.label = element.find_element_by_xpath('.//td[2]/div/div/div[1]').text.strip()
-            tr.date = datetime.strptime(element.find_element_by_xpath('.//td[1]').text, '%d/%m/%Y').date()
+            tr.label = element.find_element_by_xpath('./td[2]/div/div/div[1]').text.strip()
+            tr.date = datetime.strptime(element.find_element_by_xpath('./td[1]').text, '%d/%m/%Y').date()
             try:
-                credit = self.decimalism(element.find_element_by_xpath('.//td[4]/span').text)
-                debit = self.decimalism(element.find_element_by_xpath('.//td[3]').text)
+                credit = self.decimalism(element.find_element_by_xpath('./td[4]/span').text)
+                debit = self.decimalism(element.find_element_by_xpath('./td[3]').text)
             except NoSuchElementException:
-                debit = self.decimalism(element.find_element_by_xpath('.//td[3]/span').text)
-                credit = self.decimalism(element.find_element_by_xpath('.//td[4]').text)
+                debit = self.decimalism(element.find_element_by_xpath('./td[3]/span').text)
+                credit = self.decimalism(element.find_element_by_xpath('./td[4]').text)
             tr.solde = credit - debit
-            tr.amount = tr.solde
 
             str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
-            tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+            tr.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
-            del (
-                tr.url, tr.vdate, tr.rdate, tr.bdate, tr.type, tr.category, tr.card, tr.commission,
-                tr.gross_amount, tr.original_amount, tr.original_currency, tr.country, tr.original_commission,
-                tr.original_commission_currency, tr.original_gross_amount, tr.investments, tr.raw
-                )
-                
+            x = 1
+            while tr.hashid in hashids:
+                str_to_hash = str_2_hash + str(x)
+                tr.hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                x += 1
+
+            hashids.append(tr.hashid)
             history.append(tr)
         return history
 

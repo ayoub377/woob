@@ -442,7 +442,7 @@ class SeleniumBrowser(object):
         # Also, the data we send to the browser using selenium (with send_keys)
         # can be displayed clearly in the log, if the log level is
         # set to DEBUG.
-        logging.getLogger('selenium').setLevel(logging.ERROR)
+        logging.getLogger('selenium').setLevel(logging.FATAL)
 
         self.implicit_timeout = 0
         self.last_page_hash = None
@@ -530,6 +530,7 @@ class SeleniumBrowser(object):
                 capa['profile'] = self.responses_dirname
             self.driver = self.DRIVER(options=options, capabilities=capa, **driver_kwargs)
         elif self.DRIVER is webdriver.Chrome:
+            options.add_argument("log-level=3")
             options.add_argument("start-maximized")
             options.add_argument('--no-sandbox')
             if self.HEADLESS:
