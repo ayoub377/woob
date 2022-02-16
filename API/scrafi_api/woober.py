@@ -179,7 +179,7 @@ class Woobank:
             for result in woob_results:
                 try:
                     data = {
-                        'id': result.id,
+                        'id': result.hashid,
                         'label': result.label,
                     }
                     if self.flow == 'history':
