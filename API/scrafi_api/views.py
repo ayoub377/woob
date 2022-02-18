@@ -59,11 +59,15 @@ def record_request(request):
 def process_history_request(request, bank, endpoint):
     customfile = f'{path}/scrafi_project/Logs/django/custom/custom.log'
     custom_logger = setup_logger(f'custom_logger', customfile)
+    if bank == 'banque populaire':
+        bank = 'chaabi'
+
     available_banks = ['akhdar', 'awb', 'bmce', 'cdm', 'cfg', 'chaabi', 'cih', 'ineo']
     if bank not in available_banks:
         response = json.dumps([{"Response": "Error", "ERROR": "Le connecteur %s n'existe pas." % bank}])
         custom_logger.info('[{"Response": "Error", "ERROR": "Le connecteur %s n\'existe pas."}]' % bank)
         return HttpResponse(response, content_type='text/json')
+        
 
     username = request.data['username']
     if username == '':
