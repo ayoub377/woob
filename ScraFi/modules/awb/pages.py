@@ -83,11 +83,10 @@ class AccountsPage(SeleniumPage):
 
 class AwbTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
-    hashid = StringField('Scrafi ID')
 
     def __repr__(self):
-        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
-            type(self).__name__, self.hashid, self.date, self.label, self.solde)
+        return '<%s id=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.id, self.date, self.label, self.solde)
 
 class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//h2[contains(text(), "opérations comptabilisées")]')
@@ -162,7 +161,7 @@ class HistoryPage(SeleniumPage):
         self.driver.find_element_by_xpath('//span[text()="Confirmer"]').click()
 
         trs = []
-        hashids = []
+        ids = []
         try:
             self.driver.find_element_by_xpath('//span[contains(text(), "Opération introuvable")]')
             self.browser.error_msg = 'nohistory'
@@ -192,15 +191,15 @@ class HistoryPage(SeleniumPage):
                     tr.solde = credit - debit
 
                     str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
-                    tr.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+                    tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
                     x = 1
-                    while tr.hashid in hashids:
+                    while tr.id in ids:
                         str_to_hash = str_2_hash + str(x)
-                        tr.hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                        tr.id = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
                         x += 1
 
-                    hashids.append(tr.hashid)
+                    ids.append(tr.id)
                     trs.append(tr)
 
             page.click()

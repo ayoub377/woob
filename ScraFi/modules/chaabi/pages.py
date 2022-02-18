@@ -89,14 +89,13 @@ class HistoryPage(LoggedPage, HTMLPage):
 
 class ChaabiTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
-    hashid = StringField('Scrafi ID')
 
     def __repr__(self):
-        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
-            type(self).__name__, self.hashid, self.date, self.label, self.solde)
+        return '<%s id=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.id, self.date, self.label, self.solde)
             
 
-hashids = []
+ids = []
 class HistoryReponse(HTMLPage, LoggedPage):
     def verify(self):
         if self.doc.xpath('//td[text()="Aucune opération ne correspond aux critères choisis."]'):
@@ -127,15 +126,15 @@ class HistoryReponse(HTMLPage, LoggedPage):
             
             obj_amount = obj_solde
             
-            def obj_hashid(self):
+            def obj_id(self):
                 str_2_hash = Format('%s %s %s', Field('label'), Field('date'), Field('solde'))(self)
-                hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+                _id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
                 x = 1
-                while hashid in hashids:
+                while _id in ids:
                     str_to_hash = str_2_hash + str(x)
-                    hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                    _id = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
                     x += 1
 
-                hashids.append(hashid)
-                return hashid
+                ids.append(_id)
+                return _id
