@@ -148,7 +148,7 @@ class Woobank:
             json_response["Error"] = "Le connecteur %s n'est pas operationel." % self.bankia
 
         else:
-            self.logger.info('BUG in "%s"' % self.flow)
+            self.logger.info('BUG in "%s"' % self.flow, exc_info=True)
             # self.notify_zaz(error_msg)
             json_response["Error"] = "Un problème est survenu, veuillez réessayer ultérieurement."
         return json_response
