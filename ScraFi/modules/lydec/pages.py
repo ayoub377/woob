@@ -55,14 +55,13 @@ class AccueilPage(SeleniumPage):
 
 
 class LydecBill(Bill):
-    hashid = StringField('Scrafi ID')
     date = StringField('Date de la facture')
     montant = StringField('Montant de la facture')
     pdf = StringField('PDF de la facture')
     
     def __repr__(self):
-        return '<%s hashid=%r number=%r date=%r montant=%r>' % (
-            type(self).__name__, self.hashid, self.number, self.date, self.montant)
+        return '<%s id=%r number=%r date=%r montant=%r>' % (
+            type(self).__name__, self.id, self.number, self.date, self.montant)
 
 
 class BillsPage(SeleniumPage):
@@ -101,7 +100,7 @@ class BillsPage(SeleniumPage):
                 bill.montant = tr.find_element_by_xpath('./td[3]').text
 
                 str_2_hash = "lydec" + bill.number + bill.date + bill.montant
-                bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+                bill.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
                 url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
                 response = requests.get(url, verify=False)

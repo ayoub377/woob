@@ -82,16 +82,15 @@ class AccountsPage(SeleniumPage):
 
 class AkhdarTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
-    hashid = StringField('Scrafi ID')
 
     def __repr__(self):
-        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
-            type(self).__name__, self.hashid, self.date, self.label, self.solde)
+        return '<%s id=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.id, self.date, self.label, self.solde)
 
 
 class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//form[@id="frmTransactionshistory"]')
-    hashids = []
+    ids = []
 
     def get_history(self, _id, **kwargs):
         start = kwargs['start_date'].replace('/', '-')
@@ -150,15 +149,15 @@ class HistoryPage(SeleniumPage):
                 pass
 
             str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
-            tr.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+            tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
             x = 1
-            while tr.hashid in self.hashids:
+            while tr.id in self.ids:
                 str_to_hash = str_2_hash + str(x)
-                tr.hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                tr.id = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
                 x += 1
 
-            self.hashids.append(tr.hashid)
+            self.ids.append(tr.id)
             transactions.append(tr)
         return transactions
 

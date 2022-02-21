@@ -179,7 +179,7 @@ class Woobank:
             for result in woob_results:
                 try:
                     data = {
-                        'id': result.hashid,
+                        'id': result.id,
                         'label': result.label,
                     }
                     if self.flow == 'history':
@@ -306,7 +306,7 @@ class Woobill:
                 for result in woob_results:
                     try:
                         data = {
-                            'scrafiId': result.hashid,
+                            'scrafiId': result.id,
                             'factureNumero': result.number,
                             'dateFacture': result.date,
                             'montantTTC': result.montant,
