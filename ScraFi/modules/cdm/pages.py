@@ -180,12 +180,12 @@ class HistoryPage(SeleniumPage):
             raise NoHistoryError
 
         tbody = math.ceil(int(total_text[8:])/30)
-        x = 1
+        y = 1
         self.driver.find_element_by_xpath('//*[@id="acc-trans-table-booked/"]/tbody').click()
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-        while x <= tbody:
-            lines = self.driver.find_elements_by_xpath('//*[@id="acc-trans-table-booked/"]/tbody[%s]/tr' % x)
+        while y <= tbody:
+            lines = self.driver.find_elements_by_xpath('//*[@id="acc-trans-table-booked/"]/tbody[%s]/tr' % y)
             for line in lines:
                 tr = CDMTransaction()
                 tr.label = line.find_element_by_xpath('.//td[5]/span').text
@@ -211,7 +211,7 @@ class HistoryPage(SeleniumPage):
                 ids.append(tr.id)
                 trs.append(tr)
 
-            x += 1
+            y += 1
             actions = ActionChains(self.driver)
             actions.send_keys(Keys.SPACE).perform()
             actions.send_keys(Keys.SPACE).perform()
