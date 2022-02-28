@@ -60,12 +60,6 @@ class AccountsPage(SeleniumPage):
         time.sleep(3)
         try:
             accounts_list = self.driver.find_elements_by_xpath('//tbody[@id="frmMainDashboard:tbAccountsSummary:tblTransactionAccountsSummary_data"]/tr')
-            for acc in accounts_list:
-                account = Account()
-                account.id = acc.find_element_by_xpath('./td[1]/a/span').text
-                account.label = acc.find_element_by_xpath('./td[2]/span[2]').text
-                accounts.append(account)
-            return accounts
         except NoSuchElementException:
             try:
                 self.driver.find_element_by_xpath('//span[text()="No records found."]')
@@ -73,6 +67,14 @@ class AccountsPage(SeleniumPage):
                 self.browser.get_accounts()
             except NoSuchElementException:
                 raise WebsiteError
+        else:
+            for acc in accounts_list:
+                account = Account()
+                account.id = acc.find_element_by_xpath('./td[1]/a/span').text
+                account.label = acc.find_element_by_xpath('./td[2]/span[2]').text
+                accounts.append(account)
+            return accounts
+
 
     def go_history_page(self):
         self.driver.find_element_by_xpath('//li[@id="menuform:sm_0"]/a').click()
@@ -122,16 +124,24 @@ class HistoryPage(SeleniumPage):
         i = 1
         x = True
         while x:
-            pages = self.driver.find_elements_by_xpath('//span[@class="ui-paginator-pages"]/span')
-            total_pages = int(pages[-1].text)
-            if i != total_pages:
-                self.driver.find_element_by_xpath('//span[@class="ui-paginator-pages"]/span[contains(text(), "%s")]' % str(i+1)).click()
-                self.browser.wait_xpath_visible('//span[@class="ui-paginator-page ui-state-default ui-corner-all ui-state-active"][text()="%s"]' % str(i+1))
-                trs += self.get_transactions()
-                i += 1
-            else:
+            try:
+                self.browser.wait_xpath_visible('//span[@class="ui-paginator-pages"]/span')
+            except TimeoutException:
                 x = False
                 break
+            else:
+                pages = self.driver.find_elements_by_xpath('//span[@class="ui-paginator-pages"]/span')
+                self.logger.info(len(pages))
+                total_pages = int(pages[-1].text)
+
+                if i != total_pages:
+                    self.driver.find_element_by_xpath('//span[@class="ui-paginator-pages"]/span[contains(text(), "%s")]' % str(i+1)).click()
+                    self.browser.wait_xpath_visible('//span[@class="ui-paginator-page ui-state-default ui-corner-all ui-state-active"][text()="%s"]' % str(i+1))
+                    trs += self.get_transactions()
+                    i += 1
+                else:
+                    x = False
+                    break
         return trs
 
     def get_transactions(self):

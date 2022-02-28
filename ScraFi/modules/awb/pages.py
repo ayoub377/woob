@@ -131,7 +131,6 @@ class HistoryPage(SeleniumPage):
                         
                         if day_number == checker_day:
                             day.click()
-                            self.logger.error(day_number)
                             if checker == "start":
                                 checker = "end"
                                 checker_m_y = french_months[end[3:5]] + ' ' + end[-4:]
