@@ -46,6 +46,12 @@ class LoginPage(SeleniumPage):
             self.browser.error_msg = 'credentials'
             raise WrongCredentialsError
         except NoSuchElementException:
+            try:
+                self.driver.find_element_by_xpath('//p[contains(text(), "Votre mot de passe est révoqué")]')
+                self.browser.error_msg = 'credentials'
+                raise WrongCredentialsError
+            except NoSuchElementException:
+                pass
             self.browser.do_login()
             
 
