@@ -25,7 +25,7 @@ from decimal import Decimal
 import hashlib
 import time
 
-from woob.capabilities.base import DecimalField, StringField
+from woob.capabilities.base import DecimalField
 from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
@@ -69,17 +69,24 @@ class AccountsPage(SeleniumPage):
 
     def get_accounts(self):
         accounts = []
-        account = Account()
-        time.sleep(5)
-        text = self.driver.find_element_by_xpath('//div[@class="sc-gsDKAQ feqwgj"]/span[2]').text
-        account.id = text[-16:]
-        account.label = text[:-16]
-        accounts.append(account)
+        elements = self.driver.find_elements_by_xpath('//div[@class="sc-gsDKAQ sc-cidDSM dJKBvb ui-list-box"]')
+        for element in elements:
+            account = Account()
+            time.sleep(5)
+            text = element.find_element_by_xpath('./div/div[2]/div/span[2]').text
+            devise = element.find_element_by_xpath('./div/div[3]/button/span/div/span').text.rsplit(' ', 1)[1]
+            account.id = text[-16:]
+            account.label = text[:-16] + "(" + devise + ")"
+            accounts.append(account)
         return accounts
 
-    def go_history_page(self):
-        self.driver.find_element_by_xpath('//*[@id="root"]/div/main/div/div/div[2]/div/div[3]/div/div/div[3]/button').click()
-
+    def go_history_page(self, acc_id):
+        accounts = self.driver.find_elements_by_xpath('//div[@class="sc-gsDKAQ sc-cidDSM dJKBvb ui-list-box"]')
+        for account in accounts:
+            account_id = account.find_element_by_xpath('./div/div[2]/div/span[2]').text[-16:]
+            if acc_id == account_id:
+                account.find_element_by_xpath('./div/div[3]/button').click()
+                break
 
 class AwbTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
