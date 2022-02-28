@@ -34,6 +34,9 @@ urlpatterns = [
     path('bankHistory/getResult', views.Results.as_view(), name='Results'),
     path('bankHistory/Confirmation', views.Confirmation.as_view(), name='Confirmation'),
 
+    path('billHistory/getResult', views.Results.as_view(), name='Results'),
+    path('billHistory/Confirmation', views.Confirmation.as_view(), name='Confirmation'),
+
     path('getResult', views.Results.as_view(), name='Results'),
     path('Confirmation', views.Confirmation.as_view(), name='Confirmation'),
     
