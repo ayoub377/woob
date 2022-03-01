@@ -57,11 +57,10 @@ class IamBill(Bill):
     montant = StringField('Montant de la facture')
     date = StringField('Date de la facture')
     pdf = StringField('PDF de la facture')
-    hashid = StringField('ScraFi ID')
     
     def __repr__(self):
-        return '<%s hashid=%r number=%r date=%r montant=%r>' % (
-            type(self).__name__, self.hashid, self.number, self.date, self.montant)
+        return '<%s id=%r number=%r date=%r montant=%r>' % (
+            type(self).__name__, self.id, self.number, self.date, self.montant)
 
 
 class BillsPage(SeleniumPage):
@@ -97,7 +96,7 @@ class BillsPage(SeleniumPage):
             bill.number = facture.find_element_by_xpath('.//td[6]').text
             
             str_2_hash = "maroctelecom" + bill.number + bill.date + bill.montant
-            bill.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+            bill.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
             
             facture.find_element_by_xpath('.//td[1]/a/img').click()
             annee = the_date.strftime('%Y')

@@ -68,11 +68,10 @@ class AccountsPage(SeleniumPage):
 
 class CFGTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
-    hashid = StringField('Scrafi ID')
 
     def __repr__(self):
-        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
-            type(self).__name__, self.hashid, self.date, self.label, self.solde)
+        return '<%s id=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.id, self.date, self.label, self.solde)
 
 
 class HistoryPage(SeleniumPage):
@@ -88,7 +87,7 @@ class HistoryPage(SeleniumPage):
         time.sleep(1)
 
         trs = []
-        hashids = []
+        ids = []
         try:
             self.driver.find_element_by_xpath('//td[@class="noleftborder firstCell lastCell"]')
             self.browser.error_msg = 'nohistory'
@@ -118,12 +117,12 @@ class HistoryPage(SeleniumPage):
             tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
             x = 1
-            while tr.hashid in hashids:
+            while tr.id in ids:
                 str_to_hash = str_2_hash + str(x)
-                tr.hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                tr.id = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
                 x += 1
 
-            hashids.append(tr.hashid)
+            ids.append(tr.id)
             trs.append(tr)
         return trs
                     

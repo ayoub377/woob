@@ -25,7 +25,7 @@ from decimal import Decimal
 import hashlib
 import time
 
-from woob.capabilities.base import DecimalField, StringField
+from woob.capabilities.base import DecimalField
 from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
@@ -69,25 +69,31 @@ class AccountsPage(SeleniumPage):
 
     def get_accounts(self):
         accounts = []
-        account = Account()
-        time.sleep(5)
-        text = self.driver.find_element_by_xpath('//div[@class="sc-gsDKAQ feqwgj"]/span[2]').text
-        account.id = text[-16:]
-        account.label = text[:-16]
-        accounts.append(account)
+        elements = self.driver.find_elements_by_xpath('//div[@class="sc-gsDKAQ sc-cidDSM dJKBvb ui-list-box"]')
+        for element in elements:
+            account = Account()
+            time.sleep(5)
+            text = element.find_element_by_xpath('./div/div[2]/div/span[2]').text
+            devise = element.find_element_by_xpath('./div/div[3]/button/span/div/span').text.rsplit(' ', 1)[1]
+            account.id = text[-16:]
+            account.label = text[:-16] + "(" + devise + ")"
+            accounts.append(account)
         return accounts
 
-    def go_history_page(self):
-        self.driver.find_element_by_xpath('//*[@id="root"]/div/main/div/div/div[2]/div/div[3]/div/div/div[3]/button').click()
-
+    def go_history_page(self, acc_id):
+        accounts = self.driver.find_elements_by_xpath('//div[@class="sc-gsDKAQ sc-cidDSM dJKBvb ui-list-box"]')
+        for account in accounts:
+            account_id = account.find_element_by_xpath('./div/div[2]/div/span[2]').text[-16:]
+            if acc_id == account_id:
+                account.find_element_by_xpath('./div/div[3]/button').click()
+                break
 
 class AwbTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
-    hashid = StringField('Scrafi ID')
 
     def __repr__(self):
-        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
-            type(self).__name__, self.hashid, self.date, self.label, self.solde)
+        return '<%s id=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.id, self.date, self.label, self.solde)
 
 class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//h2[contains(text(), "opérations comptabilisées")]')
@@ -132,7 +138,6 @@ class HistoryPage(SeleniumPage):
                         
                         if day_number == checker_day:
                             day.click()
-                            self.logger.error(day_number)
                             if checker == "start":
                                 checker = "end"
                                 checker_m_y = french_months[end[3:5]] + ' ' + end[-4:]
@@ -162,7 +167,7 @@ class HistoryPage(SeleniumPage):
         self.driver.find_element_by_xpath('//span[text()="Confirmer"]').click()
 
         trs = []
-        hashids = []
+        ids = []
         try:
             self.driver.find_element_by_xpath('//span[contains(text(), "Opération introuvable")]')
             self.browser.error_msg = 'nohistory'
@@ -192,15 +197,15 @@ class HistoryPage(SeleniumPage):
                     tr.solde = credit - debit
 
                     str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
-                    tr.hashid = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+                    tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
                     x = 1
-                    while tr.hashid in hashids:
+                    while tr.id in ids:
                         str_to_hash = str_2_hash + str(x)
-                        tr.hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                        tr.id = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
                         x += 1
 
-                    hashids.append(tr.hashid)
+                    ids.append(tr.id)
                     trs.append(tr)
 
             page.click()

@@ -95,6 +95,6 @@ class AWBBrowser(SeleniumBrowser):
     def iter_history(self, _id, **kwargs):
         self.get_account(_id)
         self.accounts_page.stay_or_go()
-        self.page.go_history_page()
+        self.page.go_history_page(_id)
         self.wait_until_is_here(self.history_page)
         return self.page.get_history(**kwargs)

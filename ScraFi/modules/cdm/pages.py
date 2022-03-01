@@ -156,11 +156,10 @@ class AccountsPage(SeleniumPage):
 
 class CDMTransaction(Transaction):
     solde = DecimalField('Le solde de la transaction')
-    hashid = StringField('Scrafi ID')
 
     def __repr__(self):
-        return '<%s hashid=%r date=%r label=%r solde=%r>' % (
-            type(self).__name__, self.hashid, self.date, self.label, self.solde)
+        return '<%s id=%r date=%r label=%r solde=%r>' % (
+            type(self).__name__, self.id, self.date, self.label, self.solde)
 
 class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//*[@id="tabContainer"]/div[1]/ul/ul/a[2]')
@@ -174,19 +173,19 @@ class HistoryPage(SeleniumPage):
         self.driver.find_element_by_xpath('//div[@id="button_filter_search"]').click()
 
         trs = []
-        hashids = []
+        ids = []
         total_text = self.driver.find_element_by_xpath('//*[@id="filter_div"]/form/span').text
         if int(total_text[8:]) == 0:
             self.browser.error_msg = 'nohistory'
             raise NoHistoryError
 
         tbody = math.ceil(int(total_text[8:])/30)
-        x = 1
+        y = 1
         self.driver.find_element_by_xpath('//*[@id="acc-trans-table-booked/"]/tbody').click()
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-        while x <= tbody:
-            lines = self.driver.find_elements_by_xpath('//*[@id="acc-trans-table-booked/"]/tbody[%s]/tr' % x)
+        while y <= tbody:
+            lines = self.driver.find_elements_by_xpath('//*[@id="acc-trans-table-booked/"]/tbody[%s]/tr' % y)
             for line in lines:
                 tr = CDMTransaction()
                 tr.label = line.find_element_by_xpath('.//td[5]/span').text
@@ -204,15 +203,15 @@ class HistoryPage(SeleniumPage):
                 tr.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
                     
                 x = 1
-                while tr.hashid in hashids:
+                while tr.id in ids:
                     str_to_hash = str_2_hash + str(x)
-                    tr.hashid = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
+                    tr.id = hashlib.md5(str_to_hash.encode("utf-8")).hexdigest()
                     x += 1
 
-                hashids.append(tr.hashid)
+                ids.append(tr.id)
                 trs.append(tr)
 
-            x += 1
+            y += 1
             actions = ActionChains(self.driver)
             actions.send_keys(Keys.SPACE).perform()
             actions.send_keys(Keys.SPACE).perform()
