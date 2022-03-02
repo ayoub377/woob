@@ -28,7 +28,7 @@ from io import BytesIO
 from datetime import datetime
 from decimal import Decimal
 
-from woob.capabilities.base import DecimalField, StringField
+from woob.capabilities.base import DecimalField
 from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath

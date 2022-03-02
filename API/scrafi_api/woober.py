@@ -1,5 +1,6 @@
 import requests, sys, json, configparser, time, discord, traceback, logging, hashlib, os
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from woob.core import Woob
 from woob.capabilities.bank import CapBank
@@ -147,6 +148,15 @@ class Woobank:
         elif error_msg == 'bank':
             self.logger.info('Bank website out of service')
             json_response["Error"] = "Le connecteur %s n'est pas operationel." % self.bankia
+
+        elif error_msg == 'date':
+            self.logger.info('Date limit')
+            if self.bank == "awb":
+                json_response["Error"] = "La date limite pour AttijariWafa bank est le %s" % (datetime.today() - relativedelta(months=3)).strftime('%d/%m/%Y')
+            elif self.bank == "bmce":
+                json_response["Error"] = "La date limite pour la BMCE est le %s" % (datetime.today() - relativedelta(months=6)).strftime('%d/%m/%Y')
+            else:
+                json_response["Error"] = "La date limite a été dépassée."
 
         else:
             self.logger.info('BUG in "%s"' % self.flow, exc_info=True)

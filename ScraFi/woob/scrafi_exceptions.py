@@ -20,3 +20,7 @@ class NoBillError(Exception):
 
 class WebsiteError(Exception):
     pass
+
+
+class DateLimitError(Exception):
+    pass

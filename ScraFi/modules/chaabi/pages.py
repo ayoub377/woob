@@ -29,7 +29,7 @@ from woob.browser.filters.html import CleanHTML, TableCell
 from woob.browser.pages import FormNotFound, HTMLPage, LoggedPage
 
 from woob.capabilities.bank.base import Account, Transaction
-from woob.capabilities.base import DecimalField, StringField
+from woob.capabilities.base import DecimalField
 from woob.scrafi_exceptions import NoHistoryError
 from woob.tools.date import parse_french_date
 
