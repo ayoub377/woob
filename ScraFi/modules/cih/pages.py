@@ -20,15 +20,15 @@
 from __future__ import unicode_literals
 
 
-import hashlib, time
+import hashlib
 from datetime import datetime
 from decimal import Decimal
 
-from woob.capabilities.base import DecimalField, StringField
+from woob.capabilities.base import DecimalField
 from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import TimeoutException
 from woob.scrafi_exceptions import NoHistoryError
 
 
