@@ -20,9 +20,13 @@
 from __future__ import unicode_literals
 
 
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
 from woob.tools.backend import Module, BackendConfig
 from woob.tools.value import ValueBackendPassword
 from woob.capabilities.bank import CapBank
+from woob.scrafi_exceptions import DateLimitError
 
 from .browser import BMCEBrowser
 
@@ -58,4 +62,8 @@ class BMCEModule(Module, CapBank):
             
 
     def iter_history(self, _id, **kwargs):
-        return self.browser.iter_history(_id, **kwargs)
+        if datetime.strptime(kwargs['start_date'], "%d/%m/%Y") < datetime.today() - relativedelta(months=6):
+            self.browser.error_msg = "date"
+            raise DateLimitError
+        else:
+            return self.browser.iter_history(_id, **kwargs)
