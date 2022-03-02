@@ -208,7 +208,7 @@ class HistoryPage(SeleniumPage):
                     ids.append(tr.id)
                     trs.append(tr)
 
-            page.click()
+            self.driver.find_element_by_xpath('//ul[@class="pagination"]/li[last()]').click()
         return trs
                     
     def decimalism(self, stringy):
