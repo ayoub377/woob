@@ -6,6 +6,20 @@ RUN apt-get update --fix-missing && apt-get -y upgrade
 RUN apt install python3-pip -y
 RUN apt-get install software-properties-common -y
 
+#Install Cron
+RUN apt-get update
+RUN apt-get -y install cron
+# Add crontab file in the cron directory
+COPY seluser /var/spool/cron/crontabs/seluser
+
+# Give execution rights on the cron job
+# RUN chmod 0644 /etc/cron.d/clean-cron
+# If you're adding a script file and telling cron to run it, remember to
+# RUN chmod 0744 /the_script
+
+# Run the command on container startup
+# CMD cron && tail -f /var/log/cron.log
+
 # Supervisor runs different applications for ScraFi to work
 RUN apt-get update && apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor
