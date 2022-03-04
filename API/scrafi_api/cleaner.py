@@ -18,14 +18,15 @@ if not logger.hasHandlers():
     logger.setLevel(logging.INFO)
     logger.addHandler(console_handler)
 
-jobs_qty = len(q)
+jobs_qty = q.started_job_registry.count
 while jobs_qty > 0:
+    logger.info(f"Waiting for jobs to complete : {jobs_qty}")
     time.sleep(10)
-    jobs_qty = len(q)
+    jobs_qty = q.started_job_registry.count
 
 content = open(backend_file, 'r').read().strip()
 if content:
-    logger.info("-= Cleaning Job =- Removing backends.. \n")
+    logger.info("-= Cleaning Job =- Removing backends..")
     open(backend_file,"w").close()
 else:
-    logger.info('-= Cleaning Job =- Backend file is empty. \n')
+    logger.info('-= Cleaning Job =- Backend file is empty.')
