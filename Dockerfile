@@ -6,6 +6,11 @@ RUN apt-get update --fix-missing && apt-get -y upgrade
 RUN apt install python3-pip -y
 RUN apt-get install software-properties-common -y
 
+# Cron Job for cleaning data each 4 hours
+RUN apt-get -y install cron
+COPY crontab.txt /crontab.txt
+RUN /usr/bin/crontab -u seluser /crontab.txt
+
 # Supervisor runs different applications for ScraFi to work
 RUN apt-get update && apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor
@@ -74,6 +79,7 @@ RUN python3 /home/seluser/scrafi_project/API/manage.py migrate
 # pyngrok to use django with ngrok
 # RUN pip install pyngrok
 
-CMD ["/usr/bin/supervisord"]
+RUN chown -R seluser /home/seluser
+CMD /usr/sbin/cron && /usr/bin/supervisord
 
 # RUN export PATH="/home/zhor/.local/bin:$PATH"

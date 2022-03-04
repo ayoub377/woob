@@ -1,0 +1,1 @@
+* */4 * * * /usr/local/bin/rq suspend >> /home/seluser/scrafi_project/Logs/rq/rq.log 2>&1 ; /bin/python3 /home/seluser/scrafi_project/API/scrafi_api/cleaner.py >> /home/seluser/scrafi_project/Logs/rq/rq.log 2>&1 ; /usr/local/bin/rq resume >> /home/seluser/scrafi_project/Logs/rq/rq.log 2>&1 ;

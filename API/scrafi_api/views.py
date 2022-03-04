@@ -68,7 +68,6 @@ def process_history_request(request, bank, endpoint):
         custom_logger.info('[{"Response": "Error", "ERROR": "Le connecteur %s n\'existe pas."}]' % bank)
         return HttpResponse(response, content_type='text/json')
         
-
     username = request.data['username']
     if username == '':
         response = json.dumps([{"Response": "Error", "ERROR": "L'identifiant est obligatoire."}])
@@ -219,7 +218,6 @@ class Results(ProtectedResourceView, APIView):
                 return HttpResponse(response, content_type='text/json')
 
 
-
 class Confirmation(APIView):
     def get(self, request):
         record_request(request)
@@ -238,7 +236,6 @@ class Confirmation(APIView):
             job.delete(delete_dependents=True)
             return HttpResponse(response, content_type='text/json')
 
-            
 
 def other_paths(request):
     otherfile = f'{path}/scrafi_project/Logs/other_requests/other.log'

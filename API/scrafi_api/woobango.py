@@ -65,6 +65,7 @@ def add_to_bank_q(flow, bank, username, password, acc_id, date):
         )
     return {'job_id': job.id}
 
+
 def add_to_bill_q(flow, username, password, bill, date):
     woobill = Woobill(flow, username, password, bill, date)
 
