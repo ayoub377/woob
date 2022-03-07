@@ -61,7 +61,7 @@ class AWBModule(Module, CapBank):
             
 
     def iter_history(self, _id, **kwargs):
-        if datetime.strptime(kwargs['start_date'], "%d/%m/%Y") < datetime.today() - relativedelta(months=3):
+        if datetime.strptime(kwargs['start_date'], "%d/%m/%Y") < datetime.today() - relativedelta(months=3, days=2):
             self.browser.error_msg = "date"
             raise DateLimitError
         else:
