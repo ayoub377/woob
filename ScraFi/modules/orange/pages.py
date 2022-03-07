@@ -27,8 +27,9 @@ from woob.capabilities.bill import Bill
 from woob.capabilities.base import StringField
 from woob.browser.selenium import SeleniumPage, VisibleXPath
 
-from woob.scrafi_exceptions import NoBillError
+from woob.scrafi_exceptions import NoBillError, WebsiteError
 from selenium.common.exceptions import NoSuchElementException
+from requests.exceptions import ConnectionError as cnxError
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -110,21 +111,32 @@ class BillsPage(SeleniumPage):
             self.browser.location(url)
             time.sleep(3)
             factures = self.driver.find_elements_by_xpath('//div[@class="table-facture__row pagination-element"]')
-            for facture in factures:
-                bill = OrangeBill()
-                
-                bill.date = bill_date
-                bill.number = facture.find_element_by_xpath('.//div[@class="table-facture__cell  w50 table-liste__date "]/span').text
-                bill.montant = facture.find_element_by_xpath('.//div[@class="table-facture__cell  w50 table-liste__montant"]/div/span').text
-                
-                str_2_hash = "orange" + bill.number + bill.date + bill.montant
-                bill.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
-                
-                pdf_url = facture.find_element_by_xpath('.//div[@class="visualiser-content"]/a').get_attribute("href")
-                response = requests.get(pdf_url, verify=False)
-                bill.pdf = base64.b64encode(response.content).decode('utf8')
-                
-                bills.append(bill)
+            with requests.Session() as req:
+                req.verify = False
+                for facture in factures:
+                    bill = OrangeBill()
+                    
+                    bill.date = bill_date
+                    bill.number = facture.find_element_by_xpath('.//div[@class="table-facture__cell  w50 table-liste__date "]/span').text
+                    bill.montant = facture.find_element_by_xpath('.//div[@class="table-facture__cell  w50 table-liste__montant"]/div/span').text
+                    
+                    str_2_hash = "orange" + bill.number + bill.date + bill.montant
+                    bill.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
+                    
+                    pdf_url = facture.find_element_by_xpath('.//div[@class="dropdown-links__contentr simpletoggle-content"]/a').get_attribute("href")
+                    x = 0
+                    while x < 5:
+                        try:
+                            response = req.get(pdf_url)
+                        except cnxError:
+                            x += 1
+                            if x == 5:
+                                self.browser.error_msg = 'website'
+                                raise WebsiteError
+                        else:
+                            x = 100
+                    bill.pdf = base64.b64encode(response.content).decode('utf8')
+                    bills.append(bill)
             
         if len(bills) == 0:
             self.browser.error_msg = 'nobill'
