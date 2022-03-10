@@ -131,8 +131,11 @@ class HistoryPage(SeleniumPage):
                 break
             else:
                 pages = self.driver.find_elements_by_xpath('//span[@class="ui-paginator-pages"]/span')
-                self.logger.info(len(pages))
-                total_pages = int(pages[-1].text)
+                try:
+                    total_pages = int(pages[-1].text)
+                except Exception as e:
+                    self.logger.info(len(pages))
+                    raise e
 
                 if i != total_pages:
                     self.driver.find_element_by_xpath('//span[@class="ui-paginator-pages"]/span[contains(text(), "%s")]' % str(i+1)).click()

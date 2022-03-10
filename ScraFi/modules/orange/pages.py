@@ -98,7 +98,12 @@ class BillsPage(SeleniumPage):
         for syn in synthesis:            
             date_element = syn.find_element_by_xpath('.//a[@class="cb-popup cboxElement"]')
             date_text = date_element.text
-            date_object = datetime.strptime(french_months[date_text[3:-5]] + "/" + date_text[-4:], "%m/%Y")
+            try:
+                date_object = datetime.strptime(french_months[date_text[3:-5]] + "/" + date_text[-4:], "%m/%Y")
+            except KeyError as e:
+                self.logger.info(date_text)
+                raise e
+
             bill_date = date_object.strftime('%m/%Y')
 
             if date_object != the_date:
