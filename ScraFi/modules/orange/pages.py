@@ -45,7 +45,7 @@ class LoginPage(SeleniumPage):
     def check_error(self):
         time.sleep(1)
         try:
-            self.driver.find_element_by_xpath('//li[@class="msg-error parsley-customError"]')
+            self.driver.find_element_by_xpath('//span[contains(text(),"Vérifiez le code saisi")]')
             return True
         except NoSuchElementException:
             return False
