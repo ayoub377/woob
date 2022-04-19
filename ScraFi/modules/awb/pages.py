@@ -101,70 +101,71 @@ class HistoryPage(SeleniumPage):
     def get_history(self, **kwargs):
         start = kwargs['start_date']
         end = kwargs['end_date']
+        if start != 'all':
+            time.sleep(2)
+            self.driver.find_element_by_xpath('//button[@class="sc-bdvvtL TlEJY ui-button contained primary"]').click()
+            self.driver.find_element_by_xpath('//div[@class="sc-gsDKAQ eVUpIm"]/div').click()
+            french_months = {'01': 'Janvier',
+                            '02': 'Février',
+                            '03': 'Mars',
+                            '04': 'Avril',
+                            '05': 'Mai',
+                            '06': 'Juin',
+                            '07': 'Juillet',
+                            '08': 'Août',
+                            '09': 'Septembre',
+                            '10': 'Octobre',
+                            '11': 'Novembre',
+                            '12': 'Décembre'}
+            
+            check_next = True
+            checker = "start"
+            checker_m_y = french_months[start[3:5]] + ' ' + start[-4:]
+            checker_day = int(start[:2])
 
-        time.sleep(2)
-        self.driver.find_element_by_xpath('//button[@class="sc-bdvvtL TlEJY ui-button contained primary"]').click()
-        self.driver.find_element_by_xpath('//div[@class="sc-gsDKAQ eVUpIm"]/div').click()
-        french_months = {'01': 'Janvier',
-                        '02': 'Février',
-                        '03': 'Mars',
-                        '04': 'Avril',
-                        '05': 'Mai',
-                        '06': 'Juin',
-                        '07': 'Juillet',
-                        '08': 'Août',
-                        '09': 'Septembre',
-                        '10': 'Octobre',
-                        '11': 'Novembre',
-                        '12': 'Décembre'}
-        
-        check_next = True
-        checker = "start"
-        checker_m_y = french_months[start[3:5]] + ' ' + start[-4:]
-        checker_day = int(start[:2])
+            while check_next:
+                months = self.driver.find_elements_by_xpath('//div[@class="DayPicker-Months"]/div')
 
-        for i in range(3):
-            months = self.driver.find_elements_by_xpath('//div[@class="DayPicker-Months"]/div')
+                for month in months:
+                    month_name = month.find_element_by_xpath('.//div[1]/div').text
 
-            for month in months:
-                month_name = month.find_element_by_xpath('.//div[1]/div').text
-
-                if month_name == checker_m_y:
-                    days = month.find_elements_by_xpath('.//div[3]/div/div')
-                    for day in days:
-                        if day.text == '':
-                            continue
-                        day_number = int(day.text)
-                        
-                        if day_number == checker_day:
-                            day.click()
-                            if checker == "start":
-                                checker = "end"
-                                checker_m_y = french_months[end[3:5]] + ' ' + end[-4:]
-                                checker_day = int(end[:2])
-                                if month_name == checker_m_y:
-                                    if day_number == checker_day:
-                                        day.click()
-                                        check_next = False
-                                        break
+                    if month_name == checker_m_y:
+                        days = month.find_elements_by_xpath('.//div[3]/div/div')
+                        for day in days:
+                            if day.text == '':
+                                continue
+                            day_number = int(day.text)
+                            
+                            if day_number == checker_day:
+                                day.click()
+                                if checker == "start":
+                                    checker = "end"
+                                    checker_m_y = french_months[end[3:5]] + ' ' + end[-4:]
+                                    checker_day = int(end[:2])
+                                    if month_name == checker_m_y:
+                                        if day_number == checker_day:
+                                            day.click()
+                                            check_next = False
+                                            break
+                                        else:
+                                            continue
                                     else:
-                                        continue
+                                        break
                                 else:
+                                    check_next = False
                                     break
-                            else:
-                                check_next = False
-                                break
 
-                if not check_next:
-                    break
+                    if not check_next:
+                        break
 
-            if check_next and checker == "start":
-                self.driver.find_element_by_xpath('//span[@aria-label="Previous Month"]').click()
+                if check_next and checker == "start":
+                    self.driver.find_element_by_xpath('//span[@aria-label="Previous Month"]').click()
 
-            if check_next and checker == "end":
-                self.driver.find_element_by_xpath('//span[@aria-label="Next Month"]').click()
-
-        self.driver.find_element_by_xpath('//span[text()="Confirmer"]').click()
+                if check_next and checker == "end":
+                    self.driver.find_element_by_xpath('//span[@aria-label="Next Month"]').click()
+                    
+            time.sleep(1)
+            self.driver.find_element_by_xpath('//span[text()="Confirmer"]').click()
 
         trs = []
         ids = []
