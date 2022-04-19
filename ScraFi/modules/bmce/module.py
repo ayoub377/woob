@@ -63,7 +63,5 @@ class BMCEModule(Module, CapBank):
 
     def iter_history(self, _id, **kwargs):
         if datetime.strptime(kwargs['start_date'], "%d/%m/%Y") < datetime.today() - relativedelta(months=6):
-            self.browser.error_msg = "date"
-            raise DateLimitError
-        else:
-            return self.browser.iter_history(_id, **kwargs)
+            kwargs['start_date'] = (datetime.today() - relativedelta(months=6)).strftime("%d/%m/%Y")
+        return self.browser.iter_history(_id, **kwargs)
