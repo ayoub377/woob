@@ -85,13 +85,13 @@ class LoginPage(SeleniumPage):
 
     def img_to_number(self, img):
         img = np.array(img)
-        img = img[15:45, 13:38]
+        img = img[14:46, 12:39]
         number = pytesseract.image_to_string(img, config='--psm 8 --oem 0 -c tessedit_char_whitelist=0123456789').replace('\n\x0c', '').strip()
         return number
     
     def check_error(self):
         try:
-            self.driver.find_element_by_xpath('//h3[contains(text(), "authentification a échoué")]')
+            self.driver.find_element_by_xpath('//div[@class="modal-body"]/text()')
             self.browser.error_msg = 'credentials'
             raise WrongCredentialsError
         except NoSuchElementException:
