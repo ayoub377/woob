@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 from woob.core import Woob
 from woob.capabilities.bank import CapBank
 from woob.capabilities.bill import CapDocument
+from selenium.common.exceptions import WebDriverException
 from .creation import create_signature
 
 from redis import Redis
@@ -165,42 +166,53 @@ class Woobank:
         self.logger.info('Getting the %s...' % self.flow)
 
         try:
-            if self.flow == 'history':
-                woob_results = w[bankash].iter_history(self.acc_id, **{'start_date': self.start_date, 'end_date': datetime.today().strftime('%d/%m/%Y')})
-                if self.bank == 'ineo':
-                    return {"Response": "OK", "Transactions": woob_results}
-            elif self.flow == 'account':
-                woob_results = [w[bankash].get_account(self.acc_id)]
-            elif self.flow == 'accounts':
-                woob_results = w[bankash].iter_accounts()
-
-            if not self.bankia in ('INEO', 'Banque Populaire') :
-                w[bankash].browser.driver.quit()
-                w[bankash].browser.vdisplay.stop()
-
-            for result in woob_results:
+            times = 0
+            while times < 2:
                 try:
-                    data = {
-                        'id': result.id,
-                        'label': result.label,
-                    }
                     if self.flow == 'history':
-                        data['date'] = result.date.strftime("%d/%m/%Y")
-                        data['solde'] = str(result.solde)
+                        woob_results = w[bankash].iter_history(self.acc_id, **{'start_date': self.start_date, 'end_date': datetime.today().strftime('%d/%m/%Y')})
+                        if self.bank == 'ineo':
+                            return {"Response": "OK", "Transactions": woob_results}
+                    elif self.flow == 'account':
+                        woob_results = [w[bankash].get_account(self.acc_id)]
+                    elif self.flow == 'accounts':
+                        woob_results = w[bankash].iter_accounts()
 
-                    results.append(data)
+                    if not self.bankia in ('INEO', 'Banque Populaire') :
+                        w[bankash].browser.driver.quit()
+                        w[bankash].browser.vdisplay.stop()
 
-                except AttributeError:
-                    self.unparsed = True
-                    return self.error_response(str(woob_results))
+                    for result in woob_results:
+                        try:
+                            data = {
+                                'id': result.id,
+                                'label': result.label,
+                            }
+                            if self.flow == 'history':
+                                data['date'] = result.date.strftime("%d/%m/%Y")
+                                data['solde'] = str(result.solde)
 
-            self.logger.info('Returning data')
-            if self.flow == 'history':
-                return {"Response": "OK", "Transactions": results}
-            elif len(woob_results) > 1:
-                return {"Response": "Multicomptes", "Error": "Il existe plus d'un ID pour ce compte.", "Accounts": results}
-            else:
-                return {"Response": "OK", "Accounts": results}
+                            results.append(data)
+
+                        except AttributeError:
+                            self.unparsed = True
+                            return self.error_response(str(woob_results))
+
+                    self.logger.info('Returning data')
+                    if self.flow == 'history':
+                        return {"Response": "OK", "Transactions": results}
+                    elif len(woob_results) > 1:
+                        return {"Response": "Multicomptes", "Error": "Il existe plus d'un ID pour ce compte.", "Accounts": results}
+                    else:
+                        return {"Response": "OK", "Accounts": results}
+
+                except WebDriverException as WDE:
+                    self.logger.info('WebDriverException ---> Retrying')
+                    times += 1
+                    if times == 2:
+                        raise WDE
+                    else:
+                        pass
 
         except JobTimeoutException as timerror:
             raise timerror
