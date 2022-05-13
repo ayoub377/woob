@@ -1,6 +1,5 @@
 import requests, sys, json, configparser, time, discord, traceback, logging, hashlib, os
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 
 from woob.core import Woob
 from woob.capabilities.bank import CapBank
@@ -178,7 +177,7 @@ class Woobank:
                     elif self.flow == 'accounts':
                         woob_results = w[bankash].iter_accounts()
 
-                    if not self.bankia in ('INEO', 'Banque Populaire') :
+                    if not self.bankia in ('INEO', 'Banque Populaire'):
                         w[bankash].browser.driver.quit()
                         w[bankash].browser.vdisplay.stop()
 
@@ -206,13 +205,13 @@ class Woobank:
                     else:
                         return {"Response": "OK", "Accounts": results}
 
-                except WebDriverException as WDE:
+                except WebDriverException as wde:
                     self.logger.info('WebDriverException ---> Retrying')
                     times += 1
                     if times == 2:
-                        raise WDE
+                        raise wde
                     else:
-                        pass
+                        time.sleep(3)
 
         except JobTimeoutException as timerror:
             raise timerror
