@@ -62,7 +62,7 @@ def process_history_request(request, bank, endpoint):
     if bank == 'banque populaire':
         bank = 'chaabi'
 
-    available_banks = ['akhdar', 'awb', 'bmce', 'cdm', 'cfg', 'chaabi', 'cih', 'ineo']
+    available_banks = ['akhdar', 'awb', 'bmce', 'cam,' 'cdm', 'cfg', 'chaabi', 'cih', 'ineo']
     if bank not in available_banks:
         response = json.dumps([{"Response": "Error", "ERROR": "Le connecteur %s n'existe pas." % bank}])
         custom_logger.info('[{"Response": "Error", "ERROR": "Le connecteur %s n\'existe pas."}]' % bank)
@@ -255,7 +255,7 @@ def other_paths(request):
         
     dilog['Headers'] = request.headers
     dilog['Method'] = request.method
-    dilog['Path'] = 'http://159.65.95.248:8000' + request.path_info
+    dilog['Path'] = 'http://...' + request.path_info
     dilog['Server protocol'] = request.META['SERVER_PROTOCOL']
 
     if request.COOKIES:

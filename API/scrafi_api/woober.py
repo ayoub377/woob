@@ -21,6 +21,7 @@ bankis = {
     'akhdar': 'Al Akhdar bank',
     'awb': 'Attijariwafa bank',
     'bmce': 'BMCE',
+    'cam': 'Crédit Agricole du Maroc',
     'cdm': 'Crédit du Maroc',
     'cfg': 'CFG',
     'chaabi': 'Banque Populaire',
