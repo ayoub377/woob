@@ -34,10 +34,10 @@ from woob.scrafi_exceptions import NoHistoryError, WebsiteError, WrongCredential
 
 
 class HomePage(SeleniumPage):
-    is_here = VisibleXPath('//*[@id="root"]/div/div/div[1]/div/button')
+    is_here = VisibleXPath('//*[@id="root"]/div/div/div[1]/div/div[1]/button')
 
     def go_login_page(self):
-        self.driver.find_element_by_xpath('//*[@id="root"]/div/div/div[1]/div/button').click()
+        self.driver.find_element_by_xpath('//*[@id="root"]/div/div/div[1]/div/div[1]/button').click()
 
 
 class LoginPage(SeleniumPage):
@@ -69,23 +69,23 @@ class AccountsPage(SeleniumPage):
 
     def get_accounts(self):
         accounts = []
-        elements = self.driver.find_elements_by_xpath('//div[@class="sc-gsDKAQ sc-cidDSM dJKBvb ui-list-box"]')
+        elements = self.driver.find_elements_by_xpath('//div[contains(@class, "ui-list-box")]')
         for element in elements:
             account = Account()
             time.sleep(5)
             text = element.find_element_by_xpath('./div/div[2]/div/span[2]').text
-            devise = element.find_element_by_xpath('./div/div[3]/button/span/div/span').text.rsplit(' ', 1)[1]
+            devise = element.find_element_by_xpath('./div/div[3]/div/button/span/div/span[1]').text.rsplit(' ', 1)[1]
             account.id = text[-16:]
             account.label = text[:-16] + "(" + devise + ")"
             accounts.append(account)
         return accounts
 
     def go_history_page(self, acc_id):
-        accounts = self.driver.find_elements_by_xpath('//div[@class="sc-gsDKAQ sc-cidDSM dJKBvb ui-list-box"]')
+        accounts = self.driver.find_elements_by_xpath('//div[contains(@class, "ui-list-box")]')
         for account in accounts:
             account_id = account.find_element_by_xpath('./div/div[2]/div/span[2]').text[-16:]
             if acc_id == account_id:
-                account.find_element_by_xpath('./div/div[3]/button').click()
+                account.find_element_by_xpath('./div/div[3]/div/button').click()
                 break
 
 class AwbTransaction(Transaction):
@@ -103,8 +103,8 @@ class HistoryPage(SeleniumPage):
         end = kwargs['end_date']
         if start != 'all':
             time.sleep(2)
-            self.driver.find_element_by_xpath('//button[@class="sc-bdvvtL TlEJY ui-button contained primary"]').click()
-            self.driver.find_element_by_xpath('//div[@class="sc-gsDKAQ eVUpIm"]/div').click()
+            self.driver.find_element_by_xpath('//button[contains(@class, "ui-button contained primary")]').click()
+            self.driver.find_element_by_xpath('//input[contains(@class, "input-is-regular")]/..').click()
             french_months = {'01': 'Janvier',
                             '02': 'Février',
                             '03': 'Mars',
@@ -177,14 +177,14 @@ class HistoryPage(SeleniumPage):
             pass
         
         time.sleep(1)
-        self.driver.find_element_by_xpath('//button[@class="sc-bdvvtL TlEJY ui-button ui-button-empty primary ui-button-dropdown-number"]').click()
+        self.driver.find_element_by_xpath('//button[contains(@class, "ui-button-dropdown-number")]').click()
         self.driver.find_element_by_xpath('//li[contains(text(),"100")]').click()
 
         pages = self.driver.find_elements_by_xpath('//ul[@class="pagination"]/li')
         pages = pages[1:-1]
 
         for page in pages:
-            lines = self.driver.find_elements_by_xpath('//div[@class="sc-gsDKAQ sc-caiLqq fTSxVO ui-list-box"]')
+            lines = self.driver.find_elements_by_xpath('//div[contains(@class, "ui-list-box")]')
 
             for line in lines:
                 if line.find_element_by_xpath('.//div/div[1]/span').text != 'Total':
