@@ -39,10 +39,6 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Selenium and chromedriver if basic image isn't selenium standalone
-# RUN pip install selenium
-# RUN pip install chromedriver
-
 # Adding Xvfb for selenium to work properly
 RUN apt-get install -y xvfb
 RUN pip install xvfbwrapper
