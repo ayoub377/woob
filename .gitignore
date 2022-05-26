@@ -11,3 +11,5 @@ API/db.sqlite3
 dump.rdb
 API/scrafi_api/support.py
 chromedriver.exe
+.vscode/settings.json
+.favorites.json
