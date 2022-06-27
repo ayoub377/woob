@@ -30,6 +30,7 @@ from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 from woob.scrafi_exceptions import NoHistoryError, WebsiteError, WrongCredentialsError
 
 
@@ -37,22 +38,22 @@ class HomePage(SeleniumPage):
     is_here = VisibleXPath('//*[@id="root"]/div/div/div[1]/div/div[1]/button')
 
     def go_login_page(self):
-        self.driver.find_element_by_xpath('//*[@id="root"]/div/div/div[1]/div/div[1]/button').click()
+        self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div/div[1]/div/div[1]/button').click()
 
 
 class LoginPage(SeleniumPage):
     is_here = VisibleXPath('//*[@id="username"]')
     
     def login(self, username, password):
-        self.driver.find_element_by_xpath('//*[@id="username"]').send_keys(username)
-        self.driver.find_element_by_xpath('//*[@id="password"]').send_keys(password)
-        self.driver.find_element_by_xpath('//*[@id="kc-form-buttons"]/button').click()
+        self.driver.find_element(By.XPATH, '//*[@id="username"]').send_keys(username)
+        self.driver.find_element(By.XPATH, '//*[@id="password"]').send_keys(password)
+        self.driver.find_element(By.XPATH, '//*[@id="kc-form-buttons"]/button').click()
         
         
 class ErrorPage(SeleniumPage):
     def check_error(self):
         try:
-            self.driver.find_element_by_xpath('//div[@class="alert alert-error"]')
+            self.driver.find_element(By.XPATH, '//div[@class="alert alert-error"]')
             self.browser.error_msg = 'credentials'
             raise WrongCredentialsError
         except NoSuchElementException:
@@ -69,23 +70,23 @@ class AccountsPage(SeleniumPage):
 
     def get_accounts(self):
         accounts = []
-        elements = self.driver.find_elements_by_xpath('//div[contains(@class, "ui-list-box")]')
+        elements = self.driver.find_elements(By.XPATH, '//div[contains(@class, "ui-list-box")]')
         for element in elements:
             account = Account()
             time.sleep(5)
-            text = element.find_element_by_xpath('./div/div[2]/div/span[2]').text
-            devise = element.find_element_by_xpath('./div/div[3]/div/button/span/div/span[1]').text.rsplit(' ', 1)[1]
+            text = element.find_element(By.XPATH, './div/div[2]/div/span[2]').text
+            devise = element.find_element(By.XPATH, './div/div[3]/div/button/span/div/span[1]').text.rsplit(' ', 1)[1]
             account.id = text[-16:]
             account.label = text[:-16] + "(" + devise + ")"
             accounts.append(account)
         return accounts
 
     def go_history_page(self, acc_id):
-        accounts = self.driver.find_elements_by_xpath('//div[contains(@class, "ui-list-box")]')
+        accounts = self.driver.find_elements(By.XPATH, '//div[contains(@class, "ui-list-box")]')
         for account in accounts:
-            account_id = account.find_element_by_xpath('./div/div[2]/div/span[2]').text[-16:]
+            account_id = account.find_element(By.XPATH, './div/div[2]/div/span[2]').text[-16:]
             if acc_id == account_id:
-                account.find_element_by_xpath('./div/div[3]/div/button').click()
+                account.find_element(By.XPATH, './div/div[3]/div/button').click()
                 break
 
 class AwbTransaction(Transaction):
@@ -103,8 +104,8 @@ class HistoryPage(SeleniumPage):
         end = kwargs['end_date']
         if start != 'all':
             time.sleep(2)
-            self.driver.find_element_by_xpath('//button[contains(@class, "ui-button contained primary")]').click()
-            self.driver.find_element_by_xpath('//input[contains(@class, "input-is-regular")]/..').click()
+            self.driver.find_element(By.XPATH, '//button[contains(@class, "ui-button contained primary")]').click()
+            self.driver.find_element(By.XPATH, '//input[contains(@class, "input-is-regular")]/..').click()
             french_months = {'01': 'Janvier',
                             '02': 'Février',
                             '03': 'Mars',
@@ -124,13 +125,13 @@ class HistoryPage(SeleniumPage):
             checker_day = int(start[:2])
 
             while check_next:
-                months = self.driver.find_elements_by_xpath('//div[@class="DayPicker-Months"]/div')
+                months = self.driver.find_elements(By.XPATH, '//div[@class="DayPicker-Months"]/div')
 
                 for month in months:
-                    month_name = month.find_element_by_xpath('.//div[1]/div').text
+                    month_name = month.find_element(By.XPATH, './/div[1]/div').text
 
                     if month_name == checker_m_y:
-                        days = month.find_elements_by_xpath('.//div[3]/div/div')
+                        days = month.find_elements(By.XPATH, './/div[3]/div/div')
                         for day in days:
                             if day.text == '':
                                 continue
@@ -159,42 +160,42 @@ class HistoryPage(SeleniumPage):
                         break
 
                 if check_next and checker == "start":
-                    self.driver.find_element_by_xpath('//span[@aria-label="Previous Month"]').click()
+                    self.driver.find_element(By.XPATH, '//span[@aria-label="Previous Month"]').click()
 
                 if check_next and checker == "end":
-                    self.driver.find_element_by_xpath('//span[@aria-label="Next Month"]').click()
+                    self.driver.find_element(By.XPATH, '//span[@aria-label="Next Month"]').click()
                     
             time.sleep(1)
-            self.driver.find_element_by_xpath('//span[text()="Confirmer"]').click()
+            self.driver.find_element(By.XPATH, '//span[text()="Confirmer"]').click()
 
         trs = []
         ids = []
         try:
-            self.driver.find_element_by_xpath('//span[contains(text(), "Opération introuvable")]')
+            self.driver.find_element(By.XPATH, '//span[contains(text(), "Opération introuvable")]')
             self.browser.error_msg = 'nohistory'
             raise NoHistoryError
         except NoSuchElementException:
             pass
         
         time.sleep(1)
-        self.driver.find_element_by_xpath('//button[contains(@class, "ui-button-dropdown-number")]').click()
-        self.driver.find_element_by_xpath('//li[contains(text(),"100")]').click()
+        self.driver.find_element(By.XPATH, '//button[contains(@class, "ui-button-dropdown-number")]').click()
+        self.driver.find_element(By.XPATH, '//li[contains(text(),"100")]').click()
 
-        pages = self.driver.find_elements_by_xpath('//ul[@class="pagination"]/li')
+        pages = self.driver.find_elements(By.XPATH, '//ul[@class="pagination"]/li')
         pages = pages[1:-1]
 
         for page in pages:
-            lines = self.driver.find_elements_by_xpath('//div[contains(@class, "ui-list-box")]')
+            lines = self.driver.find_elements(By.XPATH, '//div[contains(@class, "ui-list-box")]')
 
             for line in lines:
-                if line.find_element_by_xpath('.//div/div[1]/span').text != 'Total':
+                if line.find_element(By.XPATH, './/div/div[1]/span').text != 'Total':
                     tr = AwbTransaction()
                     
-                    tr.label = line.find_element_by_xpath('.//div/div[1]/span').text
-                    tr.date = datetime.strptime(line.find_element_by_xpath('.//div/div[2]/span').text, '%d/%m/%Y').date()
+                    tr.label = line.find_element(By.XPATH, './/div/div[1]/span').text
+                    tr.date = datetime.strptime(line.find_element(By.XPATH, './/div/div[2]/span').text, '%d/%m/%Y').date()
 
-                    debit = self.decimalism(line.find_element_by_xpath('.//div/div[4]/div').text)
-                    credit = self.decimalism(line.find_element_by_xpath('.//div/div[5]/div').text)
+                    debit = self.decimalism(line.find_element(By.XPATH, './/div/div[4]/div').text)
+                    credit = self.decimalism(line.find_element(By.XPATH, './/div/div[5]/div').text)
                     tr.solde = credit - debit
 
                     str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
@@ -209,7 +210,7 @@ class HistoryPage(SeleniumPage):
                     ids.append(tr.id)
                     trs.append(tr)
 
-            self.driver.find_element_by_xpath('//ul[@class="pagination"]/li[last()]').click()
+            self.driver.find_element(By.XPATH, '//ul[@class="pagination"]/li[last()]').click()
         return trs
                     
     def decimalism(self, stringy):

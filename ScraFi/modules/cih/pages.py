@@ -28,6 +28,7 @@ from woob.capabilities.base import DecimalField
 from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage, VisibleXPath
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from woob.scrafi_exceptions import NoHistoryError
 
@@ -36,14 +37,14 @@ class LoginPage(SeleniumPage):
     is_here = VisibleXPath('//form[@id="register_form"]')
     
     def login(self, username, password):
-        self.driver.find_element_by_xpath('//input[@name="username"]').send_keys(username)
-        self.driver.find_element_by_xpath('//input[@name="password"]').click()
-        buttons = self.driver.find_elements_by_xpath('//button[contains(@onclick, "appendValue")][not(@disabled)]')
+        self.driver.find_element(By.XPATH, '//input[@name="username"]').send_keys(username)
+        self.driver.find_element(By.XPATH, '//input[@name="password"]').click()
+        buttons = self.driver.find_elements(By.XPATH, '//button[contains(@onclick, "appendValue")][not(@disabled)]')
         for i in password:
             for button in buttons:
                 if button.text == i:
                     button.click()
-        self.driver.find_element_by_xpath('//button[@id="login-button"]').click()
+        self.driver.find_element(By.XPATH, '//button[@id="login-button"]').click()
 
 
 class HomePage(SeleniumPage):
@@ -56,15 +57,15 @@ class AccountsPage(SeleniumPage):
     def get_accounts(self):
         accounts = []
         account = Account()
-        texte = self.driver.find_element_by_xpath('//p[text()="N°"]').text
+        texte = self.driver.find_element(By.XPATH, '//p[text()="N°"]').text
         account.id = texte[-16:]
         account.label = texte
         accounts.append(account)
         return accounts
 
     def go_history_page(self):
-        self.driver.find_element_by_xpath('//i[@class="iAccount"]').click()
-        self.driver.find_element_by_xpath('//a[@href="/adriaClient/app/account/statement"]/i').click()
+        self.driver.find_element(By.XPATH, '//i[@class="iAccount"]').click()
+        self.driver.find_element(By.XPATH, '//a[@href="/adriaClient/app/account/statement"]/i').click()
 
 
 class CIHTransaction(Transaction):
@@ -80,9 +81,9 @@ class HistoryPage(SeleniumPage):
 
     def get_history(self, account, **kwargs):
         self.browser.wait_xpath_clickable('//div[@class="requiredDiv"]')
-        self.driver.find_element_by_xpath('//div[@class="requiredDiv"]').click()
+        self.driver.find_element(By.XPATH, '//div[@class="requiredDiv"]').click()
         self.browser.wait_xpath_clickable('//select[@name="NumeroCompte"]/option')
-        self.driver.find_element_by_xpath('.//option[contains(text(), "%s")]' % account.id)
+        self.driver.find_element(By.XPATH, './/option[contains(text(), "%s")]' % account.id)
         
         english_months = {'01': 'January ',
                         '02': 'February ',
@@ -100,19 +101,19 @@ class HistoryPage(SeleniumPage):
         _m_y = english_months[kwargs['start_date'][3:5]] + kwargs['start_date'][-4:]
         _day = int(kwargs['start_date'][:2])
         divs = [
-            self.driver.find_element_by_xpath('//input[@placeholder="Date de début"]'),
-            self.driver.find_element_by_xpath('//input[@placeholder="Date de fin"]')]
+            self.driver.find_element(By.XPATH, '//input[@placeholder="Date de début"]'),
+            self.driver.find_element(By.XPATH, '//input[@placeholder="Date de fin"]')]
         
         for div in divs:
             div.click()
             x = True
-            month = self.driver.find_element_by_xpath('//div[@class="react-datepicker"]')
+            month = self.driver.find_element(By.XPATH, '//div[@class="react-datepicker"]')
 
             while x:
-                month_name = month.find_element_by_xpath('.//div[@class="react-datepicker__header"]/div[1]').text
+                month_name = month.find_element(By.XPATH, './/div[@class="react-datepicker__header"]/div[1]').text
 
                 if month_name == _m_y:
-                    days = month.find_elements_by_xpath('.//div[@class="react-datepicker__month"]/div/div[not(contains(@class, "--outside-month"))]')
+                    days = month.find_elements(By.XPATH, './/div[@class="react-datepicker__month"]/div/div[not(contains(@class, "--outside-month"))]')
                     for day in days:
                         day_number = int(day.text)
                         
@@ -124,9 +125,9 @@ class HistoryPage(SeleniumPage):
                             break
 
                 else:
-                    self.driver.find_element_by_xpath('.//div[@class="react-datepicker__header"]/a[1]').click()
+                    self.driver.find_element(By.XPATH, './/div[@class="react-datepicker__header"]/a[1]').click()
 
-        self.driver.find_element_by_xpath('//div[@class="pull-right col-xs-6"]/button[1]').click()
+        self.driver.find_element(By.XPATH, '//div[@class="pull-right col-xs-6"]/button[1]').click()
         trs = []
         ids = []
 
@@ -136,15 +137,15 @@ class HistoryPage(SeleniumPage):
             self.browser.error_msg = 'nohistory'
             raise NoHistoryError
 
-        lines = self.driver.find_elements_by_xpath('//table[@class="table"]/tbody[1]/tr')
+        lines = self.driver.find_elements(By.XPATH, '//table[@class="table"]/tbody[1]/tr')
         for line in lines:
             tr = CIHTransaction()
             
-            tr.label = line.find_element_by_xpath('.//td[1]').text
-            tr.date = datetime.strptime(line.find_element_by_xpath('.//td[4]').text, '%Y-%m-%d').date()
+            tr.label = line.find_element(By.XPATH, './/td[1]').text
+            tr.date = datetime.strptime(line.find_element(By.XPATH, './/td[4]').text, '%Y-%m-%d').date()
             
-            debit = self.decimalism(line.find_element_by_xpath('.//td[3]/div/div').text)
-            credit = self.decimalism(line.find_element_by_xpath('.//td[2]/div/div').text)
+            debit = self.decimalism(line.find_element(By.XPATH, './/td[3]/div/div').text)
+            credit = self.decimalism(line.find_element(By.XPATH, './/td[2]/div/div').text)
             tr.solde = credit - debit
             
             str_2_hash = tr.label + tr.date.strftime('%Y-%m-%d') + str(tr.solde)

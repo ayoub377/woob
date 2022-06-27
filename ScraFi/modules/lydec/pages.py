@@ -29,6 +29,7 @@ from woob.capabilities.base import StringField
 
 from woob.scrafi_exceptions import NoBillError
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -37,14 +38,14 @@ class LoginPage(SeleniumPage):
     is_here = VisibleXPath('//*[@id="_58_login"]')
     
     def login(self, username, password):
-        self.driver.find_element_by_xpath('//*[@id="_58_login"]').send_keys(username)
-        self.driver.find_element_by_xpath('//*[@id="_58_password"]').send_keys(password)
-        self.driver.find_element_by_xpath('//*[@id="_58_fm"]/div/span/span/input').click()
+        self.driver.find_element(By.XPATH, '//*[@id="_58_login"]').send_keys(username)
+        self.driver.find_element(By.XPATH, '//*[@id="_58_password"]').send_keys(password)
+        self.driver.find_element(By.XPATH, '//*[@id="_58_fm"]/div/span/span/input').click()
     
     def check_error(self):
         time.sleep(1)
         try:
-            self.driver.find_element_by_xpath('//div[@class="portlet-msg-error"]')
+            self.driver.find_element(By.XPATH, '//div[@class="portlet-msg-error"]')
             return True
         except NoSuchElementException:
             return False
@@ -73,36 +74,36 @@ class BillsPage(SeleniumPage):
         year = the_date.strftime('%Y')
         bills = []
         
-        contrats = self.driver.find_elements_by_xpath('//select[@name="polNum"]/option')
+        contrats = self.driver.find_elements(By.XPATH, '//select[@name="polNum"]/option')
         x = len(contrats)
         for i in range(x):         
-            self.driver.find_element_by_xpath('//select[@name="polNum"]/option[%s]' % str(i+1)).click()
-            self.driver.find_element_by_xpath('//*[@name="moisD"]/option[@value="%s"]' % month).click()
-            self.driver.find_element_by_xpath('//*[@name="anneeD"]/option[@value="%s"]' % year).click()
-            self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+            self.driver.find_element(By.XPATH, '//select[@name="polNum"]/option[%s]' % str(i+1)).click()
+            self.driver.find_element(By.XPATH, '//*[@name="moisD"]/option[@value="%s"]' % month).click()
+            self.driver.find_element(By.XPATH, '//*[@name="anneeD"]/option[@value="%s"]' % year).click()
+            self.driver.find_element(By.XPATH, '//*[@id="submit"]').click()
             time.sleep(1)
 
             try:
-                self.driver.find_element_by_xpath('//table[@id="thetable"]/tbody/tr')
+                self.driver.find_element(By.XPATH, '//table[@id="thetable"]/tbody/tr')
             except NoSuchElementException:
                 continue
             
-            trs = self.driver.find_elements_by_xpath('//table[@id="thetable"]/tbody/tr')
+            trs = self.driver.find_elements(By.XPATH, '//table[@id="thetable"]/tbody/tr')
             for tr in trs:
                 bill = LydecBill()
 
-                prd_fact = tr.find_element_by_xpath('./td[2]').text.rstrip()
+                prd_fact = tr.find_element(By.XPATH, './td[2]').text.rstrip()
                 parsed_date = datetime.strptime(prd_fact, "%Y%m")
                 bill.date= parsed_date.strftime("%m/%Y")
                 if parsed_date != the_date:
                     continue
-                bill.number = tr.find_element_by_xpath('./td[1]').text.rstrip()
-                bill.montant = tr.find_element_by_xpath('./td[3]').text
+                bill.number = tr.find_element(By.XPATH, './td[1]').text.rstrip()
+                bill.montant = tr.find_element(By.XPATH, './td[3]').text
 
                 str_2_hash = "lydec" + bill.number + bill.date + bill.montant
                 bill.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
 
-                url = tr.find_element_by_xpath('./td[7]/a').get_attribute("href")
+                url = tr.find_element(By.XPATH, './td[7]/a').get_attribute("href")
                 response = requests.get(url, verify=False)
                 bill.pdf = base64.b64encode(response.content).decode('utf8')
 

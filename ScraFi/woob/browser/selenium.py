@@ -195,7 +195,7 @@ class StablePageCondition(CustomCondition):
 
         hashed = hashlib.md5(driver.page_source.encode('utf-8')).hexdigest()
         now = time.time()
-        page_id = driver.find_element_by_xpath('/*').id
+        page_id = driver.find_element(By.XPATH, '/*').id
 
         if page_id not in self.elements or self.elements[page_id][1] != hashed:
             self.elements[page_id] = (now, hashed)
@@ -265,10 +265,10 @@ class ElementWrapper(object):
     def xpath(self, xpath):
         """Returns a list of elements matching `xpath`.
 
-        Since it uses `find_elements_by_xpath`, it does not raise
+        Since it uses `find_elements`By.XPATH, , it does not raise
         `NoSuchElementException` or `TimeoutException`.
         """
-        return [ElementWrapper(sel) for sel in self.wrapped.find_elements_by_xpath(xpath)]
+        return [ElementWrapper(sel) for sel in self.wrapped.find_elements(By.XPATH, xpath)]
 
     def text_content(self):
         return self.wrapped.text
@@ -321,7 +321,7 @@ class SeleniumPage(object):
 
     @property
     def doc(self):
-        return ElementWrapper(self.browser.driver.find_element_by_xpath('/*'))
+        return ElementWrapper(self.browser.driver.find_element(By.XPATH, '/*'))
 
     def is_here(self):
         """Method to determine if the browser is on this page and the page is ready.
@@ -769,7 +769,7 @@ class SeleniumBrowser(object):
         Example::
 
             with self.in_frame(xpath_locator('//frame[@id="foo"]')):
-                el = self.find_element_by_xpath('//a[@id="bar"]')
+                el = self.find_element(By.XPATH, '//a[@id="bar"]')
                 el.click()
         """
 

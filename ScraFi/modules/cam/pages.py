@@ -29,20 +29,21 @@ from woob.capabilities.bank.base import Account, Transaction
 
 from woob.browser.selenium import SeleniumPage
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.webdriver.common.by import By
 from woob.scrafi_exceptions import NoHistoryError, WebsiteError, WrongCredentialsError
 
 
 class LoginPage(SeleniumPage):
     def login(self, username, password):
         self.virtual_keyboard(username)
-        self.driver.find_element_by_xpath('//input[@id="ContentPlaceHolder1_Authentification_Login1_Password"]').send_keys(password)
-        self.driver.find_element_by_xpath('//input[@id="ContentPlaceHolder1_Authentification_Login1_LoginButton"]').click()
+        self.driver.find_element(By.XPATH, '//input[@id="ContentPlaceHolder1_Authentification_Login1_Password"]').send_keys(password)
+        self.driver.find_element(By.XPATH, '//input[@id="ContentPlaceHolder1_Authentification_Login1_LoginButton"]').click()
 
     def virtual_keyboard(self, code):
         keys_dict = {}
-        rows = self.driver.find_elements_by_xpath('//table[@id="secure"]/tbody/tr')
+        rows = self.driver.find_elements(By.XPATH, '//table[@id="secure"]/tbody/tr')
         for row in rows:
-            keys = row.find_elements_by_xpath('./td')
+            keys = row.find_elements(By.XPATH, './td')
             for key in keys:
                 keys_dict[key.text] = key
         for i in code:
@@ -50,7 +51,7 @@ class LoginPage(SeleniumPage):
 
     def check_error(self):
         try:
-            self.driver.find_element_by_xpath('//span[contains(text(), "Erreur lors de la connexion")]')
+            self.driver.find_element(By.XPATH, '//span[contains(text(), "Erreur lors de la connexion")]')
             self.browser.error_msg = 'credentials'
             raise WrongCredentialsError
         except NoSuchElementException:
@@ -65,11 +66,11 @@ class AccueilPage(SeleniumPage):
 class AccountsPage(SeleniumPage):
     def get_accounts(self):
         accounts = []
-        elements = self.driver.find_elements_by_xpath('//table[@id="ContentPlaceHolder1_GRV_Compte"]/tbody/tr[@class="content_tab"]')
+        elements = self.driver.find_elements(By.XPATH, '//table[@id="ContentPlaceHolder1_GRV_Compte"]/tbody/tr[@class="content_tab"]')
         for element in elements:
             account = Account()
-            account.label = element.find_element_by_xpath('./td[1]').text
-            account.id = element.find_element_by_xpath('./td[2]').text
+            account.label = element.find_element(By.XPATH, './td[1]').text
+            account.id = element.find_element(By.XPATH, './td[2]').text
             accounts.append(account)
         return accounts
 
@@ -84,14 +85,14 @@ class CamTransaction(Transaction):
 
 class HistoryPage(SeleniumPage):
     def get_history(self, _id, **kwargs):
-        options = self.driver.find_elements_by_xpath('//select[@id="ContentPlaceHolder1_ListCompte_Solde"]/option')
+        options = self.driver.find_elements(By.XPATH, '//select[@id="ContentPlaceHolder1_ListCompte_Solde"]/option')
         for option in options:
             if _id in option.text:
                 option.click()
-        self.driver.find_element_by_xpath('//input[@id="txtDateOperation_Debut"]').send_keys(kwargs['start_date'])
-        self.driver.find_element_by_xpath('//input[@id="txtDateOperation_Fin"]').send_keys(kwargs['end_date'])
-        self.driver.find_element_by_xpath('//html').click()
-        self.driver.find_element_by_xpath('//input[@id="ContentPlaceHolder1_Btn_Rechercher"]').click()
+        self.driver.find_element(By.XPATH, '//input[@id="txtDateOperation_Debut"]').send_keys(kwargs['start_date'])
+        self.driver.find_element(By.XPATH, '//input[@id="txtDateOperation_Fin"]').send_keys(kwargs['end_date'])
+        self.driver.find_element(By.XPATH, '//html').click()
+        self.driver.find_element(By.XPATH, '//input[@id="ContentPlaceHolder1_Btn_Rechercher"]').click()
         try:
             self.browser.wait_xpath_visible('//table[@id="ContentPlaceHolder1_GRV_Historique"]')
         except TimeoutException:
@@ -104,14 +105,14 @@ class HistoryPage(SeleniumPage):
         p = 1
         next_page = True
         while next_page:
-            lines = self.driver.find_elements_by_xpath('//table[@id="ContentPlaceHolder1_GRV_Historique"]/tbody/tr[@class="content_tab"]')
+            lines = self.driver.find_elements(By.XPATH, '//table[@id="ContentPlaceHolder1_GRV_Historique"]/tbody/tr[@class="content_tab"]')
             for line in lines:
                 tr = CamTransaction()
-                tr.label = line.find_element_by_xpath('./td[2]').text
-                tr.date = datetime.strptime(line.find_element_by_xpath('./td[1]').text, '%d/%m/%Y').date()
+                tr.label = line.find_element(By.XPATH, './td[2]').text
+                tr.date = datetime.strptime(line.find_element(By.XPATH, './td[1]').text, '%d/%m/%Y').date()
 
-                debit = self.decimalism(line.find_element_by_xpath('./td[3]').text)
-                credit = self.decimalism(line.find_element_by_xpath('./td[4]').text)
+                debit = self.decimalism(line.find_element(By.XPATH, './td[3]').text)
+                credit = self.decimalism(line.find_element(By.XPATH, './td[4]').text)
                 tr.solde = credit - debit
 
                 str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
@@ -125,17 +126,17 @@ class HistoryPage(SeleniumPage):
                 ids.append(tr.id)
                 trs.append(tr)
 
-            pages = self.driver.find_elements_by_xpath('//tr[@class="pgr"]/td/table/tbody/tr/td')
+            pages = self.driver.find_elements(By.XPATH, '//tr[@class="pgr"]/td/table/tbody/tr/td')
             if len(pages) == 0:
                 next_page = False
             else :
                 p += 1
                 try:
-                    self.driver.find_element_by_xpath(f'//a[contains(text(), "{p}")]').click()
+                    self.driver.find_element(By.XPATH, f'//a[contains(text(), "{p}")]').click()
                     self.browser.wait_xpath_visible(f'//tr[@class="pgr"]/td/table/tbody/tr/td/span[contains(text(), "{p}")]')
                 except NoSuchElementException:
                     try:
-                        self.driver.find_element_by_xpath(f'//a[contains(@href, "Page${p}")]').click()
+                        self.driver.find_element(By.XPATH, f'//a[contains(@href, "Page${p}")]').click()
                         self.browser.wait_xpath_visible(f'//tr[@class="pgr"]/td/table/tbody/tr/td/span[contains(text(), "{p}")]')
                     except NoSuchElementException:
                         next_page = False

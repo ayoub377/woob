@@ -25,6 +25,7 @@ import sys
 from woob.browser import URL, need_login
 from woob.browser.selenium import SeleniumBrowser, webdriver
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
 from woob.scrafi_exceptions import IdNotFoundError, WebsiteError
 
 from .pages import LoginPage, AccueilPage, AccountsPage, HistoryPage
@@ -71,7 +72,7 @@ class CAMBrowser(SeleniumBrowser):
 
     @need_login
     def get_accounts(self):
-        self.driver.find_element_by_xpath('//a[@id="BtnPart_Compte"]').click()
+        self.driver.find_element(By.XPATH, '//a[@id="BtnPart_Compte"]').click()
         self.wait_until_is_here(self.accounts_page)
         return self.page.get_accounts()
 

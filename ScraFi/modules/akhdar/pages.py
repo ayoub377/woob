@@ -32,20 +32,21 @@ from woob.scrafi_exceptions import NoHistoryError, WebsiteError
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, StaleElementReferenceException
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 
 class LoginPage(SeleniumPage):
     is_here = VisibleXPath('//*[@id="loginForm:btnLogin"]')
     
     def login(self, username, password):
-        self.driver.find_element_by_xpath('//input[@id="loginForm:txtLoginId"]').send_keys(username)
-        self.driver.find_element_by_xpath('//input[@id="loginForm:kbLoginPassword"]').send_keys(password)
+        self.driver.find_element(By.XPATH, '//input[@id="loginForm:txtLoginId"]').send_keys(username)
+        self.driver.find_element(By.XPATH, '//input[@id="loginForm:kbLoginPassword"]').send_keys(password)
         webdriver.ActionChains(self.driver).send_keys(Keys.ESCAPE).perform()
-        self.driver.find_element_by_xpath('//button[@id="loginForm:btnLogin"]').click()
+        self.driver.find_element(By.XPATH, '//button[@id="loginForm:btnLogin"]').click()
         
     def check_error(self):
         try:
-            self.driver.find_element_by_xpath('//span[text()="Identifiant ou mot de passe invalide."]')
+            self.driver.find_element(By.XPATH, '//span[text()="Identifiant ou mot de passe invalide."]')
             return True
         except NoSuchElementException:
             self.browser.error_msg = 'bank'
@@ -59,10 +60,10 @@ class AccountsPage(SeleniumPage):
         accounts = []
         time.sleep(3)
         try:
-            accounts_list = self.driver.find_elements_by_xpath('//tbody[@id="frmMainDashboard:tbAccountsSummary:tblTransactionAccountsSummary_data"]/tr')
+            accounts_list = self.driver.find_elements(By.XPATH, '//tbody[@id="frmMainDashboard:tbAccountsSummary:tblTransactionAccountsSummary_data"]/tr')
         except NoSuchElementException:
             try:
-                self.driver.find_element_by_xpath('//span[text()="No records found."]')
+                self.driver.find_element(By.XPATH, '//span[text()="No records found."]')
                 self.browser.accounts_page.go()
                 self.browser.get_accounts()
             except NoSuchElementException:
@@ -70,16 +71,16 @@ class AccountsPage(SeleniumPage):
         else:
             for acc in accounts_list:
                 account = Account()
-                account.id = acc.find_element_by_xpath('./td[1]/a/span').text
-                account.label = acc.find_element_by_xpath('./td[2]/span[2]').text
+                account.id = acc.find_element(By.XPATH, './td[1]/a/span').text
+                account.label = acc.find_element(By.XPATH, './td[2]/span[2]').text
                 accounts.append(account)
             return accounts
 
 
     def go_history_page(self):
-        self.driver.find_element_by_xpath('//li[@id="menuform:sm_0"]/a').click()
+        self.driver.find_element(By.XPATH, '//li[@id="menuform:sm_0"]/a').click()
         self.browser.wait_xpath_clickable('//li[@id="menuform:sm_FNCEBCW040"]/a')
-        self.driver.find_element_by_xpath('//li[@id="menuform:sm_FNCEBCW040"]/a').click()
+        self.driver.find_element(By.XPATH, '//li[@id="menuform:sm_FNCEBCW040"]/a').click()
 
 
 class AkhdarTransaction(Transaction):
@@ -99,19 +100,19 @@ class HistoryPage(SeleniumPage):
         end = kwargs['end_date'].replace('/', '-')
 
         self.browser.wait_xpath_clickable('//label[@id="frmTransactionshistory:ddlAccountType_label"]')
-        self.driver.find_element_by_xpath('//label[@id="frmTransactionshistory:ddlAccountType_label"]').click()
-        self.driver.find_element_by_xpath('//li[@id="frmTransactionshistory:ddlAccountType_1"]').click()
+        self.driver.find_element(By.XPATH, '//label[@id="frmTransactionshistory:ddlAccountType_label"]').click()
+        self.driver.find_element(By.XPATH, '//li[@id="frmTransactionshistory:ddlAccountType_1"]').click()
         time.sleep(6)
-        self.driver.find_element_by_xpath('//label[@id="frmTransactionshistory:customerAccounts_label"]').click()
+        self.driver.find_element(By.XPATH, '//label[@id="frmTransactionshistory:customerAccounts_label"]').click()
         self.browser.wait_xpath_clickable('//li[contains(text(), "%s")]' % _id)
-        self.driver.find_element_by_xpath('//li[contains(text(), "%s")]' % _id).click()
+        self.driver.find_element(By.XPATH, '//li[contains(text(), "%s")]' % _id).click()
         self.browser.wait_xpath_clickable('//div[@class="ui-radiobutton-box ui-widget ui-corner-all ui-state-default"]')
-        self.driver.find_element_by_xpath('//div[@class="ui-radiobutton-box ui-widget ui-corner-all ui-state-default"]').click()
+        self.driver.find_element(By.XPATH, '//div[@class="ui-radiobutton-box ui-widget ui-corner-all ui-state-default"]').click()
 
         self.browser.wait_xpath_visible('//input[@id="frmTransactionshistory:fromDate_input"][@aria-disabled="false"]')
-        self.driver.find_element_by_xpath('//input[@id="frmTransactionshistory:fromDate_input"]').send_keys(start)
-        self.driver.find_element_by_xpath('//input[@id="frmTransactionshistory:toDate_input"]').send_keys(end)
-        self.driver.find_element_by_xpath('//button[@id="frmTransactionshistory:btnSearch"]').click()
+        self.driver.find_element(By.XPATH, '//input[@id="frmTransactionshistory:fromDate_input"]').send_keys(start)
+        self.driver.find_element(By.XPATH, '//input[@id="frmTransactionshistory:toDate_input"]').send_keys(end)
+        self.driver.find_element(By.XPATH, '//button[@id="frmTransactionshistory:btnSearch"]').click()
 
         try:
             self.browser.wait_xpath_visible('//label[@id="frmTransactionshistory:lblNoResult"]')
@@ -130,7 +131,7 @@ class HistoryPage(SeleniumPage):
                 x = False
                 break
             else:
-                pages = self.driver.find_elements_by_xpath('//span[@class="ui-paginator-pages"]/span')
+                pages = self.driver.find_elements(By.XPATH, '//span[@class="ui-paginator-pages"]/span')
                 try:
                     total_pages = int(pages[-1].text)
                 except Exception as e:
@@ -138,7 +139,7 @@ class HistoryPage(SeleniumPage):
                     raise e
 
                 if i != total_pages:
-                    self.driver.find_element_by_xpath('//span[@class="ui-paginator-pages"]/span[contains(text(), "%s")]' % str(i+1)).click()
+                    self.driver.find_element(By.XPATH, '//span[@class="ui-paginator-pages"]/span[contains(text(), "%s")]' % str(i+1)).click()
                     self.browser.wait_xpath_visible('//span[@class="ui-paginator-page ui-state-default ui-corner-all ui-state-active"][text()="%s"]' % str(i+1))
                     trs += self.get_transactions()
                     i += 1
@@ -149,14 +150,14 @@ class HistoryPage(SeleniumPage):
 
     def get_transactions(self):
         transactions = []
-        lines = self.driver.find_elements_by_xpath('//tbody[@id="frmTransactionshistory:bcSaving:savingDetails_data"]/tr')
+        lines = self.driver.find_elements(By.XPATH, '//tbody[@id="frmTransactionshistory:bcSaving:savingDetails_data"]/tr')
         for line in lines:
             tr = AkhdarTransaction()
             try:
-                tr.label = line.find_element_by_xpath('./td[2]/label').text
-                tr.date = datetime.strptime(line.find_element_by_xpath('./td[1]/label').text, '%d-%m-%Y').date()
-                debit = self.decimalism(line.find_element_by_xpath('./td[3]/label').text)
-                credit = self.decimalism(line.find_element_by_xpath('.//td[4]/label').text)
+                tr.label = line.find_element(By.XPATH, './td[2]/label').text
+                tr.date = datetime.strptime(line.find_element(By.XPATH, './td[1]/label').text, '%d-%m-%Y').date()
+                debit = self.decimalism(line.find_element(By.XPATH, './td[3]/label').text)
+                credit = self.decimalism(line.find_element(By.XPATH, './/td[4]/label').text)
                 tr.solde = credit - debit
             except StaleElementReferenceException:
                 pass

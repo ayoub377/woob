@@ -34,6 +34,7 @@ from woob.capabilities.bank.base import Account, Transaction
 from woob.browser.selenium import SeleniumPage, VisibleXPath
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from woob.scrafi_exceptions import NoHistoryError, WrongCredentialsError
 
@@ -56,11 +57,11 @@ class LoginPage(SeleniumPage):
         return translated
     
     def login(self, username, password):
-        self.driver.find_element_by_xpath('//input[@name="user"]').send_keys(username)
+        self.driver.find_element(By.XPATH, '//input[@name="user"]').send_keys(username)
         matrix = {}
-        numbers = self.driver.find_elements_by_xpath('//*[@id="secureCode"]/table[1]/tbody/tr/td/a')
+        numbers = self.driver.find_elements(By.XPATH, '//*[@id="secureCode"]/table[1]/tbody/tr/td/a')
         for number in numbers:            
-            img = number.find_element_by_xpath('.//img')
+            img = number.find_element(By.XPATH, './/img')
             src = img.get_attribute('src')[-5]
 
             img_base64 = self.driver.execute_async_script("""
@@ -80,8 +81,8 @@ class LoginPage(SeleniumPage):
 
         mdp = self.translator(matrix, password)
         for n in mdp:
-            self.driver.find_element_by_xpath('//a[contains(@onclick, ",\'%s\');return")]' % n).click()
-        self.driver.find_element_by_xpath('//button[@type="submit"]').click()
+            self.driver.find_element(By.XPATH, '//a[contains(@onclick, ",\'%s\');return")]' % n).click()
+        self.driver.find_element(By.XPATH, '//button[@type="submit"]').click()
 
     def img_to_number(self, img):
         img = np.array(img)
@@ -91,17 +92,17 @@ class LoginPage(SeleniumPage):
     
     def check_error(self):
         try:
-            self.driver.find_element_by_xpath('//div[@class="modal-body"]/text()')
+            self.driver.find_element(By.XPATH, '//div[@class="modal-body"]/text()')
             self.browser.error_msg = 'credentials'
             raise WrongCredentialsError
         except NoSuchElementException:
             try:
-                self.driver.find_element_by_xpath('//label[@id="user-error"]')
+                self.driver.find_element(By.XPATH, '//label[@id="user-error"]')
                 self.browser.error_msg = 'credentials'
                 raise WrongCredentialsError
             except NoSuchElementException:
                 try:
-                    self.driver.find_element_by_xpath('//label[@id="pass-error"]')
+                    self.driver.find_element(By.XPATH, '//label[@id="pass-error"]')
                     self.browser.error_msg = 'credentials'
                     raise WrongCredentialsError
                 except NoSuchElementException:
@@ -112,7 +113,7 @@ class ChoicePage(SeleniumPage):
     is_here = VisibleXPath('//h3[contains(text(), "Cliquer sur le service de votre choix")]')
 
     def choose(self):
-        self.driver.find_element_by_xpath('//a[contains(@href, "https://ebanking.cdm.co.ma/")]').click()
+        self.driver.find_element(By.XPATH, '//a[contains(@href, "https://ebanking.cdm.co.ma/")]').click()
 
 
 class HomePage(SeleniumPage):
@@ -125,15 +126,15 @@ class AccountsPage(SeleniumPage):
     def get_accounts(self):
         accounts = []
         remember_label = ''
-        comptes = self.driver.find_elements_by_xpath('//*[@id="dataTable"]/tbody/tr')
+        comptes = self.driver.find_elements(By.XPATH, '//*[@id="dataTable"]/tbody/tr')
         for compte in comptes:
             if not compte.get_attribute('id'):
                 account = Account()
-                account.id = compte.find_element_by_xpath('.//td[1]/span[1]').get_attribute('data-acc-id')
-                devise = compte.find_element_by_xpath('.//td[1]/span[1]').get_attribute('title')
+                account.id = compte.find_element(By.XPATH, './/td[1]/span[1]').get_attribute('data-acc-id')
+                devise = compte.find_element(By.XPATH, './/td[1]/span[1]').get_attribute('title')
                 account._devise = "(" + devise.rsplit("(")[1]
                 try:
-                    remember_label = account.label = compte.find_element_by_xpath('.//td[1]/div[1]/div').text
+                    remember_label = account.label = compte.find_element(By.XPATH, './/td[1]/div[1]/div').text
                 except NoSuchElementException:
                     account.label = remember_label
                 for acc in accounts:
@@ -144,11 +145,11 @@ class AccountsPage(SeleniumPage):
         return accounts
 
     def go_history_page(self, acc_id):
-        comptes = self.driver.find_elements_by_xpath('//*[@id="dataTable"]/tbody/tr')
+        comptes = self.driver.find_elements(By.XPATH, '//*[@id="dataTable"]/tbody/tr')
         for compte in comptes:
-            rib = compte.find_element_by_xpath('.//td[1]/span[1]').get_attribute('data-acc-id')
+            rib = compte.find_element(By.XPATH, './/td[1]/span[1]').get_attribute('data-acc-id')
             if rib == acc_id:
-                compte.find_element_by_xpath('.//td[1]/div[2]/a[2]').click()
+                compte.find_element(By.XPATH, './/td[1]/div[2]/a[2]').click()
                 break
             else:
                 continue
@@ -165,38 +166,38 @@ class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//*[@id="tabContainer"]/div[1]/ul/ul/a[2]')
 
     def get_history(self, **kwargs):
-        self.driver.find_element_by_xpath('//*[@id="filter_expander"]').click()
-        start_input = self.driver.find_element_by_xpath('//input[@name="dateFilterFrom"]')
+        self.driver.find_element(By.XPATH, '//*[@id="filter_expander"]').click()
+        start_input = self.driver.find_element(By.XPATH, '//input[@name="dateFilterFrom"]')
         self.driver.execute_script('arguments[0].setAttribute("value", "%s")' % kwargs['start_date'], start_input)
-        end_input = self.driver.find_element_by_xpath('//input[@name="dateFilterTo"]')
+        end_input = self.driver.find_element(By.XPATH, '//input[@name="dateFilterTo"]')
         self.driver.execute_script('arguments[0].setAttribute("value", "%s")' % kwargs['end_date'], end_input)
-        self.driver.find_element_by_xpath('//div[@id="button_filter_search"]').click()
+        self.driver.find_element(By.XPATH, '//div[@id="button_filter_search"]').click()
 
         trs = []
         ids = []
-        total_text = self.driver.find_element_by_xpath('//*[@id="filter_div"]/form/span').text
+        total_text = self.driver.find_element(By.XPATH, '//*[@id="filter_div"]/form/span').text
         if int(total_text[8:]) == 0:
             self.browser.error_msg = 'nohistory'
             raise NoHistoryError
 
         tbody = math.ceil(int(total_text[8:])/30)
         y = 1
-        self.driver.find_element_by_xpath('//*[@id="acc-trans-table-booked/"]/tbody').click()
+        self.driver.find_element(By.XPATH, '//*[@id="acc-trans-table-booked/"]/tbody').click()
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
         while y <= tbody:
-            lines = self.driver.find_elements_by_xpath('//*[@id="acc-trans-table-booked/"]/tbody[%s]/tr' % y)
+            lines = self.driver.find_elements(By.XPATH, '//*[@id="acc-trans-table-booked/"]/tbody[%s]/tr' % y)
             for line in lines:
                 tr = CDMTransaction()
-                tr.label = line.find_element_by_xpath('.//td[5]/span').text
-                tr.date = datetime.strptime(line.find_element_by_xpath('.//td[3]/div').text, '%d/%m/%Y').date()
+                tr.label = line.find_element(By.XPATH, './/td[5]/span').text
+                tr.date = datetime.strptime(line.find_element(By.XPATH, './/td[3]/div').text, '%d/%m/%Y').date()
 
                 try :
-                    debit = self.decimalism(line.find_element_by_xpath('.//td[6]/span/bdo').text)
-                    credit = self.decimalism(line.find_element_by_xpath('.//td[7]').text)
+                    debit = self.decimalism(line.find_element(By.XPATH, './/td[6]/span/bdo').text)
+                    credit = self.decimalism(line.find_element(By.XPATH, './/td[7]').text)
                 except NoSuchElementException:
-                    debit = self.decimalism(line.find_element_by_xpath('.//td[6]').text)
-                    credit = self.decimalism(line.find_element_by_xpath('.//td[7]/span/bdo').text)
+                    debit = self.decimalism(line.find_element(By.XPATH, './/td[6]').text)
+                    credit = self.decimalism(line.find_element(By.XPATH, './/td[7]/span/bdo').text)
                 tr.solde = credit - debit
 
                 str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)
@@ -216,7 +217,7 @@ class HistoryPage(SeleniumPage):
             actions.send_keys(Keys.SPACE).perform()
             actions.send_keys(Keys.SPACE).perform()
             try:
-                self.driver.find_element_by_xpath('//div[@class="loader"]')
+                self.driver.find_element(By.XPATH, '//div[@class="loader"]')
                 self.browser.wait_xpath_invisible('//div[@class="loader"]')
             except NoSuchElementException:
                 pass

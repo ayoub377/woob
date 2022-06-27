@@ -27,6 +27,7 @@ from decimal import Decimal
 from woob.capabilities.base import DecimalField
 from woob.capabilities.bank.base import Account, Transaction
 from woob.browser.selenium import SeleniumPage, VisibleXPath
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from woob.scrafi_exceptions import NoHistoryError, WebsiteError, WrongCredentialsError
 
@@ -43,7 +44,7 @@ class LoginPage(SeleniumPage):
 
     def check_error(self):
         try:
-            self.driver.find_element_by_xpath('//div[@class="Indice"]')
+            self.driver.find_element(By.XPATH, '//div[@class="Indice"]')
             self.browser.error_msg = 'credentials'
             raise WrongCredentialsError
         except NoSuchElementException:
@@ -57,13 +58,13 @@ class AccountsPage(SeleniumPage):
     def get_accounts(self):
         accounts = []
         account = Account()
-        account.id = self.driver.find_element_by_xpath('//*[@id="come$rep_srv_acc_view"]').get_attribute('text')[6:34].replace(" ", "")
+        account.id = self.driver.find_element(By.XPATH, '//*[@id="come$rep_srv_acc_view"]').get_attribute('text')[6:34].replace(" ", "")
         account.label = 'Unknown Label'
         accounts.append(account)
         return accounts
 
     def go_history_page(self):
-        self.driver.find_element_by_xpath('//*[@id="come$rep_srv_acc_view"]').click()
+        self.driver.find_element(By.XPATH, '//*[@id="come$rep_srv_acc_view"]').click()
 
 
 class CFGTransaction(Transaction):
@@ -78,39 +79,39 @@ class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//td[contains(text(), "Nº de compte CFG")]')
 
     def get_history(self, **kwargs):
-        self.driver.find_element_by_xpath('//input[@id="wr_inclTempBookings"]').click()
-        self.driver.find_element_by_xpath('//input[@id="wr_from_date"]').clear()
-        self.driver.find_element_by_xpath('//input[@id="wr_from_date"]').send_keys(kwargs['start_date'].replace('/', '.'))
-        self.driver.find_element_by_xpath('//input[@id="wr_to_date"]').clear()
-        self.driver.find_element_by_xpath('//input[@id="wr_to_date"]').send_keys(kwargs['end_date'].replace('/', '.'))
-        self.driver.find_element_by_xpath('//input[@name="action_show"]').click()
+        self.driver.find_element(By.XPATH, '//input[@id="wr_inclTempBookings"]').click()
+        self.driver.find_element(By.XPATH, '//input[@id="wr_from_date"]').clear()
+        self.driver.find_element(By.XPATH, '//input[@id="wr_from_date"]').send_keys(kwargs['start_date'].replace('/', '.'))
+        self.driver.find_element(By.XPATH, '//input[@id="wr_to_date"]').clear()
+        self.driver.find_element(By.XPATH, '//input[@id="wr_to_date"]').send_keys(kwargs['end_date'].replace('/', '.'))
+        self.driver.find_element(By.XPATH, '//input[@name="action_show"]').click()
         time.sleep(1)
 
         trs = []
         ids = []
         try:
-            self.driver.find_element_by_xpath('//td[@class="noleftborder firstCell lastCell"]')
+            self.driver.find_element(By.XPATH, '//td[@class="noleftborder firstCell lastCell"]')
             self.browser.error_msg = 'nohistory'
             raise NoHistoryError
         except NoSuchElementException:
             pass
 
-        lines = self.driver.find_elements_by_xpath('//table[@class="tree font-small"]/tbody/tr')[3:]
+        lines = self.driver.find_elements(By.XPATH, '//table[@class="tree font-small"]/tbody/tr')[3:]
 
         for line in lines:
-            if line.find_element_by_xpath('.//td[1]').text == 'Total':
+            if line.find_element(By.XPATH, './/td[1]').text == 'Total':
                 break
 
             tr = CFGTransaction()
             try:
-                tr.label = line.find_element_by_xpath('.//td[4]/a').text
+                tr.label = line.find_element(By.XPATH, './/td[4]/a').text
             except NoSuchElementException:
-                tr.label = line.find_element_by_xpath('.//td[4]').text
+                tr.label = line.find_element(By.XPATH, './/td[4]').text
 
-            tr.date = datetime.strptime(line.find_element_by_xpath('.//td[2]').text, '%d.%m.%Y').date()
+            tr.date = datetime.strptime(line.find_element(By.XPATH, './/td[2]').text, '%d.%m.%Y').date()
             
-            debit = self.decimalism(line.find_element_by_xpath('.//td[5]').text)
-            credit = self.decimalism(line.find_element_by_xpath('.//td[6]').text)
+            debit = self.decimalism(line.find_element(By.XPATH, './/td[5]').text)
+            credit = self.decimalism(line.find_element(By.XPATH, './/td[6]').text)
             tr.solde = credit - debit
             
             str_2_hash = tr.label + tr.date.strftime('%d/%m/%Y') + str(tr.solde)

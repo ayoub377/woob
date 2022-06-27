@@ -23,6 +23,7 @@ from __future__ import unicode_literals
 import sys
 from woob.browser import URL, need_login
 from woob.browser.selenium import SeleniumBrowser, webdriver
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from woob.scrafi_exceptions import IdNotFoundError, WebsiteError, WrongCredentialsError
 
@@ -62,7 +63,7 @@ class CIHBrowser(SeleniumBrowser):
             try:
                 self.wait_until_is_here(self.home_page)
                 try:
-                    self.driver.find_element_by_xpath('//div[text()="Chargement en cours ..."]').text
+                    self.driver.find_element(By.XPATH, '//div[text()="Chargement en cours ..."]').text
                     self.wait_xpath_invisible('//div[text()="Chargement en cours ..."]')
                 except NoSuchElementException:
                     pass
@@ -77,9 +78,9 @@ class CIHBrowser(SeleniumBrowser):
     @need_login
     def get_accounts(self):
         self.wait_xpath_clickable('//i[@class="iAccount"]')
-        self.driver.find_element_by_xpath('//i[@class="iAccount"]').click()
+        self.driver.find_element(By.XPATH, '//i[@class="iAccount"]').click()
         self.wait_xpath_clickable('//a[@href="/adriaClient/app/account/list"]/i')
-        self.driver.find_element_by_xpath('//a[@href="/adriaClient/app/account/list"]/i').click()
+        self.driver.find_element(By.XPATH, '//a[@href="/adriaClient/app/account/list"]/i').click()
         self.wait_until_is_here(self.accounts_page)
         return self.page.get_accounts()
 
@@ -93,9 +94,9 @@ class CIHBrowser(SeleniumBrowser):
     
     def go_to_history(self):
         self.wait_xpath_clickable('//i[@class="iAccount"]')
-        self.driver.find_element_by_xpath('//i[@class="iAccount"]').click()
+        self.driver.find_element(By.XPATH, '//i[@class="iAccount"]').click()
         self.wait_xpath_clickable('//a[@href="/adriaClient/app/account/statement"]/i')
-        self.driver.find_element_by_xpath('//a[@href="/adriaClient/app/account/statement"]/i').click()
+        self.driver.find_element(By.XPATH, '//a[@href="/adriaClient/app/account/statement"]/i').click()
         self.wait_until_is_here(self.history_page)
 
     @need_login

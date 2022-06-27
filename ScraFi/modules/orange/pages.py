@@ -29,6 +29,7 @@ from woob.browser.selenium import SeleniumPage, VisibleXPath
 
 from woob.scrafi_exceptions import NoBillError, WebsiteError
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 from requests.exceptions import ConnectionError as cnxError
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -38,14 +39,14 @@ class LoginPage(SeleniumPage):
     is_here = VisibleXPath('//input[@id="_username"]')
     
     def login(self, username, password):
-        self.driver.find_element_by_xpath('//input[@id="_username"]').send_keys(username)
-        self.driver.find_element_by_xpath('//input[@id="_password"]').send_keys(password)
-        self.driver.find_element_by_xpath('//input[@class="btn btn--important d-block-m mdl-js-button  mdl-js-button mdl-js-ripple-effect btn d-block-m--mm btn d-block-m--important submit"]').click()
+        self.driver.find_element(By.XPATH, '//input[@id="_username"]').send_keys(username)
+        self.driver.find_element(By.XPATH, '//input[@id="_password"]').send_keys(password)
+        self.driver.find_element(By.XPATH, '//input[@class="btn btn--important d-block-m mdl-js-button  mdl-js-button mdl-js-ripple-effect btn d-block-m--mm btn d-block-m--important submit"]').click()
     
     def check_error(self):
         time.sleep(1)
         try:
-            self.driver.find_element_by_xpath('//span[contains(text(),"Vérifiez le code saisi")]')
+            self.driver.find_element(By.XPATH, '//span[contains(text(),"Vérifiez le code saisi")]')
             return True
         except NoSuchElementException:
             return False
@@ -90,13 +91,13 @@ class BillsPage(SeleniumPage):
             'Décembre': '12'}
         
         try:
-            self.driver.find_element_by_xpath('//a[@class="link-souligne res-fr mob-mbs mob-disblock app-showmore-synthesis"]').click()
+            self.driver.find_element(By.XPATH, '//a[@class="link-souligne res-fr mob-mbs mob-disblock app-showmore-synthesis"]').click()
         except NoSuchElementException:
             pass
         
-        synthesis = self.driver.find_elements_by_xpath('//div[@class="table-facture__row pagination-element-synthesis"]')
+        synthesis = self.driver.find_elements(By.XPATH, '//div[@class="table-facture__row pagination-element-synthesis"]')
         for syn in synthesis:            
-            date_element = syn.find_element_by_xpath('.//a[@class="cb-popup cboxElement"]')
+            date_element = syn.find_element(By.XPATH, './/a[@class="cb-popup cboxElement"]')
             date_text = date_element.text
             try:
                 date_object = datetime.strptime(french_months[date_text[3:-5]] + "/" + date_text[-4:], "%m/%Y")
@@ -115,20 +116,20 @@ class BillsPage(SeleniumPage):
         for url in urls:
             self.browser.location(url)
             time.sleep(3)
-            factures = self.driver.find_elements_by_xpath('//div[@class="table-facture__row pagination-element"]')
+            factures = self.driver.find_elements(By.XPATH, '//div[@class="table-facture__row pagination-element"]')
             with requests.Session() as req:
                 req.verify = False
                 for facture in factures:
                     bill = OrangeBill()
                     
                     bill.date = bill_date
-                    bill.number = facture.find_element_by_xpath('.//div[@class="table-facture__cell  w50 table-liste__date "]/span').text
-                    bill.montant = facture.find_element_by_xpath('.//div[@class="table-facture__cell  w50 table-liste__montant"]/div/span').text
+                    bill.number = facture.find_element(By.XPATH, './/div[@class="table-facture__cell  w50 table-liste__date "]/span').text
+                    bill.montant = facture.find_element(By.XPATH, './/div[@class="table-facture__cell  w50 table-liste__montant"]/div/span').text
                     
                     str_2_hash = "orange" + bill.number + bill.date + bill.montant
                     bill.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
                     
-                    pdf_url = facture.find_element_by_xpath('.//div[@class="dropdown-links__contentr simpletoggle-content"]/a').get_attribute("href")
+                    pdf_url = facture.find_element(By.XPATH, './/div[@class="dropdown-links__contentr simpletoggle-content"]/a').get_attribute("href")
                     x = 0
                     while x < 5:
                         try:

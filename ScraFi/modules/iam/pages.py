@@ -30,20 +30,21 @@ from woob.browser.selenium import SeleniumPage, VisibleXPath
 
 from woob.scrafi_exceptions import NoBillError
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 
 class LoginPage(SeleniumPage):
     is_here = VisibleXPath('//h1[contains(text(),"Pour accéder à votre compte, veuillez vous identifier.")]')
     
     def login(self, username, password):
-        self.driver.find_element_by_xpath('//input[@id="txtEmail"]').send_keys(username)
-        self.driver.find_element_by_xpath('//input[@id="txtPassword"]').send_keys(password)
-        self.driver.find_element_by_xpath('//a[@id="lnkBtnConnex"]').click()
+        self.driver.find_element(By.XPATH, '//input[@id="txtEmail"]').send_keys(username)
+        self.driver.find_element(By.XPATH, '//input[@id="txtPassword"]').send_keys(password)
+        self.driver.find_element(By.XPATH, '//a[@id="lnkBtnConnex"]').click()
     
     def check_error(self):
         time.sleep(1)
         try:
-            self.driver.find_element_by_xpath('//*[contains(text(),"Votre mot de passe ou e-mail est incorrect")]')
+            self.driver.find_element(By.XPATH, '//*[contains(text(),"Votre mot de passe ou e-mail est incorrect")]')
             return True
         except NoSuchElementException:
             return False
@@ -82,23 +83,23 @@ class BillsPage(SeleniumPage):
             'novembre': '11',
             'décembre': '12'}
         
-        factures = self.driver.find_elements_by_xpath('//table[@class="table table-bordered"]/tbody/tr')
+        factures = self.driver.find_elements(By.XPATH, '//table[@class="table table-bordered"]/tbody/tr')
         for facture in factures:
             bill = IamBill()
             
-            facture_date = facture.find_element_by_xpath('.//td[2]/span').text.split()
+            facture_date = facture.find_element(By.XPATH, './/td[2]/span').text.split()
             parsed_date = datetime.strptime(french_months[facture_date[0]] + "/" + facture_date[1], "%m/%Y")
             if parsed_date != the_date:
                 continue
             
             bill.date = parsed_date.strftime('%m/%Y')
-            bill.montant = facture.find_element_by_xpath('.//td[3]').text
-            bill.number = facture.find_element_by_xpath('.//td[6]').text
+            bill.montant = facture.find_element(By.XPATH, './/td[3]').text
+            bill.number = facture.find_element(By.XPATH, './/td[6]').text
             
             str_2_hash = "maroctelecom" + bill.number + bill.date + bill.montant
             bill.id = hashlib.md5(str_2_hash.encode("utf-8")).hexdigest()
             
-            facture.find_element_by_xpath('.//td[1]/a/img').click()
+            facture.find_element(By.XPATH, './/td[1]/a/img').click()
             annee = the_date.strftime('%Y')
             mois = the_date.strftime('%m')
             if mois != "10":
