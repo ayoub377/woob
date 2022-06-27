@@ -1,14 +1,86 @@
 [DEFAULT]
 name = file___C__Users_zhora_Projects_ScraFi_modules
-update = 202206271000
+update = 202206271003
 maintainer = 
 signed = 0
 key_update = 0
 
+[akhdar]
+version = 202206270934
+capabilities = CapCollection CapBank
+description = Al Akhdar Bank
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[awb]
+version = 202206270937
+capabilities = CapCollection CapBank
+description = AttijariWafaBank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[bmce]
+version = 202206270938
+capabilities = CapCollection CapBank
+description = BMCE Bank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[cam]
+version = 202206270940
+capabilities = CapCollection CapBank
+description = Credit Agricole du Maroc
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[cdm]
+version = 202206270942
+capabilities = CapCollection CapBank
+description = CDM Bank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[cfg]
+version = 202206270947
+capabilities = CapCollection CapBank
+description = CFG Bank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
 [chaabi]
 version = 202203021448
-capabilities = CapBank CapCollection
+capabilities = CapCollection CapBank
 description = Chaabi / banque populaire pro website
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[cih]
+version = 202206270947
+capabilities = CapCollection CapBank
+description = CIH bank entreprise
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[iam]
+version = 202206270947
+capabilities = CapCollection CapDocument
+description = Maroc Telecom
 maintainer = Zhor Abid <zhor.abid@gmail.com>
 license = LGPLv3+
 icon = 
@@ -16,8 +88,26 @@ urls =
 
 [ineo]
 version = 202202070919
-capabilities = CapBank CapCollection
+capabilities = CapCollection CapBank
 description = INEO provider pour tester l'API
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[lydec]
+version = 202206270947
+capabilities = CapCollection CapDocument
+description = Lyonnaise des Eaux de Casablanca
+maintainer = Zhor Abid <zhor.abid@gmail.com>
+license = LGPLv3+
+icon = 
+urls = 
+
+[orange]
+version = 202206270946
+capabilities = CapCollection CapDocument
+description = Orange
 maintainer = Zhor Abid <zhor.abid@gmail.com>
 license = LGPLv3+
 icon = 
