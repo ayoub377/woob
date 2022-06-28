@@ -40,6 +40,8 @@ class MarocTelecomBrowser(SeleniumBrowser):
     HEADLESS = False
 
     DRIVER = webdriver.Chrome
+
+    DEFAULT_WAIT = 20
     
     login_page = URL(r'/Entreprise/Pages/login.aspx', LoginPage)
     accueil_page = URL(r'/Entreprise/Pages/index.aspx', AccueilPage)
