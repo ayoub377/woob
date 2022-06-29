@@ -47,7 +47,7 @@ class LoginPage(SeleniumPage):
     def login(self, username, password):
         self.driver.find_element(By.XPATH, '//*[@id="username"]').send_keys(username)
         self.driver.find_element(By.XPATH, '//*[@id="password"]').send_keys(password)
-        self.driver.find_element(By.XPATH, '//*[@id="kc-form-buttons"]/button').click()
+        self.driver.find_element(By.XPATH, '//*[@id="kc-form-buttons"]').click()
         
         
 class ErrorPage(SeleniumPage):
