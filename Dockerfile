@@ -5,6 +5,7 @@ USER root
 RUN apt-get update --fix-missing && apt-get -y upgrade
 RUN apt install python3-pip -y
 RUN apt-get install software-properties-common -y
+RUN pip install --upgrade pip
 
 # Cron Job for cleaning data each 4 hours
 RUN apt-get -y install cron
@@ -56,6 +57,7 @@ RUN pip install prettytable
 RUN add-apt-repository ppa:redislabs/redis -y
 RUN apt-get update
 RUN apt-get install redis -y
+RUN pip install redis==4.1.4
 RUN pip install rq
 
 # Copying Django api app (No install needed because already in requirements)
