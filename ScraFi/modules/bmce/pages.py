@@ -70,7 +70,7 @@ class AccountsPage(SeleniumPage):
 
     def get_accounts(self):
         accounts = []
-        elements = self.driver.find_elements(By.XPATH, '//table[@class="_c1 ei_comptescontrats _c1"]/tbody/tr')[1:]
+        elements = self.driver.find_elements(By.XPATH, '//table[@class="_c1 ei_comptescontrats _c1"]/tbody[1]/tr[@class="_c1  _c1"]')
         for element in elements:
             account = Account()
             account.label = element.find_element(By.XPATH, './td[1]/a/span/span[1]').text
@@ -132,8 +132,11 @@ class HistoryPage(SeleniumPage):
         plus = True
         while plus:
             try:
+                lines_number = len(self.driver.find_elements(By.XPATH, '//table[@class=" eir_xs_to1coltable liste"]/tbody/tr'))
                 self.driver.find_element(By.XPATH, '//a[@title="Plus d\'opérations"]').click()
                 time.sleep(1)
+                if len(self.driver.find_elements(By.XPATH, '//table[@class=" eir_xs_to1coltable liste"]/tbody/tr')) == lines_number:
+                    plus = False
             except NoSuchElementException:
                 plus = False
         
