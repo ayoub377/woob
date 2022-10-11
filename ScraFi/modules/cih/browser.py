@@ -39,6 +39,8 @@ class CIHBrowser(SeleniumBrowser):
         vdisplay.start()
 
     HEADLESS = False
+    
+    DEFAULT_WAIT = 30
 
     DRIVER = webdriver.Chrome
 
