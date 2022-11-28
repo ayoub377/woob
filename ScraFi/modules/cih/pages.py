@@ -144,8 +144,8 @@ class HistoryPage(SeleniumPage):
             tr.label = line.find_element(By.XPATH, './/td[1]').text
             tr.date = datetime.strptime(line.find_element(By.XPATH, './/td[5]').text, '%Y-%m-%d').date()
             
-            debit = self.decimalism(line.find_element(By.XPATH, './/td[4]/div/div').text)
-            credit = self.decimalism(line.find_element(By.XPATH, './/td[3]/div/div').text)
+            debit = self.decimalism(line.find_element(By.XPATH, './/td[3]/div/div').text)
+            credit = self.decimalism(line.find_element(By.XPATH, './/td[2]/div/div').text)
             tr.solde = credit - debit
             
             str_2_hash = tr.label + tr.date.strftime('%Y-%m-%d') + str(tr.solde)
