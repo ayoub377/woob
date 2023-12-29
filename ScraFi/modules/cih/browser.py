@@ -19,13 +19,14 @@
 
 from __future__ import unicode_literals
 
-
 import sys
+from decimal import Decimal
+
 from woob.browser import URL, need_login
 from woob.browser.selenium import SeleniumBrowser, webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from woob.scrafi_exceptions import IdNotFoundError, WebsiteError, WrongCredentialsError
+from .scrafi_exceptions import IdNotFoundError, WebsiteError, WrongCredentialsError, NoHistoryError
 
 from .pages import LoginPage, HomePage, AccountsPage, HistoryPage
 
@@ -39,7 +40,7 @@ class CIHBrowser(SeleniumBrowser):
         vdisplay.start()
 
     HEADLESS = False
-    
+
     DEFAULT_WAIT = 30
 
     DRIVER = webdriver.Chrome
@@ -70,10 +71,12 @@ class CIHBrowser(SeleniumBrowser):
                 except NoSuchElementException:
                     pass
                 self.logged = True
+                print('logged')
             except TimeoutException:
                 self.error_msg = 'credentials'
                 raise WrongCredentialsError
         except TimeoutException:
+            print('not logged')
             self.error_msg = 'bank'
             raise WebsiteError
 
@@ -93,7 +96,7 @@ class CIHBrowser(SeleniumBrowser):
                 return account
         self.error_msg = 'ID'
         raise IdNotFoundError
-    
+
     def go_to_history(self):
         self.wait_xpath_clickable('//i[@class="iAccount"]')
         self.driver.find_element(By.XPATH, '//i[@class="iAccount"]').click()
@@ -101,8 +104,34 @@ class CIHBrowser(SeleniumBrowser):
         self.driver.find_element(By.XPATH, '//a[@href="/adriaClient/app/account/statement"]/i').click()
         self.wait_until_is_here(self.history_page)
 
+    def iter_transactions(self, **kwargs):
+        results = []
+
+        table = self.driver.find_element(By.XPATH,
+                                         '//*[@id="appRoot"]/div/div[3]/div[2]/div[1]/div/div[1]/div/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div/div/div/div/div/div/table')
+
+        rows = table.find_elements(By.TAG_NAME, 'tr')
+
+        for row in rows:
+            cells = row.find_elements(By.TAG_NAME, 'td')
+            _id = cells[0].text
+            date = cells[1].text
+            label = cells[2].text
+            # append this tuple to the list
+            results.append((_id, date, label))
+
+        return results
+
     @need_login
     def iter_history(self, _id, **kwargs):
         account = self.get_account(_id)
         self.go_to_history()
         return self.page.get_history(account, **kwargs)
+
+    @need_login
+    def get_transactions(self, **kwargs):
+        try:
+            res = self.iter_transactions(**kwargs)
+            return res
+        except NoHistoryError:
+            return []

@@ -11,9 +11,9 @@ from redis import Redis
 from rq.job import Job, get_current_job
 from rq.timeouts import JobTimeoutException
 
-
 redis = Redis()
 path = os.path.expanduser('~')
+
 if "C:" in path:
     path = path.replace('\\', '/')
 
@@ -37,6 +37,7 @@ billis = {
     'billeo': 'BILLEO'
 }
 
+
 def setup_logger(name, log_file):
     logger = logging.getLogger(name)
     if not logger.hasHandlers():
@@ -52,10 +53,12 @@ def setup_logger(name, log_file):
         logger.addHandler(console_handler)
     return logger
 
+
 def rq_logger():
     rqfile = f'{path}/scrafi_project/Logs/rq/rq.log'
     logger = setup_logger('rq_worker', rqfile)
     return logger
+
 
 def discord_msg(msg='===> UNCAUGHT ERROR <=== \n ', unparsed=None):
     if unparsed:
@@ -67,8 +70,9 @@ def discord_msg(msg='===> UNCAUGHT ERROR <=== \n ', unparsed=None):
             msg += i
     while msg[-1:] == '\n':
         msg = msg[:-1]
-    
+
     client = discord.Client()
+
     @client.event
     async def on_ready(msg=msg):
         length = len(msg)
@@ -83,6 +87,7 @@ def discord_msg(msg='===> UNCAUGHT ERROR <=== \n ', unparsed=None):
 
     client.run('OTQxNzQ1NDE5OTI1NDcxMjQz.YgaaxA.ZMJr1qeNTkIebGBE5XUcE_ziipU')
 
+
 def notify_zhor(flow, module, date, e, unparsed=None, logger=None):
     if not logger:
         logger = rq_logger()
@@ -90,12 +95,13 @@ def notify_zhor(flow, module, date, e, unparsed=None, logger=None):
     logger.info('>>> Notify_zhor')
     logger.error(e, exc_info=True)
 
-    msg = '-+- FLOW : %s \n -+- BANK : %s \n -+- DATE : %s \n ' % (flow.capitalize(), module, date)
+    msg = '-+- FLOW : %s \n -+- BANK : %s \n -+- DATE : %s \n' % (flow.capitalize(), module, date)
+
     if unparsed:
         discord_msg(msg=e, unparsed=unparsed)
     else:
         discord_msg(msg=msg)
-    
+
 
 class Woobank:
     logger = rq_logger()
@@ -111,9 +117,10 @@ class Woobank:
             self.start_date = date
         else:
             self.start_date = datetime.strftime(date, '%d/%m/%Y')
-    
+
     def add_backend(self, username, password, bankash):
-        backend ="[%s]\n _module = %s\n login = %s\n password = %s\n\n" % (bankash, self.bank, username, password)
+        backend = "[%s]\n _module = %s\n login = %s\n password = %s\n\n" % (bankash, self.bank, username, password)
+
         with open(f'{path}/.config/woob/backends', 'a') as backends:
             backends.write(backend)
 
@@ -128,7 +135,7 @@ class Woobank:
     def error_response(self, error_msg):
         json_response = {}
         json_response["Response"] = "Error"
-        
+
         if self.unparsed:
             self.logger.info('Enable to parse Woob results')
             self.notify_zaz(error_msg)
@@ -164,15 +171,17 @@ class Woobank:
         w = Woob()
         w.load_backends(caps=CapBank)
         self.logger.info('Getting the %s...' % self.flow)
-
         try:
             times = 0
             while times < 2:
                 try:
                     if self.flow == 'history':
-                        woob_results = w[bankash].iter_history(self.acc_id, **{'start_date': self.start_date, 'end_date': datetime.today().strftime('%d/%m/%Y')})
+                        woob_results = w[bankash].iter_history(self.acc_id, **{'start_date': self.start_date,
+                                                                               'end_date': datetime.today().strftime(
+                                                                                   '%d/%m/%Y')})
                         if self.bank == 'ineo':
                             return {"Response": "OK", "Transactions": woob_results}
+
                     elif self.flow == 'account':
                         woob_results = [w[bankash].get_account(self.acc_id)]
                     elif self.flow == 'accounts':
@@ -188,6 +197,7 @@ class Woobank:
                                 'id': result.id,
                                 'label': result.label,
                             }
+
                             if self.flow == 'history':
                                 data['date'] = result.date.strftime("%d/%m/%Y")
                                 data['solde'] = str(result.solde)
@@ -199,10 +209,12 @@ class Woobank:
                             return self.error_response(str(woob_results))
 
                     self.logger.info('Returning data')
+
                     if self.flow == 'history':
                         return {"Response": "OK", "Transactions": results}
                     elif len(woob_results) > 1:
-                        return {"Response": "Multicomptes", "Error": "Il existe plus d'un ID pour ce compte.", "Accounts": results}
+                        return {"Response": "Multicomptes", "Error": "Il existe plus d'un ID pour ce compte.",
+                                "Accounts": results}
                     else:
                         return {"Response": "OK", "Accounts": results}
 
@@ -218,7 +230,7 @@ class Woobank:
             raise timerror
 
         except Exception as e:
-            if not self.bankia in ('INEO', 'Banque Populaire') :
+            if not self.bankia in ('INEO', 'Banque Populaire'):
                 w[bankash].browser.driver.quit()
                 w[bankash].browser.vdisplay.stop()
             else:
@@ -233,10 +245,8 @@ class Woobank:
     def connect(self, username, password):
         job_id = get_current_job().id
         bankash = hashlib.md5(bytearray(job_id, 'utf-8')).hexdigest()
-
         self.logger.info('RQ ### Woobank.connect(%s, ********, ********, %s, "%s")' % (self.bankia, self.acc_id, self.start_date))
         self.logger.info("%s JOB: %s" % (self.flow.upper(), job_id))
-        
         self.add_backend(username, password, bankash)
         self.logger.info('>>> Calling woobank')
         data = self.call_woob(bankash)
@@ -262,9 +272,9 @@ class Woobill:
             self.start_date = date
         else:
             self.start_date = datetime.strftime(date, '%m/%Y')
-    
+
     def add_backend(self, username, password, billash):
-        backend ="[%s]\n _module = %s\n login = %s\n password = %s\n\n" % (billash, self.bill, username, password)
+        backend = "[%s]\n _module = %s\n login = %s\n password = %s\n\n" % (billash, self.bill, username, password)
         with open(f'{path}/.config/woob/backends', 'a') as backends:
             backends.write(backend)
 
@@ -279,7 +289,7 @@ class Woobill:
     def error_response(self, error_msg):
         json_response = {}
         json_response["Response"] = "Error"
-        
+
         if self.unparsed:
             self.logger.info('Enable to parse Woob results')
             self.notify_zaz(error_msg)
@@ -316,7 +326,7 @@ class Woobill:
             if self.flow == 'bills':
                 woob_results = w[billash].get_bills(self.start_date)
 
-                if self.billia != 'BILLEO' :
+                if self.billia != 'BILLEO':
                     w[billash].browser.driver.quit()
                     w[billash].browser.vdisplay.stop()
 
@@ -329,6 +339,7 @@ class Woobill:
                             'montantTTC': result.montant,
                             'PDF': result.pdf
                         }
+
                         results.append(data)
 
                     except AttributeError:
@@ -341,10 +352,10 @@ class Woobill:
             elif self.flow == 'connect':
                 woob_results = w[billash].connect()
 
-                if self.billia != 'BILLEO' :
+                if self.billia != 'BILLEO':
                     w[billash].browser.driver.quit()
                     w[billash].browser.vdisplay.stop()
-                
+
                 for result in woob_results:
                     try:
                         creds = {
@@ -352,7 +363,7 @@ class Woobill:
                             'username': self.username,
                             'password': self.password
                         }
-                
+
                     except AttributeError:
                         self.unparsed = True
                         return self.error_response(str(woob_results))
@@ -364,13 +375,15 @@ class Woobill:
             raise timerror
 
         except Exception as e:
-            if not self.billia in ('BILLEO') :
+            if not self.billia in ('BILLEO'):
                 w[billash].browser.driver.quit()
                 w[billash].browser.vdisplay.stop()
+
             else:
                 pass
 
             error_msg = w[billash].browser.error_msg
+
             if error_msg != '':
                 return self.error_response(error_msg)
             else:
@@ -382,14 +395,14 @@ class Woobill:
 
         self.logger.info('RQ ### Woobill.connect(%s, ********, ********, "%s")' % (self.billia, self.start_date))
         self.logger.info("%s JOB: %s" % (self.flow.upper(), job_id))
-        
+
         self.add_backend(username, password, billash)
         self.logger.info('>>> Calling woobill')
         data = self.call_woob(billash)
         self.logger.info(data)
         self.logger.info('Truncating \n')
         self.delete_backend(billash)
-        
+
         return data
 
 
@@ -400,11 +413,13 @@ def notify_client(job_id):
 
     data = json.dumps({"notification": "Job is done", "job_id": job_id})
     signature = create_signature(data)
-    headers = {'X-INEO-Signature': signature, 'content-type':'text/plain'}
+    headers = {'X-INEO-Signature': signature, 'content-type': 'text/plain'}
+
     r_post = requests.post(
         'https://ineo.app/api/Webhook/IneoReceiver',
         headers=headers,
         data=data)
+
     response = str(r_post.content)
     logger.info('POST Response >>> ' + response)
 
@@ -417,11 +432,14 @@ def notify_client(job_id):
             job = Job.fetch(job_id, connection=redis)
             logger.info('DELETING RESULTS... \n')
             job.delete(delete_dependents=True)
+
     elif "404" in response:
         raise Exception('Error 404 \n')
+
     elif "502" in response:
         logger.error('502 Response ---> Backend out of service')
         time.sleep('480')
         raise Exception('Backend out of service \n')
+
     else:
         logger.info('no 400. no 404. and no 502.\n')

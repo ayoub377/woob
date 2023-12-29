@@ -30,7 +30,7 @@ from woob.capabilities.bank.base import Account, Transaction
 from woob.browser.selenium import SeleniumPage, VisibleXPath
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
-from woob.scrafi_exceptions import NoHistoryError
+from .scrafi_exceptions import NoHistoryError
 
 
 class LoginPage(SeleniumPage):
@@ -48,11 +48,11 @@ class LoginPage(SeleniumPage):
 
 
 class HomePage(SeleniumPage):
-    is_here = VisibleXPath('//p[contains(text(), " Solde ")]')
+    is_here = VisibleXPath('//*[@id="appRoot"]/div/div[3]/div[2]/div[1]/div/div[1]/div/div/div/div/div/div/div/div[1]/div[2]/div[1]/h2')
 
 
 class AccountsPage(SeleniumPage):
-    is_here = VisibleXPath('//h1[contains(text(), " des comptes")]')
+    is_here = VisibleXPath('//*[@id="appRoot"]/div/div[3]/div[2]/div[1]/div/div/div/div/div/div[1]/div[1]/h1/span')
 
     def get_accounts(self):
         accounts = []
@@ -74,7 +74,7 @@ class CIHTransaction(Transaction):
     def __repr__(self):
         return '<%s id=%r date=%r label=%r solde=%r>' % (
             type(self).__name__, self.id, self.date, self.label, self.solde)
-            
+
 
 class HistoryPage(SeleniumPage):
     is_here = VisibleXPath('//h1[contains(text(), "Extrait de compte")]')

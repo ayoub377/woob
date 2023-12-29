@@ -19,13 +19,11 @@
 
 from __future__ import unicode_literals
 
-
 from woob.tools.backend import Module, BackendConfig
 from woob.tools.value import ValueBackendPassword
 from woob.capabilities.bank import CapBank
 
 from .browser import CIHBrowser
-
 
 __all__ = ['CIHModule']
 
@@ -48,14 +46,11 @@ class CIHModule(Module, CapBank):
     def create_default_browser(self):
         return self.create_browser(self.config)
 
-
     def iter_accounts(self):
         return self.browser.get_accounts()
 
-
     def get_account(self, id_):
         return self.browser.get_account(id_)
-            
 
     def iter_history(self, _id, **kwargs):
         return self.browser.iter_history(_id, **kwargs)

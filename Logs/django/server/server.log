@@ -1,0 +1,2044 @@
+Tue 26 Dec 23 - 15:25:13 GMT | INFO --- 
+   "GET /admin/login HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 15:25:13 GMT | INFO --- 
+   "GET /admin/login/?next=/admin/login HTTP/1.1" 200 2225 
+
+Tue 26 Dec 23 - 15:25:13 GMT | INFO --- 
+   "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3763 
+
+Tue 26 Dec 23 - 15:25:13 GMT | INFO --- 
+   "GET /static/admin/css/fonts.css HTTP/1.1" 200 423 
+
+Tue 26 Dec 23 - 15:25:13 GMT | INFO --- 
+   "GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 85692 
+
+Tue 26 Dec 23 - 15:25:13 GMT | INFO --- 
+   "GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 85876 
+
+Tue 26 Dec 23 - 15:25:13 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:27:37 GMT | INFO --- 
+   "POST /admin/login/?next=/admin/login HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 15:27:37 GMT | INFO --- 
+   "GET /admin/login HTTP/1.1" 301 0 
+
+Tue 26 Dec 23 - 15:27:37 GMT | INFO --- 
+   "GET /admin/login/ HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 15:27:37 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 200 5919 
+
+Tue 26 Dec 23 - 15:27:37 GMT | INFO --- 
+   "GET /static/admin/css/dashboard.css HTTP/1.1" 200 380 
+
+Tue 26 Dec 23 - 15:27:37 GMT | INFO --- 
+   "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380 
+
+Tue 26 Dec 23 - 15:27:37 GMT | INFO --- 
+   "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331 
+
+Tue 26 Dec 23 - 15:27:37 GMT | INFO --- 
+   "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 86184 
+
+Tue 26 Dec 23 - 15:27:37 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 7288 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/css/changelists.css HTTP/1.1" 200 6932 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 288580 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/js/actions.js HTTP/1.1" 200 7872 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/js/urlify.js HTTP/1.1" 200 7902 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/js/core.js HTTP/1.1" 200 5698 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/img/search.svg HTTP/1.1" 200 458 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 5984 
+
+Tue 26 Dec 23 - 15:27:53 GMT | INFO --- 
+   "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331 
+
+Tue 26 Dec 23 - 15:27:53 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:27:59 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 200 5919 
+
+Tue 26 Dec 23 - 15:27:59 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:28:15 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 10675 
+
+Tue 26 Dec 23 - 15:28:15 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:28:15 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:28:35 GMT | WARNING --- 
+   "POST /bill/Create/?bank=cih HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:31:29 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6791 
+
+Tue 26 Dec 23 - 15:31:29 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:31:29 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:31:33 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 7288 
+
+Tue 26 Dec 23 - 15:31:33 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:31:33 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:31:53 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 7252 
+
+Tue 26 Dec 23 - 15:31:53 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:31:54 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:31:55 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 7288 
+
+Tue 26 Dec 23 - 15:31:55 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:31:55 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:31:56 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6791 
+
+Tue 26 Dec 23 - 15:31:56 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:31:56 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:31:57 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 10675 
+
+Tue 26 Dec 23 - 15:31:57 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:31:57 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:31:59 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48156 
+
+Tue 26 Dec 23 - 15:31:59 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:31:59 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:32:07 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/?p=2 HTTP/1.1" 200 50730 
+
+Tue 26 Dec 23 - 15:32:07 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:32:08 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:32:17 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/?p=1 HTTP/1.1" 200 50782 
+
+Tue 26 Dec 23 - 15:32:17 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:32:17 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/326/change/?_changelist_filters=p%3D1 HTTP/1.1" 200 12436 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19634 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 492 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /static/admin/js/calendar.js HTTP/1.1" 200 8466 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /static/admin/css/forms.css HTTP/1.1" 200 8878 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /static/admin/js/change_form.js HTTP/1.1" 200 606 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /static/admin/css/widgets.css HTTP/1.1" 200 11097 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086 
+
+Tue 26 Dec 23 - 15:32:27 GMT | INFO --- 
+   "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677 
+
+Tue 26 Dec 23 - 15:32:27 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:32:39 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 200 5919 
+
+Tue 26 Dec 23 - 15:32:39 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:33:32 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6791 
+
+Tue 26 Dec 23 - 15:33:32 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:33:32 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:33:34 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 7252 
+
+Tue 26 Dec 23 - 15:33:34 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:33:34 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:33:35 GMT | INFO --- 
+   "GET /admin/auth/group/ HTTP/1.1" 200 6770 
+
+Tue 26 Dec 23 - 15:33:35 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:33:35 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:33:36 GMT | INFO --- 
+   "GET /admin/auth/user/ HTTP/1.1" 200 10262 
+
+Tue 26 Dec 23 - 15:33:36 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:33:36 GMT | INFO --- 
+   "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436 
+
+Tue 26 Dec 23 - 15:33:36 GMT | INFO --- 
+   "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097 
+
+Tue 26 Dec 23 - 15:33:36 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:33:39 GMT | INFO --- 
+   "GET /admin/auth/user/1/change/ HTTP/1.1" 200 18720 
+
+Tue 26 Dec 23 - 15:33:39 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:33:39 GMT | INFO --- 
+   "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 12350 
+
+Tue 26 Dec 23 - 15:33:39 GMT | INFO --- 
+   "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4360 
+
+Tue 26 Dec 23 - 15:33:39 GMT | INFO --- 
+   "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291 
+
+Tue 26 Dec 23 - 15:33:39 GMT | INFO --- 
+   "GET /static/admin/img/icon-unknown-alt.svg HTTP/1.1" 200 655 
+
+Tue 26 Dec 23 - 15:33:39 GMT | INFO --- 
+   "GET /static/admin/img/icon-unknown.svg HTTP/1.1" 200 655 
+
+Tue 26 Dec 23 - 15:33:39 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:34:09 GMT | INFO --- 
+   "GET /admin/auth/user/ HTTP/1.1" 200 10262 
+
+Tue 26 Dec 23 - 15:34:09 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:34:12 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 10675 
+
+Tue 26 Dec 23 - 15:34:12 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:34:12 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:34:14 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6791 
+
+Tue 26 Dec 23 - 15:34:14 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:34:14 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:34:15 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 7288 
+
+Tue 26 Dec 23 - 15:34:15 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:34:15 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:34:17 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 7252 
+
+Tue 26 Dec 23 - 15:34:17 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:34:17 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:34:20 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 7288 
+
+Tue 26 Dec 23 - 15:34:21 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:34:21 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:34:21 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6791 
+
+Tue 26 Dec 23 - 15:34:21 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:34:21 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:34:22 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 10675 
+
+Tue 26 Dec 23 - 15:34:22 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:34:22 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:34:24 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48156 
+
+Tue 26 Dec 23 - 15:34:24 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:34:24 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:37:18 GMT | WARNING --- 
+   "POST /bill/Create/?bank=cih HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:37:41 GMT | WARNING --- 
+   "POST /o HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:42:43 GMT | WARNING --- 
+   "POST /o HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:42:49 GMT | WARNING --- 
+   "POST /o HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:43:01 GMT | WARNING --- 
+   "POST /o HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:43:08 GMT | WARNING --- 
+   "POST /bill/Create/?bank=cih HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:43:43 GMT | WARNING --- 
+   "POST /bill/Create/?bank=cih HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:43:57 GMT | WARNING --- 
+   "POST /bill/Create/?bank=cih HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:44:45 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:44:45 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:44:50 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48156 
+
+Tue 26 Dec 23 - 15:44:50 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:00 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 10675 
+
+Tue 26 Dec 23 - 15:45:00 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:00 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:04 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6791 
+
+Tue 26 Dec 23 - 15:45:04 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:04 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:20 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 7288 
+
+Tue 26 Dec 23 - 15:45:20 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:20 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:22 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 7252 
+
+Tue 26 Dec 23 - 15:45:22 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:22 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:25 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/add/ HTTP/1.1" 200 10388 
+
+Tue 26 Dec 23 - 15:45:25 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:25 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:32 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 7288 
+
+Tue 26 Dec 23 - 15:45:32 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:32 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:34 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6791 
+
+Tue 26 Dec 23 - 15:45:34 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:34 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:36 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 10675 
+
+Tue 26 Dec 23 - 15:45:36 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:36 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:37 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48156 
+
+Tue 26 Dec 23 - 15:45:37 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:37 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:38 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 10675 
+
+Tue 26 Dec 23 - 15:45:38 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:38 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:40 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48156 
+
+Tue 26 Dec 23 - 15:45:40 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:40 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:43 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 11935 
+
+Tue 26 Dec 23 - 15:45:43 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:43 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:45 GMT | INFO --- 
+   "GET /admin/auth/user/?_to_field=id&_popup=1 HTTP/1.1" 200 5933 
+
+Tue 26 Dec 23 - 15:45:45 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:49 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/?_to_field=id&_popup=1 HTTP/1.1" 200 3321 
+
+Tue 26 Dec 23 - 15:45:49 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:53 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/add/?_changelist_filters=_to_field%3Did%26_popup%3D1&_popup=1&_to_field=id HTTP/1.1" 200 6187 
+
+Tue 26 Dec 23 - 15:45:53 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:45:53 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:45:56 GMT | INFO --- 
+   "GET /admin/auth/user/?_to_field=id&_popup=1 HTTP/1.1" 200 5933 
+
+Tue 26 Dec 23 - 15:45:56 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:46:03 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/?_to_field=id&_popup=1 HTTP/1.1" 200 39242 
+
+Tue 26 Dec 23 - 15:46:03 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:46:16 GMT | INFO --- 
+   "POST /admin/oauth2_provider/refreshtoken/add/?_changelist_filters=_to_field%3Did%26_popup%3D1 HTTP/1.1" 200 6575 
+
+Tue 26 Dec 23 - 15:46:17 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:46:17 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:46:19 GMT | INFO --- 
+   "GET /static/admin/img/calendar-icons.svg HTTP/1.1" 200 1094 
+
+Tue 26 Dec 23 - 15:46:22 GMT | INFO --- 
+   "POST /admin/oauth2_provider/refreshtoken/add/?_changelist_filters=_to_field%3Did%26_popup%3D1 HTTP/1.1" 200 343 
+
+Tue 26 Dec 23 - 15:46:22 GMT | INFO --- 
+   "GET /static/admin/js/popup_response.js HTTP/1.1" 200 551 
+
+Tue 26 Dec 23 - 15:46:43 GMT | INFO --- 
+   "POST /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 15:46:43 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48391 
+
+Tue 26 Dec 23 - 15:46:43 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:46:44 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:46:46 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/327/change/ HTTP/1.1" 200 12495 
+
+Tue 26 Dec 23 - 15:46:46 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 15:46:46 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:47:05 GMT | WARNING --- 
+   "POST /bill/Create/?bank=cih HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 15:48:26 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:14:10 GMT | WARNING --- 
+   "POST /admin/login/?next=/admin/login HTTP/1.1" 403 2518 
+
+Tue 26 Dec 23 - 16:14:10 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:14:18 GMT | INFO --- 
+   "GET /admin/login/?next=/admin/login HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 16:14:18 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 200 6598 
+
+Tue 26 Dec 23 - 16:14:18 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:14:24 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6791 
+
+Tue 26 Dec 23 - 16:14:24 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:14:24 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:14:25 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 10675 
+
+Tue 26 Dec 23 - 16:14:25 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:14:25 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:14:31 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/add/ HTTP/1.1" 200 14093 
+
+Tue 26 Dec 23 - 16:14:31 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:14:31 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:14:34 GMT | INFO --- 
+   "GET /admin/auth/user/?_to_field=id&_popup=1 HTTP/1.1" 200 5933 
+
+Tue 26 Dec 23 - 16:14:34 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:14:57 GMT | INFO --- 
+   "POST /admin/oauth2_provider/application/add/ HTTP/1.1" 200 14386 
+
+Tue 26 Dec 23 - 16:14:57 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:14:57 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:17:26 GMT | INFO --- 
+   "POST /admin/oauth2_provider/application/add/ HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 16:17:26 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 11287 
+
+Tue 26 Dec 23 - 16:17:26 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:17:26 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:17:33 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 11974 
+
+Tue 26 Dec 23 - 16:17:33 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:17:33 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:17:46 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 7373 
+
+Tue 26 Dec 23 - 16:17:46 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:17:46 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:17:48 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/add/ HTTP/1.1" 200 9704 
+
+Tue 26 Dec 23 - 16:17:48 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:17:48 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:17:51 GMT | INFO --- 
+   "GET /admin/auth/user/?_to_field=id&_popup=1 HTTP/1.1" 200 5933 
+
+Tue 26 Dec 23 - 16:17:51 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:19 GMT | INFO --- 
+   "POST /admin/oauth2_provider/idtoken/add/ HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 16:23:19 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9447 
+
+Tue 26 Dec 23 - 16:23:19 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:23:20 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:22 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/1/change/ HTTP/1.1" 200 10195 
+
+Tue 26 Dec 23 - 16:23:22 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:23:22 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:27 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48239 
+
+Tue 26 Dec 23 - 16:23:27 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:23:27 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:29 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9194 
+
+Tue 26 Dec 23 - 16:23:29 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:23:29 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:35 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48239 
+
+Tue 26 Dec 23 - 16:23:35 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:23:35 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:36 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 12054 
+
+Tue 26 Dec 23 - 16:23:36 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:23:36 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:38 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/?_to_field=id&_popup=1 HTTP/1.1" 200 4370 
+
+Tue 26 Dec 23 - 16:23:38 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:43 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6791 
+
+Tue 26 Dec 23 - 16:23:43 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:23:43 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:45 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9194 
+
+Tue 26 Dec 23 - 16:23:45 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:23:45 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:23:46 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 8934 
+
+Tue 26 Dec 23 - 16:23:46 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:23:46 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:27:08 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 11068 
+
+Tue 26 Dec 23 - 16:27:08 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:27:08 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:28:33 GMT | INFO --- 
+   "GET /admin/logout/ HTTP/1.1" 200 1530 
+
+Tue 26 Dec 23 - 16:28:33 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:28:35 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 16:28:35 GMT | INFO --- 
+   "GET /admin/login/?next=/admin/ HTTP/1.1" 200 2215 
+
+Tue 26 Dec 23 - 16:28:35 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:28:44 GMT | INFO --- 
+   "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 16:28:44 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 200 5921 
+
+Tue 26 Dec 23 - 16:28:44 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:28:49 GMT | INFO --- 
+   "GET /admin/auth/user/ HTTP/1.1" 200 10666 
+
+Tue 26 Dec 23 - 16:28:49 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:28:49 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:28:53 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48241 
+
+Tue 26 Dec 23 - 16:28:53 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:28:53 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:28:55 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 11070 
+
+Tue 26 Dec 23 - 16:28:55 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:28:55 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:38:44 GMT | INFO --- 
+   - Broken pipe from ('127.0.0.1', 49681)
+ 
+
+Tue 26 Dec 23 - 16:38:45 GMT | INFO --- 
+   "POST /admin/login/ HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 16:38:45 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 200 5921 
+
+Tue 26 Dec 23 - 16:38:45 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:38:49 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 11070 
+
+Tue 26 Dec 23 - 16:38:49 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:38:49 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:38:52 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 8936 
+
+Tue 26 Dec 23 - 16:38:52 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:38:52 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:38:54 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 16:38:54 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:38:54 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:41:52 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/1/change/ HTTP/1.1" 200 10197 
+
+Tue 26 Dec 23 - 16:41:52 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:41:52 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:41:53 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 16:41:53 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:47:05 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6793 
+
+Tue 26 Dec 23 - 16:47:06 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:47:06 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:47:08 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 16:47:08 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:47:09 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48241 
+
+Tue 26 Dec 23 - 16:47:09 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:47:09 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:47:13 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/?o=1 HTTP/1.1" 200 51164 
+
+Tue 26 Dec 23 - 16:47:13 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:47:13 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:47:15 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/?o=-1 HTTP/1.1" 200 51282 
+
+Tue 26 Dec 23 - 16:47:15 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:47:15 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:47:18 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 11070 
+
+Tue 26 Dec 23 - 16:47:18 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:47:18 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:47:21 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/3/change/ HTTP/1.1" 200 14478 
+
+Tue 26 Dec 23 - 16:47:21 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:47:22 GMT | INFO --- 
+   "GET /static/admin/img/tooltag-arrowright.svg HTTP/1.1" 200 280 
+
+Tue 26 Dec 23 - 16:47:22 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:47:33 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 16:47:33 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:47:33 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:47:59 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48241 
+
+Tue 26 Dec 23 - 16:47:59 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:47:59 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:48:02 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 12056 
+
+Tue 26 Dec 23 - 16:48:02 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:48:02 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:48:13 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 8936 
+
+Tue 26 Dec 23 - 16:48:13 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:48:13 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:48:18 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 16:48:18 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:48:18 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:48:19 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/1/change/ HTTP/1.1" 200 10197 
+
+Tue 26 Dec 23 - 16:48:19 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:48:19 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:49:54 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48241 
+
+Tue 26 Dec 23 - 16:49:54 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:49:54 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 16:49:56 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 12056 
+
+Tue 26 Dec 23 - 16:49:56 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 16:49:56 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:23 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48241 
+
+Tue 26 Dec 23 - 17:13:23 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:13:23 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:25 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48241 
+
+Tue 26 Dec 23 - 17:13:25 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:13:25 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:26 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 12056 
+
+Tue 26 Dec 23 - 17:13:26 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:13:27 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:31 GMT | INFO --- 
+   "GET /admin/auth/user/?_to_field=id&_popup=1 HTTP/1.1" 200 6293 
+
+Tue 26 Dec 23 - 17:13:31 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:34 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/?_to_field=id&_popup=1 HTTP/1.1" 200 4370 
+
+Tue 26 Dec 23 - 17:13:34 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:40 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/?_to_field=id&_popup=1 HTTP/1.1" 200 4370 
+
+Tue 26 Dec 23 - 17:13:40 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:43 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 8936 
+
+Tue 26 Dec 23 - 17:13:43 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:13:43 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:45 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/add/ HTTP/1.1" 200 10429 
+
+Tue 26 Dec 23 - 17:13:45 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:13:45 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:47 GMT | INFO --- 
+   "GET /admin/auth/user/?_to_field=id&_popup=1 HTTP/1.1" 200 6293 
+
+Tue 26 Dec 23 - 17:13:47 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:13:54 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/?_to_field=id&_popup=1 HTTP/1.1" 200 39355 
+
+Tue 26 Dec 23 - 17:13:54 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:14:00 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 17:14:00 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:14:01 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:14:02 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/1/change/ HTTP/1.1" 200 10197 
+
+Tue 26 Dec 23 - 17:14:02 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:14:02 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:21:30 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/add/ HTTP/1.1" 200 14095 
+
+Tue 26 Dec 23 - 17:21:30 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:21:30 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:01 GMT | WARNING --- 
+   "GET /o/applications HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:01 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:14 GMT | WARNING --- 
+   "GET /o/applications HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:14 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:46 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48241 
+
+Tue 26 Dec 23 - 17:22:46 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:46 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:48 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 11070 
+
+Tue 26 Dec 23 - 17:22:48 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:48 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:49 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6793 
+
+Tue 26 Dec 23 - 17:22:49 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:49 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:50 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 17:22:50 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:50 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:51 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 8936 
+
+Tue 26 Dec 23 - 17:22:51 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:51 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:52 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 17:22:52 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:52 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:53 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6793 
+
+Tue 26 Dec 23 - 17:22:53 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:53 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:54 GMT | INFO --- 
+   "GET /admin/auth/user/ HTTP/1.1" 200 10666 
+
+Tue 26 Dec 23 - 17:22:54 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:54 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:56 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 17:22:56 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:56 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:57 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6793 
+
+Tue 26 Dec 23 - 17:22:57 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:57 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:58 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 17:22:58 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:58 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:22:59 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/1/change/ HTTP/1.1" 200 10197 
+
+Tue 26 Dec 23 - 17:22:59 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:22:59 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:23:03 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 11070 
+
+Tue 26 Dec 23 - 17:23:03 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:23:03 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:23:06 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/3/change/ HTTP/1.1" 200 14478 
+
+Tue 26 Dec 23 - 17:23:06 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:23:06 GMT | INFO --- 
+   "GET /static/admin/img/tooltag-arrowright.svg HTTP/1.1" 200 280 
+
+Tue 26 Dec 23 - 17:23:06 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:27:40 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 17:27:40 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:27:40 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:27:48 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/ HTTP/1.1" 200 8936 
+
+Tue 26 Dec 23 - 17:27:48 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:27:48 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:27:53 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/?o=1 HTTP/1.1" 200 9299 
+
+Tue 26 Dec 23 - 17:27:53 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:27:53 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:27:59 GMT | INFO --- 
+   "POST /admin/oauth2_provider/refreshtoken/?o=1 HTTP/1.1" 200 6650 
+
+Tue 26 Dec 23 - 17:28:00 GMT | INFO --- 
+   "GET /static/admin/js/cancel.js HTTP/1.1" 200 884 
+
+Tue 26 Dec 23 - 17:28:00 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:28:00 GMT | INFO --- 
+   "POST /admin/oauth2_provider/refreshtoken/?o=1 HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 17:28:00 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/?o=1 HTTP/1.1" 200 7581 
+
+Tue 26 Dec 23 - 17:28:00 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:28:00 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:28:03 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/add/ HTTP/1.1" 200 10429 
+
+Tue 26 Dec 23 - 17:28:03 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:28:03 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:28:05 GMT | INFO --- 
+   "GET /admin/auth/user/?_to_field=id&_popup=1 HTTP/1.1" 200 6293 
+
+Tue 26 Dec 23 - 17:28:05 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:28:14 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/?_to_field=id&_popup=1 HTTP/1.1" 200 39355 
+
+Tue 26 Dec 23 - 17:28:14 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:28:19 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48241 
+
+Tue 26 Dec 23 - 17:28:19 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:28:19 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:28:21 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 12056 
+
+Tue 26 Dec 23 - 17:28:21 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:28:21 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:28:25 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/?_to_field=id&_popup=1 HTTP/1.1" 200 3436 
+
+Tue 26 Dec 23 - 17:28:25 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:28:35 GMT | INFO --- 
+   "GET /admin/auth/user/?_to_field=id&_popup=1 HTTP/1.1" 200 6293 
+
+Tue 26 Dec 23 - 17:28:35 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:28:46 GMT | INFO --- 
+   "POST /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 12434 
+
+Tue 26 Dec 23 - 17:28:46 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:28:46 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:02 GMT | INFO --- 
+   "POST /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 12487 
+
+Tue 26 Dec 23 - 17:29:02 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:29:03 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:12 GMT | INFO --- 
+   "POST /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 200 12404 
+
+Tue 26 Dec 23 - 17:29:12 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:29:12 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:15 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/?_to_field=id&_popup=1 HTTP/1.1" 200 3436 
+
+Tue 26 Dec 23 - 17:29:15 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:17 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/add/?_changelist_filters=_to_field%3Did%26_popup%3D1&_popup=1&_to_field=id HTTP/1.1" 200 6226 
+
+Tue 26 Dec 23 - 17:29:17 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:29:17 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:19 GMT | INFO --- 
+   "GET /admin/auth/user/?_to_field=id&_popup=1 HTTP/1.1" 200 6293 
+
+Tue 26 Dec 23 - 17:29:19 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:26 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/?_to_field=id&_popup=1 HTTP/1.1" 200 39355 
+
+Tue 26 Dec 23 - 17:29:26 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:35 GMT | INFO --- 
+   "POST /admin/oauth2_provider/refreshtoken/add/?_changelist_filters=_to_field%3Did%26_popup%3D1 HTTP/1.1" 200 348 
+
+Tue 26 Dec 23 - 17:29:35 GMT | INFO --- 
+   "GET /static/admin/js/popup_response.js HTTP/1.1" 200 551 
+
+Tue 26 Dec 23 - 17:29:37 GMT | INFO --- 
+   "GET /admin/oauth2_provider/refreshtoken/?_to_field=id&_popup=1 HTTP/1.1" 200 4379 
+
+Tue 26 Dec 23 - 17:29:37 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:42 GMT | INFO --- 
+   "POST /admin/oauth2_provider/accesstoken/add/ HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 17:29:42 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48490 
+
+Tue 26 Dec 23 - 17:29:42 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:29:43 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:44 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/328/change/ HTTP/1.1" 200 12641 
+
+Tue 26 Dec 23 - 17:29:44 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:29:44 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:51 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48248 
+
+Tue 26 Dec 23 - 17:29:51 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:29:51 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:52 GMT | INFO --- 
+   "GET /admin/oauth2_provider/application/ HTTP/1.1" 200 11070 
+
+Tue 26 Dec 23 - 17:29:52 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:29:52 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:54 GMT | INFO --- 
+   "GET /admin/oauth2_provider/grant/ HTTP/1.1" 200 6793 
+
+Tue 26 Dec 23 - 17:29:54 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:29:54 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:29:55 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/ HTTP/1.1" 200 9196 
+
+Tue 26 Dec 23 - 17:29:55 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:29:55 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:30:31 GMT | INFO --- 
+   "GET /admin/oauth2_provider/idtoken/1/change/ HTTP/1.1" 200 10197 
+
+Tue 26 Dec 23 - 17:30:31 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:30:31 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:30:34 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/ HTTP/1.1" 200 48248 
+
+Tue 26 Dec 23 - 17:30:34 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:30:34 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:30:35 GMT | INFO --- 
+   "GET /admin/oauth2_provider/accesstoken/328/change/ HTTP/1.1" 200 12641 
+
+Tue 26 Dec 23 - 17:30:35 GMT | INFO --- 
+   "GET /admin/jsi18n/ HTTP/1.1" 200 3343 
+
+Tue 26 Dec 23 - 17:30:35 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:50:12 GMT | INFO --- 
+   "GET /o/applications/register/ HTTP/1.1" 200 5726 
+
+Tue 26 Dec 23 - 17:50:12 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:51:19 GMT | INFO --- 
+   "POST /o/applications/register/ HTTP/1.1" 302 0 
+
+Tue 26 Dec 23 - 17:51:19 GMT | INFO --- 
+   "GET /o/applications/4/ HTTP/1.1" 200 2480 
+
+Tue 26 Dec 23 - 17:51:19 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Tue 26 Dec 23 - 17:57:35 GMT | WARNING --- 
+   "GET /o/authorize/?response_type=code&client_id=vW1RcAl7Mb0d5gyHNQIAcH110lWoOW2BmWJIero8&redirect_uri=http://127.0.0.1:8000/noexist/callback HTTP/1.1" 400 1337 
+
+Tue 26 Dec 23 - 17:57:35 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:04:18 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:10:31 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:11:58 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:15:10 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:19:05 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:19:40 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:20:27 GMT | WARNING --- 
+   "GET /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:20:27 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:20:30 GMT | WARNING --- 
+   "GET /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:20:30 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:20:33 GMT | WARNING --- 
+   "GET /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:20:33 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:24:05 GMT | WARNING --- 
+   "GET /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:24:05 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:24:08 GMT | WARNING --- 
+   "GET /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:24:08 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:24:13 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:24:17 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:26:16 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:26:45 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:26:45 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:26:49 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:26:49 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /admin/login/?next=/admin/login HTTP/1.1" 302 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 200 6876 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/css/base.css HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/css/responsive.css HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/css/fonts.css HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:54 GMT | INFO --- 
+   "GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 304 0 
+
+Wed 27 Dec 23 - 09:26:55 GMT | INFO --- 
+   "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392 
+
+Wed 27 Dec 23 - 09:26:55 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:27:21 GMT | WARNING --- 
+   "GET /bankHistory/getResult HTTP/1.1" 403 0 
+
+Wed 27 Dec 23 - 09:27:24 GMT | WARNING --- 
+   "GET /bankHistory/getResult HTTP/1.1" 403 0 
+
+Wed 27 Dec 23 - 09:27:27 GMT | WARNING --- 
+   "GET /bankHistory/getResult HTTP/1.1" 403 0 
+
+Wed 27 Dec 23 - 09:27:36 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 200 6876 
+
+Wed 27 Dec 23 - 09:27:36 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:27:36 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:27:38 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:27:38 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:34:05 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:36:00 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:36:00 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:36:04 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:36:04 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:46:55 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:49:43 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:49:44 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:54:07 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:54:07 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:54:09 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 09:54:09 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:00:23 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:00:23 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:00:32 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:00:34 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:00:38 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:00:40 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:00:41 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:00:43 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:01:51 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:10:00 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:10:00 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:21:14 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:21:16 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:21:17 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:21:18 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:21:18 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:21:19 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:21:20 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:28:13 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:28:23 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:28:23 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:28:43 GMT | INFO --- 
+   "GET /admin/login/?next=/admin/login HTTP/1.1" 302 0 
+
+Wed 27 Dec 23 - 10:28:43 GMT | INFO --- 
+   "GET /admin/ HTTP/1.1" 200 6876 
+
+Wed 27 Dec 23 - 10:28:43 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:28:51 GMT | WARNING --- 
+   "GET / HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:28:51 GMT | WARNING --- 
+   "GET /favicon.ico HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 10:46:40 GMT | WARNING --- 
+   "POST /hello HTTP/1.1" 405 41 
+
+Wed 27 Dec 23 - 10:46:45 GMT | INFO --- 
+   "GET /hello HTTP/1.1" 200 5 
+
+Wed 27 Dec 23 - 10:47:33 GMT | ERROR --- 
+   "GET /hello HTTP/1.1" 500 102806 
+
+Wed 27 Dec 23 - 10:48:39 GMT | INFO --- 
+   "GET /hello?job_id=1 HTTP/1.1" 200 5 
+
+Wed 27 Dec 23 - 11:08:23 GMT | INFO --- 
+   "GET /hello?job_id=1 HTTP/1.1" 200 5 
+
+Wed 27 Dec 23 - 11:13:47 GMT | INFO --- 
+   "GET /hello?job_id=1 HTTP/1.1" 200 5 
+
+Wed 27 Dec 23 - 11:19:33 GMT | WARNING --- 
+   "GET /bank/Create/?username=ayoub&password=Tabahmout55%27 HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:19:57 GMT | WARNING --- 
+   "GET /bank/Create/?username=ayoub&password=Tabahmout55%27&?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:20:14 GMT | WARNING --- 
+   "GET /bank/Create/?username=ayoub&password=Tabahmout55%27&?bank=cih&acc_id=1544 HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:22:10 GMT | WARNING --- 
+   "GET /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:22:55 GMT | WARNING --- 
+   "GET /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:23:48 GMT | WARNING --- 
+   "GET /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:23:53 GMT | WARNING --- 
+   "GET /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:24:45 GMT | WARNING --- 
+   "GET /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:25:00 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:25:07 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:26:08 GMT | WARNING --- 
+   "POST /bank/Create/?bank=chaabi HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:27:03 GMT | WARNING --- 
+   "POST /bank/Create/?bank=chaabi HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:27:31 GMT | WARNING --- 
+   "POST /bank/Create/?bank=chaabi HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:28:16 GMT | WARNING --- 
+   "POST /bank/Create/?bank=chaabi HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:28:34 GMT | WARNING --- 
+   "POST /bank/Create/?bank=chaabi HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:30:42 GMT | WARNING --- 
+   "POST /bank/Create/?bank=chaabi HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:30:52 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:31:31 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:33:11 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:34:32 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:34:34 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:34:35 GMT | WARNING --- 
+   "POST /bank/Create/?bank=cih HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:34:40 GMT | WARNING --- 
+   "POST /bank/Create/ HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:34:43 GMT | WARNING --- 
+   "POST /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:34:46 GMT | WARNING --- 
+   "POST /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:34:52 GMT | WARNING --- 
+   "GET /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:35:03 GMT | WARNING --- 
+   "POST /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:38:43 GMT | WARNING --- 
+   "POST /bank/Create HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:41:54 GMT | WARNING --- 
+   "GET /Hello HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:42:24 GMT | WARNING --- 
+   "GET /Hello HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:42:27 GMT | WARNING --- 
+   "GET /Hello HTTP/1.1" 403 133 
+
+Wed 27 Dec 23 - 11:43:11 GMT | WARNING --- 
+   "GET /bank/Create/cih HTTP/1.1" 405 40 
+
+Wed 27 Dec 23 - 11:43:15 GMT | ERROR --- 
+   "POST /bank/Create/cih HTTP/1.1" 500 99913 
+
+Wed 27 Dec 23 - 11:44:04 GMT | ERROR --- 
+   "POST /bank/Create/cih?username=%22ayoub%27%22&password=%22Tabahmout55%27%22 HTTP/1.1" 500 101195 
+
+Wed 27 Dec 23 - 11:46:02 GMT | ERROR --- 
+   "POST /bank/Create/cih?username=%22ayoub%27%22&password=%22Tabahmout55%27%22 HTTP/1.1" 500 101165 
+
+Wed 27 Dec 23 - 11:46:19 GMT | ERROR --- 
+   "POST /bank/Create/cih?username=%22ayoub%22&password=%22Tabahmout55%27%22 HTTP/1.1" 500 101116 
+
+Wed 27 Dec 23 - 11:46:21 GMT | ERROR --- 
+   "POST /bank/Create/cih?username=%22ayoub%22&password=%22Tabahmout55%27%22 HTTP/1.1" 500 101116 
+
+Wed 27 Dec 23 - 11:49:17 GMT | ERROR --- 
+   "POST /bank/Create/cih HTTP/1.1" 500 99883 
+
+Wed 27 Dec 23 - 11:50:06 GMT | ERROR --- 
+   "POST /bank/Create/cih HTTP/1.1" 500 109005 
+
+Wed 27 Dec 23 - 11:50:28 GMT | ERROR --- 
+   "POST /bank/Create/cih HTTP/1.1" 500 174529 
+
+Wed 27 Dec 23 - 11:57:44 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 11:59:45 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 14:54:05 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 15:33:01 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 16:01:22 GMT | ERROR --- 
+   "POST /bank/Create/cih HTTP/1.1" 500 113706 
+
+Wed 27 Dec 23 - 16:02:09 GMT | ERROR --- 
+   "POST /bank/Create/cih HTTP/1.1" 500 113871 
+
+Wed 27 Dec 23 - 16:02:56 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 16:03:50 GMT | ERROR --- 
+   "POST /bank/Create/cih HTTP/1.1" 500 113854 
+
+Wed 27 Dec 23 - 16:07:40 GMT | ERROR --- 
+   "POST /bank/Create/cih HTTP/1.1" 500 113923 
+
+Wed 27 Dec 23 - 16:37:49 GMT | ERROR --- 
+   "POST /bank/Create/cih HTTP/1.1" 500 113924 
+
+Wed 27 Dec 23 - 17:04:20 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:08:32 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:09:38 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:10:05 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:11:02 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:12:10 GMT | INFO --- 
+   "POST /bank/Create/chaabi HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:13:14 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:15:19 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:21:04 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:21:33 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:22:27 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Wed 27 Dec 23 - 17:31:07 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Fri 29 Dec 23 - 09:49:56 GMT | ERROR --- 
+   "POST /bank/Create/chaabi HTTP/1.1" 500 174684 
+
+Fri 29 Dec 23 - 10:05:50 GMT | INFO --- 
+   "POST /bank/Create/chaabi HTTP/1.1" 200 56 
+
+Fri 29 Dec 23 - 10:08:07 GMT | WARNING --- 
+   "GET /bankHistory/getResult HTTP/1.1" 403 0 
+
+Fri 29 Dec 23 - 10:08:36 GMT | WARNING --- 
+   "GET /bankHistory/getResult?job_id=%228a1ae8a4-a349-4d68-952a-b98569169f6f%22 HTTP/1.1" 403 0 
+
+Fri 29 Dec 23 - 10:08:52 GMT | WARNING --- 
+   "GET /bankHistory/getResult?job_id=8a1ae8a4-a349-4d68-952a-b98569169f6f HTTP/1.1" 403 0 
+
+Fri 29 Dec 23 - 10:11:24 GMT | INFO --- 
+   "GET /bankHistory/getResult?job_id=8a1ae8a4-a349-4d68-952a-b98569169f6f HTTP/1.1" 200 4 
+
+Fri 29 Dec 23 - 10:51:12 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Fri 29 Dec 23 - 10:51:25 GMT | WARNING --- 
+   "GET /bankHistory/getResult?job_id=97f233ce-ef0c-418b-a713-04a1ee1c8bca HTTP/1.1" 403 0 
+
+Fri 29 Dec 23 - 10:51:35 GMT | WARNING --- 
+   "GET /bankHistory/getResult?job_id=97f233ce-ef0c-418b-a713-04a1ee1c8bca HTTP/1.1" 403 0 
+
+Fri 29 Dec 23 - 10:53:50 GMT | INFO --- 
+   "GET /bankHistory/getResult?job_id=97f233ce-ef0c-418b-a713-04a1ee1c8bca HTTP/1.1" 200 4 
+
+Fri 29 Dec 23 - 10:53:57 GMT | INFO --- 
+   "POST /bank/Create/cih HTTP/1.1" 200 56 
+
+Fri 29 Dec 23 - 10:54:15 GMT | INFO --- 
+   "GET /bankHistory/getResult?job_id=fb1e9c22-9254-4094-a974-5faa1fa0f253 HTTP/1.1" 200 4 
+
+Fri 29 Dec 23 - 10:54:37 GMT | INFO --- 
+   "GET /bankHistory/getResult?job_id=fb1e9c22-9254-4094-a974-5faa1fa0f253 HTTP/1.1" 200 4 
+

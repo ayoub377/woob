@@ -48,9 +48,11 @@ RUN pip install xvfbwrapper
 # to sources list for woob to recongnize them
 COPY ScraFi /home/seluser/scrafi_project/ScraFi
 RUN pip install -e /home/seluser/scrafi_project/ScraFi
-RUN woob update
+RUN pip install woob
+RUN mkdir -p /home/seluser/.config/woob/
+
 RUN echo "file:///home/seluser/scrafi_project/ScraFi/modules" >> /home/seluser/.config/woob/sources.list
-RUN woob update
+RUN pip install woob
 RUN pip install prettytable
 
 # Dowloading redis and installing it
