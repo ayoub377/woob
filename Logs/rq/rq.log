@@ -1,0 +1,24 @@
+Fri 29 Dec - 16:37:52 | RQ ### Woobank.connect(CIH, ********, ********, 3329473221009500, "Now")
+Fri 29 Dec - 16:37:52 | ACCOUNT JOB: jshsggqgbqhhbqffa
+Fri 29 Dec - 16:37:52 | >>> Calling woobank
+Fri 29 Dec - 16:37:52 | Getting the account...
+Fri 29 Dec - 16:42:02 | RQ ### Woobank.connect(CIH, ********, ********, 3329473221009500, "Now")
+Fri 29 Dec - 16:42:02 | ACCOUNT JOB: fe851d74-0b3b-4288-990c-0495a205a677
+Fri 29 Dec - 16:42:02 | >>> Calling woobank
+Fri 29 Dec - 16:42:02 | Getting the account...
+Fri 29 Dec - 16:53:30 | RQ ### Woobank.connect(CIH, ********, ********, 3329473221009500, "Now")
+Fri 29 Dec - 16:53:30 | ACCOUNT JOB: 97e4ec7a-e6c5-4416-86fe-50b4a10ccdca
+Fri 29 Dec - 16:53:30 | >>> Calling woobank
+Fri 29 Dec - 16:53:30 | Getting the account...
+Fri 29 Dec - 17:12:50 | RQ ### Woobank.connect(CIH, ********, ********, 3329473221009500, "Now")
+Fri 29 Dec - 17:12:50 | ACCOUNT JOB: a2a83e95-c866-4bab-97ce-15319b1ad9bf
+Fri 29 Dec - 17:12:50 | >>> Calling woobank
+Fri 29 Dec - 17:12:50 | Getting the account...
+Fri 29 Dec - 17:13:27 | RQ ### Woobank.connect(CIH, ********, ********, 3329473221009500, "Now")
+Fri 29 Dec - 17:13:27 | ACCOUNT JOB: 66dfa744-068e-408d-ba6b-25bf9b882a0d
+Fri 29 Dec - 17:13:27 | >>> Calling woobank
+Fri 29 Dec - 17:13:27 | Getting the account...
+Fri 29 Dec - 17:20:21 | RQ ### Woobank.connect(CIH, ********, ********, 3329473221009500, "Now")
+Fri 29 Dec - 17:20:21 | ACCOUNT JOB: 9e78e214-b452-4c98-ac7a-4ec98bba11e7
+Fri 29 Dec - 17:20:21 | >>> Calling woobank
+Fri 29 Dec - 17:20:21 | Getting the account...

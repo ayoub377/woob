@@ -20,7 +20,6 @@
 from __future__ import unicode_literals
 
 import sys
-from decimal import Decimal
 
 from woob.browser import URL, need_login
 from woob.browser.selenium import SeleniumBrowser, webdriver
@@ -71,7 +70,6 @@ class CIHBrowser(SeleniumBrowser):
                 except NoSuchElementException:
                     pass
                 self.logged = True
-                print('logged')
             except TimeoutException:
                 self.error_msg = 'credentials'
                 raise WrongCredentialsError

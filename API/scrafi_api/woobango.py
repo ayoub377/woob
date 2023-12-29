@@ -57,20 +57,23 @@ def woober_connect(woober, username, password):
 def add_to_bank_q(flow, bank, username, password, acc_id, date):
     woobank = Woobank(flow, bank, acc_id, date)
 
-    job = q.enqueue(
+    job = q.create_job(
         woober_connect,
         args=(woobank, username, password),
         result_ttl=3600,  # 1 hour
-        job_timeout=600,  # 10 mins
+
         on_failure=del_backend
     )
 
-    q.enqueue(
-        notify_client,
-        job.id,
-        depends_on=job,
-        retry=Retry(max=2, interval=120)  # 2 mins
-    )
+    # run the job
+    job.perform()
+
+    # q.enqueue(
+    #     notify_client,
+    #     job.id,
+    #     depends_on=job,
+    #     retry=Retry(max=2, interval=120)  # 2 mins
+    # )
 
     return {'job_id': job.id}
 
@@ -78,19 +81,21 @@ def add_to_bank_q(flow, bank, username, password, acc_id, date):
 def add_to_bill_q(flow, username, password, bill, date):
     woobill = Woobill(flow, username, password, bill, date)
 
-    job = q.enqueue(
-        woober_connect,
-        args=(woobill, username, password),
-        result_ttl=3600,  # 1 hour
-        job_timeout=600,  # 10 mins
-        on_failure=del_backend
-    )
+    # job = q.enqueue(
+    #     woober_connect,
+    #     args=(woobill, username, password),
+    #     result_ttl=3600,  # 1 hour
+    #     job_timeout=600,  # 10 mins
+    #     on_failure=del_backend
+    # )
 
-    q.enqueue(
-        notify_client,
-        job.id,
-        depends_on=job,
-        retry=Retry(max=2, interval=120)  # 2 mins
-    )
+    # q.enqueue(
+    #     notify_client,
+    #     job.id,
+    #     depends_on=job,
+    #     retry=Retry(max=2, interval=120)  # 2 mins
+    # )
+
+    job = woober_connect(woobill, username, password)
 
     return {'job_id': job.id}

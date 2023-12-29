@@ -20,7 +20,9 @@ def main():
         browser.do_login()
         # Get the transactions
         transactions = browser.get_transactions()
+
         # Print the transactions
+
         for transaction in transactions:
             # extract the transaction information from the tuple
             date, label, amount = transaction

@@ -11,7 +11,6 @@ from rest_framework.views import APIView
 from rq.exceptions import NoSuchJobError
 from rq.job import Job
 from rq.registry import FailedJobRegistry
-
 from .woobango import add_to_bank_q, add_to_bill_q
 from .woober import setup_logger, notify_zhor
 
@@ -30,6 +29,7 @@ def record_request(request):
 
     if request.method == 'POST':
         dilog['Path'] = 'POST  ' + request.path_info
+
     elif request.method == 'GET':
         dilog['Job ID'] = request.query_params['job_id']
         dilog['Path'] = 'GET  ' + request.path_info
@@ -44,6 +44,7 @@ def record_request(request):
 
     if ip:
         dilog['IP'] = ip
+
     else:
         dilog['Remote address'] = rmt_addr
 
@@ -94,6 +95,7 @@ def process_history_request(request, bank, endpoint):
             response = json.dumps([{"Response": "Error", "ERROR": "L'ID du compte est obligatoire."}])
             custom_logger.info('[{"Response": "Error", "ERROR": "L\'ID du compte est obligatoire."}]')
             return HttpResponse(response, content_type='text/json')
+
         elif endpoint == 'create':
             acc_id = 'no_id'
             flow = 'accounts'

@@ -126,9 +126,12 @@ class Woobank:
 
     def delete_backend(self, bankash):
         p = configparser.ConfigParser()
+
         with open(f'{path}/.config/woob/backends', "r") as backends:
             p.read_file(backends)
+
         p.remove_section(bankash)
+
         with open(f'{path}/.config/woob/backends', "w") as backends:
             p.write(backends)
 
@@ -192,6 +195,7 @@ class Woobank:
                         w[bankash].browser.vdisplay.stop()
 
                     for result in woob_results:
+
                         try:
                             data = {
                                 'id': result.id,
@@ -230,7 +234,7 @@ class Woobank:
             raise timerror
 
         except Exception as e:
-            if not self.bankia in ('INEO', 'Banque Populaire'):
+            if not self.bankia in ('INEO', 'Banque Populaire', 'CIH'):
                 w[bankash].browser.driver.quit()
                 w[bankash].browser.vdisplay.stop()
             else:

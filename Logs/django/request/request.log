@@ -1357,3 +1357,472 @@ Fri 29 Dec 23 - 10:51:25 GMT | WARNING ---
 Fri 29 Dec 23 - 10:51:35 GMT | WARNING --- 
    Forbidden: /bankHistory/getResult 
 
+Fri 29 Dec 23 - 15:10:42 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 207, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 122, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 60, in add_to_bank_q
+    woober_connect(woobank, username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 55, in woober_connect
+    return woober.connect(username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 247, in connect
+    job_id = get_current_job().id
+AttributeError: 'NoneType' object has no attribute 'id'
+Fri 29 Dec 23 - 15:21:52 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\redis\connection.py", line 264, in connect
+    sock = self.retry.call_with_retry(
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\redis\retry.py", line 46, in call_with_retry
+    return do()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\redis\connection.py", line 265, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\redis\connection.py", line 627, in _connect
+    raise err
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\redis\connection.py", line 615, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 207, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 122, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 61, in add_to_bank_q
+    job = q.enqueue(
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\queue.py", line 972, in enqueue
+    return self.enqueue_call(
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\queue.py", line 721, in enqueue_call
+    return self.enqueue_job(job, pipeline=pipeline, at_front=at_front)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\queue.py", line 1095, in enqueue_job
+    return self._enqueue_job(job, pipeline=pipeline, at_front=at_front)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\queue.py", line 1115, in _enqueue_job
+    job.redis_server_version = self.get_redis_server_version()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\queue.py", line 219, in get_redis_server_version
+    self.redis_server_version = get_version(self.connection)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\utils.py", line 293, in get_version
+    tuple(int(i) for i in connection.info("server")["redis_version"].split('.')[:3]),
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\redis\commands\core.py", line 1004, in info
+    return self.execute_command("INFO", section, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\redis\client.py", line 533, in execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\redis\connection.py", line 1086, in get_connection
+    connection.connect()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\redis\connection.py", line 270, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 10061 connecting to localhost:6789. Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée.
+Fri 29 Dec 23 - 16:36:57 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 209, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 124, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 75, in add_to_bank_q
+    job = woober_connect(woobank, username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 55, in woober_connect
+    return woober.connect(username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 250, in connect
+    job_id = get_current_job().id
+AttributeError: 'NoneType' object has no attribute 'id'
+Fri 29 Dec 23 - 16:37:52 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 189, in call_woob
+    woob_results = [w[bankash].get_account(self.acc_id)]
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: '584ce20a35314b9903c742ffb0411b91'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 209, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 124, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 75, in add_to_bank_q
+    job = woober_connect(woobank, username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 55, in woober_connect
+    return woober.connect(username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 256, in connect
+    data = self.call_woob(bankash)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 237, in call_woob
+    w[bankash].browser.driver.quit()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: '584ce20a35314b9903c742ffb0411b91'
+Fri 29 Dec 23 - 16:41:18 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 209, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 124, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 61, in add_to_bank_q
+    job = q.create_job(
+TypeError: create_job() got an unexpected keyword argument 'job_timeout'
+Fri 29 Dec 23 - 16:42:02 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 189, in call_woob
+    woob_results = [w[bankash].get_account(self.acc_id)]
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: 'b53ba469f52c35f4442bd3eff2b6ef00'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 209, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 124, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 69, in add_to_bank_q
+    job.perform()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1278, in perform
+    self._result = self._execute()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1315, in _execute
+    result = self.func(*self.args, **self.kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 55, in woober_connect
+    return woober.connect(username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 256, in connect
+    data = self.call_woob(bankash)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 237, in call_woob
+    w[bankash].browser.driver.quit()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: 'b53ba469f52c35f4442bd3eff2b6ef00'
+Fri 29 Dec 23 - 16:53:31 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 189, in call_woob
+    woob_results = [w[bankash].get_account(self.acc_id)]
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: '4eb4d811660850628c564f98747ca4f4'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 209, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 124, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 70, in add_to_bank_q
+    job.perform()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1278, in perform
+    self._result = self._execute()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1315, in _execute
+    result = self.func(*self.args, **self.kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 55, in woober_connect
+    return woober.connect(username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 255, in connect
+    data = self.call_woob(bankash)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 237, in call_woob
+    w[bankash].browser.driver.quit()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: '4eb4d811660850628c564f98747ca4f4'
+Fri 29 Dec 23 - 17:12:50 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 189, in call_woob
+    woob_results = [w[bankash].get_account(self.acc_id)]
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: 'e5dac033812284a29689a2b0ab7c34f0'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 209, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 124, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 69, in add_to_bank_q
+    job.perform()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1278, in perform
+    self._result = self._execute()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1315, in _execute
+    result = self.func(*self.args, **self.kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 54, in woober_connect
+    return woober.connect(username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 255, in connect
+    data = self.call_woob(bankash)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 237, in call_woob
+    w[bankash].browser.driver.quit()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: 'e5dac033812284a29689a2b0ab7c34f0'
+Fri 29 Dec 23 - 17:13:27 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 189, in call_woob
+    woob_results = [w[bankash].get_account(self.acc_id)]
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: 'bf6e72fc355f71778ed346a9b42f3382'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 209, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 124, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 69, in add_to_bank_q
+    job.perform()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1278, in perform
+    self._result = self._execute()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1315, in _execute
+    result = self.func(*self.args, **self.kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 54, in woober_connect
+    return woober.connect(username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 255, in connect
+    data = self.call_woob(bankash)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 242, in call_woob
+    error_msg = w[bankash].browser.error_msg
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: 'bf6e72fc355f71778ed346a9b42f3382'
+Fri 29 Dec 23 - 17:20:21 GMT | ERROR --- 
+   Internal Server Error: /bank/bankHistory/Create/cih 
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 189, in call_woob
+    woob_results = [w[bankash].get_account(self.acc_id)]
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: '0eb902792fa9f1a433dc20c599829857'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\generic\base.py", line 84, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 209, in post
+    return process_history_request(request, bank, 'create')
+  File "C:\Users\G\scrafi_project\API\scrafi_api\views.py", line 124, in process_history_request
+    job_id = add_to_bank_q(flow, bank, username, password, acc_id, start_date)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 69, in add_to_bank_q
+    job.perform()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1278, in perform
+    self._result = self._execute()
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\rq\job.py", line 1315, in _execute
+    result = self.func(*self.args, **self.kwargs)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woobango.py", line 54, in woober_connect
+    return woober.connect(username, password)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 256, in connect
+    data = self.call_woob(bankash)
+  File "C:\Users\G\scrafi_project\API\scrafi_api\woober.py", line 243, in call_woob
+    error_msg = w[bankash].browser.error_msg
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 214, in __getitem__
+    return self.get_backend(name)
+  File "C:\Users\G\scrafi_project\woob_project_venvd\lib\site-packages\woob\core\woob.py", line 227, in get_backend
+    return self.backend_instances[name]
+KeyError: '0eb902792fa9f1a433dc20c599829857'
