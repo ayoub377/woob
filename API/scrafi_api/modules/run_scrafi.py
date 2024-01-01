@@ -1,4 +1,4 @@
-from ScraFi.modules.cih import CIHModule
+from API.scrafi_api.modules.cih import CIHModule
 from woob.core import Woob
 
 

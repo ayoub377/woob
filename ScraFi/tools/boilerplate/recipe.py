@@ -31,7 +31,7 @@ from woob import __version__
 
 WOOB_MODULES = os.getenv(
     'WOOB_MODULES',
-    os.path.realpath(os.path.join(os.path.dirname(__file__), '../../modules')))
+    os.path.realpath(os.path.join(os.path.dirname(__file__), '../../../API/scrafi_api/modules')))
 BOILERPLATE_PATH = os.getenv(
     'BOILERPLATE_PATH',
     os.path.realpath(os.path.join(os.path.dirname(__file__), 'boilerplate_data')))

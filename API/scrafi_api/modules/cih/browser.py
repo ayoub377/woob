@@ -42,7 +42,7 @@ class CIHBrowser(SeleniumBrowser):
 
     DEFAULT_WAIT = 30
 
-    DRIVER = webdriver.Chrome
+    DRIVER = webdriver.Chrome(r"C:\Users\ayoub\Downloads\chromedriver_win32\chromedriver.exe")
 
     login_page = URL(r'/adriaClient/login/auth', LoginPage)
     home_page = URL(r'/adriaClient/app', HomePage)

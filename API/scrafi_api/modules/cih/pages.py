@@ -48,7 +48,8 @@ class LoginPage(SeleniumPage):
 
 
 class HomePage(SeleniumPage):
-    is_here = VisibleXPath('//*[@id="appRoot"]/div/div[3]/div[2]/div[1]/div/div[1]/div/div/div/div/div/div/div/div[1]/div[2]/div[1]/h2')
+    is_here = VisibleXPath('//*[@id="appRoot"]/div/div[3]/div[2]/div[1]/div/div[1]/div/div/div/div/div/div/div/div['
+                           '1]/div[2]/div[1]/h2')
 
 
 class AccountsPage(SeleniumPage):

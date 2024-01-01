@@ -69,6 +69,8 @@ def process_history_request(request, bank, endpoint):
     if bank == 'banque populaire':
         bank = 'chaabi'
 
+    print(f'bank : {bank}')
+
     available_banks = ['akhdar', 'awb', 'bmce', 'cam,' 'cdm', 'cfg', 'chaabi', 'cih', 'ineo']
 
     if bank not in available_banks:
@@ -125,12 +127,14 @@ def process_history_request(request, bank, endpoint):
 
     try:
         response = json.dumps(job_id, indent=4)
+
     except Exception as e:
         notify_zhor(flow=flow, module=bank, date=start_date, e=e)
         response = json.dumps(
             [{"Response": "Error", "ERROR": "Un problème s'est produit. Veuillez réenvoyer votre requête plus tard."}])
         custom_logger.info(
-            '[{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus tard."}]')
+            '[{"Response": "Error", "ERROR": "Un problème s\'est produit. Veuillez réenvoyer votre requête plus '
+            'tard."}]')
 
     return HttpResponse(response, content_type='text/json')
 

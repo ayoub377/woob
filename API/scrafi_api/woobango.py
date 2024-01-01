@@ -3,7 +3,7 @@ import hashlib
 import os
 from redis import Redis
 from rq import Queue, Retry
-from scrafi_api.woober import rq_logger, Woobank, Woobill, notify_client, discord_msg
+from .woober import rq_logger, Woobank, Woobill, notify_client, discord_msg
 from woob.core.woob import Woob
 
 path = os.path.expanduser('~')

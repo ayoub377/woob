@@ -60,7 +60,7 @@ LOGGER = getLogger('woob.browser.nss')
 
 
 def nss_version():
-    version_str = nss.nss.nss_get_version()
+    version_str = API.ScraFi.woob.browser.nss.nss_get_version()
     version_str = re.match(r'\d+\.\d+', version_str).group(0) # can be "3.21.3 Extended ECC"
     return tuple(int(x) for x in version_str.split('.'))
     # see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/NSS_3.35_release_notes
@@ -87,18 +87,18 @@ def cert_to_dict(cert):
     # and https://github.com/kennethreitz/requests/blob/master/requests/packages/urllib3/contrib/pyopenssl.py
 
     mappings = {
-        nss.nss.certDNSName: 'DNS',
-        nss.nss.certIPAddress: 'IP Address',
+        API.ScraFi.woob.browser.nss.certDNSName: 'DNS',
+        API.ScraFi.woob.browser.nss.certIPAddress: 'IP Address',
         # TODO support more types
     }
 
     altnames = []
     try:
-        ext = cert.get_extension(nss.nss.SEC_OID_X509_SUBJECT_ALT_NAME)
+        ext = cert.get_extension(API.ScraFi.woob.browser.nss.SEC_OID_X509_SUBJECT_ALT_NAME)
     except KeyError:
         pass
     else:
-        for entry in nss.nss.x509_alt_name(ext.value, nss.nss.AsObject):
+        for entry in API.ScraFi.woob.browser.nss.x509_alt_name(ext.value, API.ScraFi.woob.browser.nss.AsObject):
             key = mappings[entry.type_enum]
             altnames.append((key, entry.name))
 
@@ -229,7 +229,7 @@ class Wrapper(object):
 def auth_cert_pinning(sock, check_sig, is_server, path):
     cert = sock.get_peer_certificate()
 
-    expected = nss.nss.Certificate(nss.nss.read_der_from_file(path, True))
+    expected = API.ScraFi.woob.browser.nss.Certificate(API.ScraFi.woob.browser.nss.read_der_from_file(path, True))
     return (expected.signed_data.data == cert.signed_data.data)
 
 
@@ -239,7 +239,7 @@ AIA_LOCK = Lock()
 
 def auth_cert_basic(sock, check_sig, is_server):
     cert = sock.get_certificate()
-    db = nss.nss.get_default_certdb()
+    db = API.ScraFi.woob.browser.nss.get_default_certdb()
 
     # simple case: full cert chain
     try:
@@ -249,7 +249,7 @@ def auth_cert_basic(sock, check_sig, is_server):
     if not valid:
         return False
 
-    required = nss.nss.certificateUsageSSLServer
+    required = API.ScraFi.woob.browser.nss.certificateUsageSSLServer
     try:
         usages = cert.verify_now(db, check_sig, required) & required
     except nss.error.NSPRError:
@@ -259,7 +259,7 @@ def auth_cert_basic(sock, check_sig, is_server):
 
 def auth_cert_aia_only(sock, check_sig, is_server):
     cert = sock.get_certificate()
-    db = nss.nss.get_default_certdb()
+    db = API.ScraFi.woob.browser.nss.get_default_certdb()
 
     # harder case: the server presents an incomplete cert chain and only has the leaf cert
     # the parent is indicated in the TLS extension called "AIA"
@@ -283,8 +283,8 @@ def auth_cert_aia_only(sock, check_sig, is_server):
             AIA_CACHE[parent_url] = parent_der
 
     # verify parent cert is a CA in our db
-    parent = nss.nss.Certificate(parent_der, perm=False)
-    required = nss.nss.certificateUsageAnyCA
+    parent = API.ScraFi.woob.browser.nss.Certificate(parent_der, perm=False)
+    required = API.ScraFi.woob.browser.nss.certificateUsageAnyCA
     try:
         usages = parent.verify_now(db, check_sig, required) & required
     except nss.error.NSPRError:
@@ -300,7 +300,7 @@ def auth_cert_aia_only(sock, check_sig, is_server):
     if not valid:
         return False
 
-    required = nss.nss.certificateUsageSSLServer
+    required = API.ScraFi.woob.browser.nss.certificateUsageSSLServer
     try:
         usages = cert.verify_now(db, check_sig, required) & required
     except nss.error.NSPRError:
@@ -358,7 +358,7 @@ def ssl_wrap_socket(sock, *args, **kwargs):
     nsssock = nss.ssl.SSLSocket.import_tcp_socket(fileno)
     wrapper = Wrapper(nsssock)
 
-    nsssock.set_certificate_db(nss.nss.get_default_certdb())
+    nsssock.set_certificate_db(API.ScraFi.woob.browser.nss.get_default_certdb())
     if hostname:
         nsssock.set_hostname(hostname)
     if ossl_ctx and not ossl_ctx.verify_mode:
@@ -415,11 +415,11 @@ def init_nss(path, rw=False):
     if rw:
         flags = 0
     else:
-        flags = nss.nss.NSS_INIT_READONLY
+        flags = API.ScraFi.woob.browser.nss.NSS_INIT_READONLY
 
     path = path_for_version(path)
     INIT_PID = os.getpid()
-    CTX = nss.nss.nss_init_context(path, flags=flags)
+    CTX = API.ScraFi.woob.browser.nss.nss_init_context(path, flags=flags)
 
 
 def add_nss_cert(dbpath, certpath, nickname):

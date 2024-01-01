@@ -1,15 +1,25 @@
-import requests, sys, json, configparser, time, discord, traceback, logging, hashlib, os
 from datetime import datetime
-
-from woob.core import Woob
-from woob.capabilities.bank import CapBank
-from woob.capabilities.bill import CapDocument
-from selenium.common.exceptions import WebDriverException
-from .creation import create_signature
-
+import configparser
+import discord
+import hashlib
+import json
+import logging
+import os
+import requests
+import sys
+import time
+import traceback
 from redis import Redis
 from rq.job import Job, get_current_job
 from rq.timeouts import JobTimeoutException
+from selenium.common.exceptions import WebDriverException
+from woob.capabilities.bank import CapBank
+from woob.capabilities.bill import CapDocument
+from woob.core import Woob
+
+from scrafi_api.modules.cih import CIHModule
+from .creation import create_signature
+
 
 redis = Redis()
 path = os.path.expanduser('~')
@@ -169,7 +179,7 @@ class Woobank:
     def notify_zaz(self, e):
         return notify_zhor(self.flow, self.bankia, self.start_date, e, self.unparsed)
 
-    def call_woob(self, bankash):
+    def call_woob(self, bankash, username, password):
         results = []
         w = Woob()
         w.load_backends(caps=CapBank)
@@ -178,24 +188,30 @@ class Woobank:
             times = 0
             while times < 2:
                 try:
+                    # add generic method here for creating cih Module
                     if self.flow == 'history':
-                        woob_results = w[bankash].iter_history(self.acc_id, **{'start_date': self.start_date,
+                        cih_module = CIHModule(w, 'cih', config={'login': username, 'password': password})
+                        woob_results = cih_module.iter_history(self.acc_id, **{'start_date': self.start_date,
                                                                                'end_date': datetime.today().strftime(
                                                                                    '%d/%m/%Y')})
+
                         if self.bank == 'ineo':
                             return {"Response": "OK", "Transactions": woob_results}
 
                     elif self.flow == 'account':
-                        woob_results = [w[bankash].get_account(self.acc_id)]
+                        cih_module = CIHModule(w, 'cih', config={'login': username, 'password': password})
+                        browser = cih_module.create_default_browser()
+                        browser.do_login()
+                        woob_results = [browser.get_account(self.acc_id)]
+
                     elif self.flow == 'accounts':
                         woob_results = w[bankash].iter_accounts()
 
                     if not self.bankia in ('INEO', 'Banque Populaire'):
                         w[bankash].browser.driver.quit()
                         w[bankash].browser.vdisplay.stop()
-
+                    print(f'result is : {results}')
                     for result in woob_results:
-
                         try:
                             data = {
                                 'id': result.id,
@@ -234,7 +250,7 @@ class Woobank:
             raise timerror
 
         except Exception as e:
-            if not self.bankia in ('INEO', 'Banque Populaire', 'CIH'):
+            if not self.bankia in ('INEO', 'Banque Populaire', 'cih'):
                 w[bankash].browser.driver.quit()
                 w[bankash].browser.vdisplay.stop()
             else:
@@ -249,11 +265,11 @@ class Woobank:
     def connect(self, username, password):
         job_id = get_current_job().id
         bankash = hashlib.md5(bytearray(job_id, 'utf-8')).hexdigest()
-        self.logger.info('RQ ### Woobank.connect(%s, ********, ********, %s, "%s")' % (self.bankia, self.acc_id, self.start_date))
+        self.logger.info(
+            'RQ ### Woobank.connect(%s, ********, ********, %s, "%s")' % (self.bankia, self.acc_id, self.start_date))
         self.logger.info("%s JOB: %s" % (self.flow.upper(), job_id))
-        self.add_backend(username, password, bankash)
         self.logger.info('>>> Calling woobank')
-        data = self.call_woob(bankash)
+        data = self.call_woob(bankash, username, password)
         self.logger.info(data)
         self.logger.info('Truncating \n')
         self.delete_backend(bankash)

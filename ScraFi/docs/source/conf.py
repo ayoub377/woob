@@ -14,7 +14,7 @@
 import os
 import time
 
-os.system('./genapi.py')
+os.system('genapi.py')
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
